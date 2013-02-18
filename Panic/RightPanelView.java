@@ -28,6 +28,8 @@ public class RightPanelView extends JPanel {
 		setLayout(new GridBagLayout());
 		c = new GridBagConstraints();
 		c.fill = GridBagConstraints.BOTH;
+		c.anchor = GridBagConstraints.NORTHWEST;
+		c.weightx = 0.7;
 		setBackground(new Color(0xFF0000));
 	}
 	

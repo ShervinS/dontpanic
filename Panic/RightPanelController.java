@@ -1,10 +1,16 @@
 package Panic;
 
+import java.awt.Dimension;
 import java.awt.GridBagConstraints;
+import java.awt.event.KeyEvent;
+import java.util.ArrayList;
 
 import javax.swing.JLabel;
+import javax.swing.JList;
 import javax.swing.JMenu;
 import javax.swing.JMenuItem;
+import javax.swing.JPopupMenu;
+import javax.swing.JTextArea;
 import javax.swing.JTextField;
 
 import net.sourceforge.jdatepicker.JDatePicker;
@@ -17,13 +23,13 @@ public class RightPanelController {
 	JTextField title;
 	
 	JLabel descriptionLabel;
-	JTextField description;
+	JTextArea description;
 	
 	JLabel priorityLabel;
-	JMenu priority;
-	JMenuItem lowPrio;
-	JMenuItem mediumPrio;
-	JMenuItem highPrio;
+	JList priority;
+	String lowPrio;
+	String mediumPrio;
+	String highPrio;
 	
 	JLabel dateLabel;
 	JDatePicker date;
@@ -36,16 +42,18 @@ public class RightPanelController {
 		title = new JTextField();
 		
 		descriptionLabel = new JLabel("Description: ");
-		description = new JTextField();
+		description = new JTextArea();
+		description.setPreferredSize(new Dimension(100, 100));
 		
 		priorityLabel = new JLabel("Priority: ");
-		priority = new JMenu();
-		lowPrio = new JMenuItem("Low Priority");
-		mediumPrio = new JMenuItem("Medium Priority");
-		highPrio = new JMenuItem("High Priority");
-		priority.add(lowPrio);
-		priority.add(mediumPrio);
-		priority.add(highPrio);
+		lowPrio = "Low";
+		mediumPrio = "Medium";
+		highPrio = "High";
+		ArrayList<String> s = new ArrayList<String>();
+		s.add(lowPrio);
+		s.add(mediumPrio);
+		s.add(highPrio);
+		priority = new JList(s.toArray());
 		
 		dateLabel = new JLabel("Date: ");
 		
