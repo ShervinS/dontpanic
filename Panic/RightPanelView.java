@@ -1,5 +1,6 @@
 package Panic;
 
+import java.awt.Color;
 import java.awt.Component;
 import java.awt.Graphics;
 import java.awt.GridBagConstraints;
@@ -27,6 +28,7 @@ public class RightPanelView extends JPanel {
 		setLayout(new GridBagLayout());
 		c = new GridBagConstraints();
 		c.fill = GridBagConstraints.BOTH;
+		setBackground(new Color(0xFF0000));
 	}
 	
 	public void gridAdd(int x, int y, Component comp) {

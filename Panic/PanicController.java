@@ -1,5 +1,6 @@
 package Panic;
 
+import java.awt.Dimension;
 import java.awt.GridBagLayout;
 
 import javax.swing.JFrame;
@@ -18,7 +19,7 @@ public class PanicController {
 		JFrame frame = new JFrame("!Panic");
 		frame.setContentPane(new MainPanel(new GridBagLayout(), pcLeft.getView(), pcMid.getView(), pcRight.getView()));
 		
-		frame.pack();
+		frame.setSize(new Dimension(600,600));
 		frame.setVisible(true);		
 	}
 
