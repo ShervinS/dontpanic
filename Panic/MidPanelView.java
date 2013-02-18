@@ -1,5 +1,8 @@
 package Panic;
 
-public class MidPanelView {
+import javax.swing.JPanel;
 
+public class MidPanelView extends JPanel {
+
+	
 }
