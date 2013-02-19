@@ -18,7 +18,9 @@ public class Main {
 		
 		JFrame frame = new JFrame("!Panic");
 		frame.setContentPane(new MainPanel(new GridBagLayout(), pcLeft.getView(), pcMid.getView(), pcRight.getView()));
-		System.out.print("HEJ");
+		
+		pcLeft.updateGUI();
+		
 		frame.setSize(new Dimension(600,600));
 		frame.setVisible(true);		
 	}

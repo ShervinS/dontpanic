@@ -2,9 +2,13 @@ package Panic;
 
 public class Category {
 
-	String name;
+	protected String name;
 	
 	public Category(String categoryName){
 		this.name = categoryName;
+	}
+	
+	public String name(){
+		return name;
 	}
 }
