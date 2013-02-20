@@ -11,6 +11,7 @@ import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 
 import javax.swing.DefaultListModel;
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JList;
@@ -66,7 +67,7 @@ public class MidPanelView extends JPanel {
 			
 		});
 		
-		JButton addButton = new JButton("Add Task");
+		JButton addButton = new JButton("Add Task", new ImageIcon("ikon.png"));
 		JButton detailsButton = new JButton("Add More Details");
 		addButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
