@@ -60,7 +60,8 @@ public class MidPanelView extends JPanel {
 
 			@Override
 			public void focusLost(FocusEvent arg0) {
-				// nothing		
+				quickAdd.select(0, 0);
+				quickAdd.setForeground(Color.gray);		
 			}
 			
 		});
