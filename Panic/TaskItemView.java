@@ -18,6 +18,10 @@ public class TaskItemView extends JPanel {
     JCheckBox doneCheck;
     JLabel titleLabel, dateLabel, prioLabel;
 
+    public TaskItemView() {
+    	
+    }
+    
     public TaskItemView(Task t) {
         super(new GridBagLayout());
 
