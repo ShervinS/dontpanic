@@ -45,7 +45,7 @@ public class RightPanelView extends JPanel implements ActionListener {
 		setBackground(new Color(0x000000));
 		setPreferredSize(new Dimension(0, 600));
 		currentWidth = 50;
-		t = new Timer(5, this);
+		t = new Timer(1, this);
 	}
 	
 	public void gridAdd(int x, int y, int pad, Component comp) {
@@ -78,15 +78,15 @@ public class RightPanelView extends JPanel implements ActionListener {
 
 	@Override
 	public void actionPerformed(ActionEvent e) {
-		if ((currentWidth < 5 && !show) || (currentWidth > 195 && show)) {
+		if ((currentWidth < 10 && !show) || (currentWidth > 190 && show)) {
 			t.stop();
 		}
 		else {
 			if (show) {
-				currentWidth += 5;
+				currentWidth += 10;
 			}
 			else {
-				currentWidth -= 5;
+				currentWidth -= 10;
 			}
 			setPreferredSize(new Dimension(currentWidth, currentHeight));
 			revalidate();
