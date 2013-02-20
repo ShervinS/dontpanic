@@ -1,9 +1,24 @@
 package Panic;
 
+<<<<<<< HEAD
 import java.awt.Color;
 
-public class Category {
+=======
 
+import java.awt.Color;
+
+/** A class intended to hold the name and color of the catagorys for the todo application.
+ * Each separate catogory is inteded to have an uniqe color.
+ *
+ * @author Johannes Henriksson
+ * @author Shervin
+ */
+>>>>>>> c5bec216f10c5cbb731d6178619bd1a8d13ee652
+public class Category {
+    private String color,name;
+
+
+<<<<<<< HEAD
 	protected String name;
 	protected Color color;
 	
@@ -19,4 +34,48 @@ public class Category {
 	public Color color(){
 		return this.color;
 	}
+=======
+    /**
+     *
+     * @param color The color representated as a 6 digit hex number
+     * @param name The name of the category
+     */
+    public Category(String color,String name){
+        this.color = color;
+        this.name  = name;
+    }
+    /**
+     *
+     * @param color A color object witch will be used as a representation for the category
+     * @param name The name of the category
+     */
+    public Category(Color color,String name){
+        this.color = Integer.toHexString( color.getRGB() );
+        this.name = name;
+    }
+    /**
+     *
+     * @return An awt color object.
+     */
+    public Color getColorAwt(){
+        int intValue = Integer.parseInt(color,16);
+        Color aColor = new Color(intValue);
+        return aColor;
+    }
+    /**
+     *
+     * @return A 6 digit string represantation of the color
+     */
+    public String getColorString(){
+        return color;
+    }
+    /**
+     *
+     * @return The name of the category
+     */
+    public String getName(){
+        return this.name;
+    }
+            
+>>>>>>> c5bec216f10c5cbb731d6178619bd1a8d13ee652
 }

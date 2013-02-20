@@ -7,8 +7,13 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.GregorianCalendar;
 
+import javax.swing.AbstractAction;
 import javax.swing.JButton;
+import javax.swing.JComboBox;
+import javax.swing.JComponent;
 import javax.swing.JLabel;
 import javax.swing.JList;
 import javax.swing.JMenu;
@@ -16,12 +21,20 @@ import javax.swing.JMenuItem;
 import javax.swing.JPopupMenu;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
+import javax.swing.event.DocumentEvent;
+import javax.swing.event.DocumentListener;
+import javax.swing.event.ListSelectionEvent;
+import javax.swing.event.ListSelectionListener;
 
+import net.sourceforge.jdatepicker.DateModel;
+import net.sourceforge.jdatepicker.JDateComponentFactory;
 import net.sourceforge.jdatepicker.JDatePicker;
 
 public class RightPanelController {
 	
 	RightPanelView panel;
+	
+	private TaskItem currentTask;
 	
 	JLabel titleLabel;
 	JTextField title;
@@ -35,6 +48,14 @@ public class RightPanelController {
 	JLabel dateLabel;
 	JDatePicker date;
 	
+	JLabel categoriesLabel;
+	JComboBox categories;
+	
+	private boolean show;
+	
+	/**
+	 * Constructor for RightPanelController
+	 */
 	public RightPanelController() {
 		
 		panel = new RightPanelView(this);
@@ -46,7 +67,6 @@ public class RightPanelController {
 		descriptionLabel = new JLabel("Description: ");
 		descriptionLabel.setForeground(new Color(0xFFFFFF));
 		description = new JTextArea();
-		description.setPreferredSize(new Dimension(100, 100));
 		
 		priorityLabel = new JLabel("Priority: ");
 		priorityLabel.setForeground(new Color(0xFFFFFF));
@@ -54,36 +74,123 @@ public class RightPanelController {
 		priority = new JList(s);
 		
 		dateLabel = new JLabel("Date: ");
+		dateLabel.setForeground(new Color(0xFFFFFF));
+		JDateComponentFactory factory = new JDateComponentFactory();
+		date = factory.createJDatePicker();
 		
-		JButton slideButton = new JButton("Test");
-		slideButton.addActionListener(new ActionListener() {
+		categoriesLabel = new JLabel("Categories: ");
+		categoriesLabel.setForeground(new Color(0xFFFFFF));
+		String[] cat = {"Test1", "Test2"};
+		categories = new JComboBox(cat);
+		
+		
+		title.getDocument().addDocumentListener(new DocumentListener() {
+
 			@Override
-			public void actionPerformed(ActionEvent e) {
-				panel.showPanel(true);
+			public void changedUpdate(DocumentEvent arg0) {
+				System.out.println("Title: " + title.getText());
+				
+			}
+
+			@Override
+			public void insertUpdate(DocumentEvent arg0) {
+				System.out.println("Title: " + title.getText());
+				
+			}
+
+			@Override
+			public void removeUpdate(DocumentEvent arg0) {
+				System.out.println("Title: " + title.getText());
+				
+			}
+
+			
+		});
+		
+		description.getDocument().addDocumentListener(new DocumentListener() {
+
+			@Override
+			public void changedUpdate(DocumentEvent arg0) {
+				System.out.println("Description: " + description.getText());
+				
+			}
+
+			@Override
+			public void insertUpdate(DocumentEvent arg0) {
+				System.out.println("Description: " + description.getText());
+				
+			}
+
+			@Override
+			public void removeUpdate(DocumentEvent arg0) {
+				System.out.println("Description: " + description.getText());
+			}
+
+			
+		});
+		
+		
+		priority.addListSelectionListener(new ListSelectionListener() {
+
+			@Override
+			public void valueChanged(ListSelectionEvent arg0) {
+				String s = (String) priority.getSelectedValue();
+				System.out.println("Priority: " + s);
 			}
 		});
 		
-		JButton unslideButton = new JButton("Test");
-		unslideButton.addActionListener(new ActionListener() {
+		categories.addActionListener(new AbstractAction() {
+
 			@Override
-			public void actionPerformed(ActionEvent e) {
-				panel.showPanel(false);
+			public void actionPerformed(ActionEvent arg0) {
+				String s = (String) categories.getSelectedItem();
+				System.out.println("Category: " + s);
 			}
+			
 		});
 		
-		panel.gridAdd(0, 6, 5, slideButton);
-		panel.gridAdd(0, 7, 5, unslideButton);
+		date.addActionListener(new AbstractAction() {
+
+			@Override
+			public void actionPerformed(ActionEvent arg0) {
+				GregorianCalendar theDate = (GregorianCalendar) date.getModel().getValue();
+				System.out.println(theDate.get(Calendar.YEAR) + theDate.get(Calendar.MONTH) + theDate.get(Calendar.DAY_OF_MONTH));
+			}
+			
+		});
+		
+		
 		panel.gridAdd(0, 0, 5, titleLabel);
 		panel.gridAdd(0, 1, 5, title);
 		panel.gridAdd(0, 2, 10, descriptionLabel);
+		panel.c.weighty = 0.5;
 		panel.gridAdd(0, 3, 5, description);
-		panel.gridAdd(0, 4, 10, priorityLabel);
-		panel.gridAdd(0, 5, 5, priority);
-		panel.pad(0, 6);
+		panel.c.weighty = 0;
+		panel.gridAdd(0, 4, 10, dateLabel);
+		panel.gridAdd(0, 5, 5, (JComponent) date);
+		panel.gridAdd(0, 6, 10, categoriesLabel);
+		panel.gridAdd(0, 7, 5, categories);
+		panel.gridAdd(0, 8, 10, priorityLabel);
+		panel.gridAdd(0, 9, 5, priority);
+		panel.pad(0, 10);
 	}
 	
+	/**
+	 * 
+	 * @return The view this controller controls
+	 */
 	public RightPanelView getView() {
 		return panel;
+	}
+	
+	/**
+	 * Will animate the view to close or open
+	 * @param s String to show as the "title" in the newly opened view.
+	 */
+	public void togglePanel(String s) {
+		show = show ? false : true;
+		title.setText(show ? s : "");
+		panel.showPanel(show);
 	}
 	
 }

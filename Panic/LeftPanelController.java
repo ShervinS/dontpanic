@@ -58,6 +58,6 @@ public class LeftPanelController {
 	
 	public void logCategories() {
 		for (Category cat : this.categories)
-		    System.out.println(cat.name);
+		    System.out.println(cat.getName());
 	}
 }
