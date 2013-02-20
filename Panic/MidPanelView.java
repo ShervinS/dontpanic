@@ -44,11 +44,16 @@ public class MidPanelView extends JPanel {
 			}
 		});
 		JScrollPane pane = new JScrollPane(list);
+		final JTextField quickAdd = new JTextField("Quickadd");
+		quickAdd.setEditable(true);
 		
 		JButton addButton = new JButton("New Task");
 		JButton detailsButton = new JButton("Details");
 		addButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				TaskItem item = new TaskItem(quickAdd.getText());
+				model.addElement(item);
+				/**
 				JFrame popup = new JFrame("!Panic");
 				String s = "";
 				while (s == "") {
@@ -56,17 +61,15 @@ public class MidPanelView extends JPanel {
 				};
 				TaskItem item = new TaskItem(s);
 				model.addElement(item);
+				*/
 			}
 		});
 		
 		detailsButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				mpc.toggleRightPanel();
+				mpc.toggleRightPanel(quickAdd.getText());
 			}
 		});
-		
-		JTextField quickAdd = new JTextField("Quickadd");
-		quickAdd.setEditable(true);
 		
 		c.fill = GridBagConstraints.BOTH;
 		c.gridwidth = 1;

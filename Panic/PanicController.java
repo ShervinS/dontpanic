@@ -13,8 +13,8 @@ public class PanicController {
 		midPanelController.setController(this);
 	}
 
-	public void toggleRightPanel() {
-		rightPanelController.togglePanel();
+	public void toggleRightPanel(String s) {
+		rightPanelController.togglePanel(s);
 	}
 
 	public Category[] getCategories(){

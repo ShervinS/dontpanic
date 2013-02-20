@@ -70,8 +70,9 @@ public class RightPanelController {
 		return panel;
 	}
 	
-	public void togglePanel() {
+	public void togglePanel(String s) {
 		show = show ? false : true;
+		title.setText(show ? s : "");
 		panel.showPanel(show);
 	}
 	

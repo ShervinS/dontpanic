@@ -15,8 +15,8 @@ public class MidPanelController {
 		return panel;
 	}
 	
-	public void toggleRightPanel() {
-		pc.toggleRightPanel();
+	public void toggleRightPanel(String s) {
+		pc.toggleRightPanel(s);
 	}
 	
 	public void setController(PanicController pc) {
