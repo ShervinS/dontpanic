@@ -43,7 +43,7 @@ public class RightPanelView extends JPanel implements ActionListener {
 		c.weightx = 0.7;
 		c.insets = new Insets(0, 5, 5, 5);
 		setBackground(new Color(0x000000));
-		setPreferredSize(new Dimension(50, 600));
+		setPreferredSize(new Dimension(0, 600));
 		currentWidth = 50;
 		t = new Timer(5, this);
 	}
@@ -78,7 +78,7 @@ public class RightPanelView extends JPanel implements ActionListener {
 
 	@Override
 	public void actionPerformed(ActionEvent e) {
-		if ((currentWidth < 50 && !show) || (currentWidth > 195 && show)) {
+		if ((currentWidth < 5 && !show) || (currentWidth > 195 && show)) {
 			t.stop();
 		}
 		else {

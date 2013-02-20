@@ -15,15 +15,18 @@ import javax.swing.JList;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
+import javax.swing.JTextField;
 import javax.swing.ListSelectionModel;
 
 public class MidPanelView extends JPanel {
 
-	GridBagConstraints c;
-	DefaultListModel model;
-	JList list;
+	private GridBagConstraints c;
+	private DefaultListModel model;
+	private JList list;
+	final private MidPanelController mpc;
 	
-	public MidPanelView() {
+	public MidPanelView(final MidPanelController mpc) {
+		this.mpc = mpc;
 		setLayout(new GridBagLayout());
 		c = new GridBagConstraints();
 
@@ -43,6 +46,7 @@ public class MidPanelView extends JPanel {
 		JScrollPane pane = new JScrollPane(list);
 		
 		JButton addButton = new JButton("New Task");
+		JButton detailsButton = new JButton("Details");
 		addButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				JFrame popup = new JFrame("!Panic");
@@ -55,19 +59,36 @@ public class MidPanelView extends JPanel {
 			}
 		});
 		
-		c.fill = GridBagConstraints.BOTH;
+		detailsButton.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				mpc.toggleRightPanel();
+			}
+		});
 		
+		JTextField quickAdd = new JTextField("Quickadd");
+		quickAdd.setEditable(true);
+		
+		c.fill = GridBagConstraints.BOTH;
+		c.gridwidth = 1;
 		c.gridx = 0;
 		c.gridy = 0;
+		
+		
+		c.gridwidth += 1;
 		c.weightx = 0.5;
 		c.weighty = 0.5;
 		add(pane, c);
+		c.gridy += 1;
+		c.weighty = 0.0;
+		add(quickAdd, c);
 		
-		c.gridx = 0;
-		c.gridy = 1;
-		c.weightx = 0.5;
+		
+		c.gridwidth -= 1;
+		c.gridy += 1;
 		c.weighty = 0.0;
 		add(addButton, c);
+		c.gridx += 1;
+		add(detailsButton, c);
 	}
 	
 }

@@ -34,6 +34,7 @@ public class RightPanelController {
 	
 	JLabel dateLabel;
 	JDatePicker date;
+	private boolean show;
 	
 	public RightPanelController() {
 		
@@ -55,24 +56,7 @@ public class RightPanelController {
 		
 		dateLabel = new JLabel("Date: ");
 		
-		JButton slideButton = new JButton("Test");
-		slideButton.addActionListener(new ActionListener() {
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				panel.showPanel(true);
-			}
-		});
 		
-		JButton unslideButton = new JButton("Test");
-		unslideButton.addActionListener(new ActionListener() {
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				panel.showPanel(false);
-			}
-		});
-		
-		panel.gridAdd(0, 6, 5, slideButton);
-		panel.gridAdd(0, 7, 5, unslideButton);
 		panel.gridAdd(0, 0, 5, titleLabel);
 		panel.gridAdd(0, 1, 5, title);
 		panel.gridAdd(0, 2, 10, descriptionLabel);
@@ -84,6 +68,11 @@ public class RightPanelController {
 	
 	public RightPanelView getView() {
 		return panel;
+	}
+	
+	public void togglePanel() {
+		show = show ? false : true;
+		panel.showPanel(show);
 	}
 	
 }

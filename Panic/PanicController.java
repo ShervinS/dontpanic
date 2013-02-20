@@ -10,6 +10,11 @@ public class PanicController {
 		this.leftPanelController = leftController;
 		this.midPanelController = midController;
 		this.rightPanelController = rightController;
+		midPanelController.setController(this);
+	}
+
+	public void toggleRightPanel() {
+		rightPanelController.togglePanel();
 	}
 
 	public Category[] getCategories(){
