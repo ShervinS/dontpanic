@@ -7,7 +7,10 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.GregorianCalendar;
 
+import javax.swing.AbstractAction;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JComponent;
@@ -18,13 +21,20 @@ import javax.swing.JMenuItem;
 import javax.swing.JPopupMenu;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
+import javax.swing.event.DocumentEvent;
+import javax.swing.event.DocumentListener;
+import javax.swing.event.ListSelectionEvent;
+import javax.swing.event.ListSelectionListener;
 
+import net.sourceforge.jdatepicker.DateModel;
 import net.sourceforge.jdatepicker.JDateComponentFactory;
 import net.sourceforge.jdatepicker.JDatePicker;
 
 public class RightPanelController {
 	
 	RightPanelView panel;
+	
+	private TaskItem currentTask;
 	
 	JLabel titleLabel;
 	JTextField title;
@@ -43,6 +53,9 @@ public class RightPanelController {
 	
 	private boolean show;
 	
+	/**
+	 * Constructor for RightPanelController
+	 */
 	public RightPanelController() {
 		
 		panel = new RightPanelView(this);
@@ -71,6 +84,82 @@ public class RightPanelController {
 		categories = new JComboBox(cat);
 		
 		
+		title.getDocument().addDocumentListener(new DocumentListener() {
+
+			@Override
+			public void changedUpdate(DocumentEvent arg0) {
+				System.out.println("Title: " + title.getText());
+				
+			}
+
+			@Override
+			public void insertUpdate(DocumentEvent arg0) {
+				System.out.println("Title: " + title.getText());
+				
+			}
+
+			@Override
+			public void removeUpdate(DocumentEvent arg0) {
+				System.out.println("Title: " + title.getText());
+				
+			}
+
+			
+		});
+		
+		description.getDocument().addDocumentListener(new DocumentListener() {
+
+			@Override
+			public void changedUpdate(DocumentEvent arg0) {
+				System.out.println("Description: " + description.getText());
+				
+			}
+
+			@Override
+			public void insertUpdate(DocumentEvent arg0) {
+				System.out.println("Description: " + description.getText());
+				
+			}
+
+			@Override
+			public void removeUpdate(DocumentEvent arg0) {
+				System.out.println("Description: " + description.getText());
+			}
+
+			
+		});
+		
+		
+		priority.addListSelectionListener(new ListSelectionListener() {
+
+			@Override
+			public void valueChanged(ListSelectionEvent arg0) {
+				String s = (String) priority.getSelectedValue();
+				System.out.println("Priority: " + s);
+			}
+		});
+		
+		categories.addActionListener(new AbstractAction() {
+
+			@Override
+			public void actionPerformed(ActionEvent arg0) {
+				String s = (String) categories.getSelectedItem();
+				System.out.println("Category: " + s);
+			}
+			
+		});
+		
+		date.addActionListener(new AbstractAction() {
+
+			@Override
+			public void actionPerformed(ActionEvent arg0) {
+				GregorianCalendar theDate = (GregorianCalendar) date.getModel().getValue();
+				System.out.println(theDate.get(Calendar.YEAR) + theDate.get(Calendar.MONTH) + theDate.get(Calendar.DAY_OF_MONTH));
+			}
+			
+		});
+		
+		
 		panel.gridAdd(0, 0, 5, titleLabel);
 		panel.gridAdd(0, 1, 5, title);
 		panel.gridAdd(0, 2, 10, descriptionLabel);
@@ -86,10 +175,18 @@ public class RightPanelController {
 		panel.pad(0, 10);
 	}
 	
+	/**
+	 * 
+	 * @return The view this controller controls
+	 */
 	public RightPanelView getView() {
 		return panel;
 	}
 	
+	/**
+	 * Will animate the view to close or open
+	 * @param s String to show as the "title" in the newly opened view.
+	 */
 	public void togglePanel(String s) {
 		show = show ? false : true;
 		title.setText(show ? s : "");

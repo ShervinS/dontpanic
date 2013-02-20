@@ -9,7 +9,10 @@ import java.awt.event.FocusEvent;
 import java.awt.event.FocusListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.beans.PropertyChangeListener;
 
+import javax.swing.AbstractAction;
+import javax.swing.Action;
 import javax.swing.DefaultListModel;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
@@ -28,6 +31,7 @@ public class MidPanelView extends JPanel {
 	private JList list;
 	final private MidPanelController mpc;
 	
+
 	public MidPanelView(final MidPanelController mpc) {
 		this.mpc = mpc;
 		setLayout(new GridBagLayout());
@@ -87,7 +91,7 @@ public class MidPanelView extends JPanel {
 			}
 		});
 		
-		detailsButton.addActionListener(new ActionListener() {
+		detailsButton.addActionListener(new AbstractAction() {
 			public void actionPerformed(ActionEvent e) {
 				mpc.toggleRightPanel(quickAdd.getText());
 			}

@@ -32,7 +32,11 @@ public class RightPanelView extends JPanel implements ActionListener {
 	private int currentWidth;
 	private int currentHeight;
 	
-	
+	/**
+	 * Constructor for this view. Will create an empty 
+	 * RightPanelView
+	 * @param p The controller for this panel
+	 */
 	public RightPanelView(RightPanelController p) {
 		super();
 		pc = p;
@@ -46,6 +50,14 @@ public class RightPanelView extends JPanel implements ActionListener {
 		t = new Timer(1, this);
 	}
 	
+	
+	/**
+	 * Adds an element to this component
+	 * @param x Where in the grid horizontally the component should be added 
+	 * @param y Where in the grid vertically the component should be added
+	 * @param pad How much padding should be done before the component
+	 * @param comp The component to add
+	 */
 	public void gridAdd(int x, int y, int pad, Component comp) {
 		c.insets = new Insets(pad, 5, 0, 5);
 		c.gridx = x;
@@ -53,6 +65,13 @@ public class RightPanelView extends JPanel implements ActionListener {
 		this.add(comp, c);
 	}
 	
+	/**
+	 * Will pad the RightPanelView to move every other component to the top
+	 * @param x The position horizontally in the grid where the padding should be,
+	 * 			should be the last.
+	 * @param y The position vertically in the gird where the padding should be,
+	 * 			should be the last.
+	 */
 	public void pad(int x, int y) {
 		if (filler != null) {
 			remove(filler);
@@ -66,6 +85,10 @@ public class RightPanelView extends JPanel implements ActionListener {
 		add(filler, fill);
 	}
 	
+	/**
+	 * Will animate this panel to show, or close
+	 * @param b Show if b is true, close if b is false
+	 */
 	public void showPanel(Boolean b) {
 		show = b;
 		currentHeight = this.getHeight();
@@ -75,6 +98,10 @@ public class RightPanelView extends JPanel implements ActionListener {
 	}
 
 	@Override
+	/**
+	 * Shrinks or enlarges this panel by 15 pixels
+	 * @param e Event being executed
+	 */
 	public void actionPerformed(ActionEvent e) {
 		if ((currentWidth < 15 && !show) || (currentWidth > 185 && show)) {
 			currentWidth = show ? 200 : 0;
