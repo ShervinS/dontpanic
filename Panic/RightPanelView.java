@@ -23,10 +23,9 @@ public class RightPanelView extends JPanel implements ActionListener {
 	
 	private RightPanelController pc;
 	
-	private GridBagConstraints c;
+	public GridBagConstraints c;
 	
 	private JPanel filler;
-	
 	private boolean show;
 	private Timer t;
 	
@@ -44,7 +43,6 @@ public class RightPanelView extends JPanel implements ActionListener {
 		c.insets = new Insets(0, 5, 5, 5);
 		setBackground(new Color(0x000000));
 		setPreferredSize(new Dimension(0, 600));
-		currentWidth = 50;
 		t = new Timer(1, this);
 	}
 	
@@ -78,15 +76,19 @@ public class RightPanelView extends JPanel implements ActionListener {
 
 	@Override
 	public void actionPerformed(ActionEvent e) {
-		if ((currentWidth < 10 && !show) || (currentWidth > 190 && show)) {
+		if ((currentWidth < 15 && !show) || (currentWidth > 185 && show)) {
+			currentWidth = show ? 200 : 0;
+			setPreferredSize(new Dimension(currentWidth, currentHeight));
+			revalidate();
+			repaint();
 			t.stop();
 		}
 		else {
 			if (show) {
-				currentWidth += 10;
+				currentWidth += 15;
 			}
 			else {
-				currentWidth -= 10;
+				currentWidth -= 15;
 			}
 			setPreferredSize(new Dimension(currentWidth, currentHeight));
 			revalidate();

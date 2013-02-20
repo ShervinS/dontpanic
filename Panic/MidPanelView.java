@@ -5,6 +5,8 @@ import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.FocusEvent;
+import java.awt.event.FocusListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 
@@ -44,14 +46,32 @@ public class MidPanelView extends JPanel {
 			}
 		});
 		JScrollPane pane = new JScrollPane(list);
-		final JTextField quickAdd = new JTextField("Quickadd");
+		final JTextField quickAdd = new JTextField("Quickadd...");
 		quickAdd.setEditable(true);
+		quickAdd.setForeground(Color.GRAY);
+		quickAdd.addFocusListener(new FocusListener() {
+
+			@Override
+			public void focusGained(FocusEvent arg0) {
+				quickAdd.selectAll();
+				quickAdd.setForeground(new Color(0));
+				
+			}
+
+			@Override
+			public void focusLost(FocusEvent arg0) {
+				// nothing		
+			}
+			
+		});
 		
-		JButton addButton = new JButton("New Task");
-		JButton detailsButton = new JButton("Details");
+		JButton addButton = new JButton("Add Task");
+		JButton detailsButton = new JButton("Add More Details");
 		addButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				TaskItem item = new TaskItem(quickAdd.getText());
+				quickAdd.setText("Quickadd...");
+				quickAdd.setForeground(Color.GRAY);
 				model.addElement(item);
 				/**
 				JFrame popup = new JFrame("!Panic");

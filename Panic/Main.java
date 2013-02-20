@@ -18,6 +18,7 @@ public class Main {
 		
 		JFrame frame = new JFrame("!Panic");
 		frame.setContentPane(new MainPanel(pcLeft.getView(), pcMid.getView(), pcRight.getView()));
+		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		//frame.setContentPane(new MainPanel(new GridBagLayout(), pcLeft.getView(), pcMid.getView(), pcRight.getView()));
 		
 		pcLeft.updateGUI();
