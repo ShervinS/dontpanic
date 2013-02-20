@@ -1,5 +1,7 @@
 package Panic;
 
+import java.awt.Color;
+
 public class PanicController {
 
 	LeftPanelController leftPanelController;
@@ -17,11 +19,11 @@ public class PanicController {
 		
 		Category[] categories = new Category[5];
 		
-		categories[0] = new Category("School");
-		categories[1] = new Category("Work");
-		categories[2] = new Category("Activities");
-		categories[3] = new Category("Home");
-		categories[4] = new Category("School");
+		categories[0] = new Category("School", new Color(0xdd4444));
+		categories[1] = new Category("Work", new Color(0x44aa44));
+		categories[2] = new Category("Activities", new Color(0x44dd44));
+		categories[3] = new Category("Home", new Color(0x444aa));
+		categories[4] = new Category("School", new Color(0x4444dd));
 	
 		return categories;
 	}
