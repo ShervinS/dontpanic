@@ -9,8 +9,8 @@ import java.util.Locale;
  * 
  */
 public class Task {
-  private String title,description,catagory/*catagory list?*/,id,adDate,dueDate;
-	private int priority;
+  private String title,description,catagory/*catagory list?*/,adDate,dueDate;
+	private int priority, id;
 	
 	public static void main(String[] args) {
 		new Task("","","",4,"");
@@ -30,7 +30,7 @@ public class Task {
 	/**
 	 * @return the id
 	 */
-	public String getId() {
+	public int getId() {
 		return id;
 	}
 
