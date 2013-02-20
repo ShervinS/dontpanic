@@ -1,5 +1,6 @@
 package Panic;
 
+import java.awt.BorderLayout;
 import java.awt.GridBagConstraints;
 import java.awt.LayoutManager;
 
@@ -9,6 +10,23 @@ public class MainPanel extends JPanel {
 	CategoryItemView catView;
 	TaskItemView taskView;
 	TaskModiferView modiView;
+	
+	
+	/**
+	 * Bara testar lite /Joseph Lundström
+	 * @param leftView
+	 * @param midView
+	 * @param rightView
+	 */
+	public MainPanel(LeftPanelView leftView, MidPanelView midView, RightPanelView rightView) {
+		super();
+		setLayout(new BorderLayout());
+		add(leftView, BorderLayout.LINE_START);
+		add(midView, BorderLayout.CENTER);
+		add(rightView, BorderLayout.LINE_END);
+		
+	}
+	
 	public MainPanel(LayoutManager lm, LeftPanelView leftView, MidPanelView midView, RightPanelView rightView){
 		super(lm);
 		GridBagConstraints c = new GridBagConstraints();

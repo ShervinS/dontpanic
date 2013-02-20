@@ -17,7 +17,8 @@ public class Main {
 		pcLeft.setPanicController(panicController);
 		
 		JFrame frame = new JFrame("!Panic");
-		frame.setContentPane(new MainPanel(new GridBagLayout(), pcLeft.getView(), pcMid.getView(), pcRight.getView()));
+		frame.setContentPane(new MainPanel(pcLeft.getView(), pcMid.getView(), pcRight.getView()));
+		//frame.setContentPane(new MainPanel(new GridBagLayout(), pcLeft.getView(), pcMid.getView(), pcRight.getView()));
 		
 		pcLeft.updateGUI();
 		
