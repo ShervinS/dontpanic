@@ -2,6 +2,7 @@ package Panic;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.ArrayList;
 
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
@@ -26,15 +27,21 @@ public class XML {
 	public XML() {
 		//if there is an existing XML-file, read it, else make one
 		//System.out.println(new File("./file.xml").isFile());
-		if (new File("./file.xml").isFile()) {
-			readXML();
-		}
-		else {
+		if (!new File("./file.xml").isFile()) 
+	{
 			makeEmptyXML();
-		}
+	}
 	}
 
 
+	public ArrayList<Task> getTasks() {
+		return null;
+	}
+	
+	public ArrayList<Category> getCategorys() {
+		return null;
+	}
+	
 	public Task[] readXML() {
 		System.out.println("readXML");
 		return null;
@@ -110,19 +117,10 @@ public class XML {
 				 
                 Node node = list.item(i);
 
-                node.getAttribute
+        //        node.getAttribute
                 
                 
-                
-		   // get the salary element, and update the value
-		   if ("salary".equals(node.getNodeName())) {
-			node.setTextContent("2000000");
-		   }
-
-                //remove firstname
-		   if ("firstname".equals(node.getNodeName())) {
-			staff.removeChild(node);
-		   }
+               
 
 		}
 			

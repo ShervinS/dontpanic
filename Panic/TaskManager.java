@@ -9,52 +9,34 @@ import java.util.ArrayList;
  */
 public class TaskManager {
   private ArrayList<Task> taskList;
+  private ArrayList<Category> categoryList;
 	private String XMLPath;
+	private XML xml;
 	
-	public TaskManager(String XMLPath){
-		this.XMLPath = XMLPath;
-		readAllTasksFromXML();
+	public TaskManager(){
+		xml = new XML();
+		taskList = xml.getTasks();
+		categoryList = xml.getCategorys();
 	}
-	/**
-	 * 
-	 * @param t the task that is to be written to the XML database.
-	 * @return return true if successful otherwise returns false
-	 */
-	private boolean writeTaskToXML(Task t){//might need to catch something
-		//TODO
-		return true;
-	}
-	/**
-	 * @param id the identification number for the task.
-	 * @return the task with the identification number id
-	 */
-	private Task readTaskFromXML(String id){
-		//TODO
-		return new Task("","","",0,"");
-	}
-	/**
-	 * 
-	 * @param id the id of the task to be updated
-	 * @param t the task that will replace the previous task
-	 * @return true if successful otherwise returns false
-	 */
-	private boolean updateTaskInXML(String id, Task t){//might need to catch something
-		return true;
-	}
+
+
+
 	
-	
-	private void readAllTasksFromXML(){
-		
-		
-	}
 	
 	public void addTask(Task t){
+		//t.setId(xml.getId());
+		xml.addTask(t);
 		taskList.add(t);
-		writeTaskToXML(t);
 	}
 	
-	public void removeTask(String id){
-		
+	public void removeTask(Task t){
+		taskList.remove(t); //compare med vadå
+		//xml.removeTask(t);
+	}
+	
+	public void updateTask(Task t){
+		removeTask(t);
+		addTask(t);
 	}
 	
 	public ArrayList<Task> getTaskList(){

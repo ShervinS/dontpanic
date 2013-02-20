@@ -24,7 +24,7 @@ public class Task {
 		Calendar c = Calendar.getInstance();
 		String myString = DateFormat.getDateTimeInstance().format(c.getTime());
 		System.out.println(myString);
-                dueDate = myString;
+        dueDate = myString;
 	}
 	
 	/**
