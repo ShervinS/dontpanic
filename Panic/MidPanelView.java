@@ -127,7 +127,7 @@ public class MidPanelView extends JPanel {
 		if (tasks.size() > 0) {
 			newView.add(tasks.get(tasks.size()-1).getView());
 		}
-		for (int i = tasks.size()-2; i>0; i--) {
+		for (int i = tasks.size()-2; i>=0; i--) {
 			newView.add(Box.createVerticalStrut(1));
 			newView.add(tasks.get(i).getView());
 		}
