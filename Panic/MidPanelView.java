@@ -6,6 +6,7 @@ import java.awt.ComponentOrientation;
 import java.awt.FlowLayout;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
+import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.FocusEvent;
@@ -122,9 +123,8 @@ public class MidPanelView extends JPanel {
 	public void updateShownTasks(ArrayList<Task> tasks) {
 		JPanel newView = new JPanel();
 		newView.setBackground(new Color(0));
-		newView.setLayout(new BoxLayout(newView, BoxLayout.PAGE_AXIS));
+		newView.setLayout(new GridLayout(0, 1, 0, 1));
 		for (Task i : tasks) {
-			newView.add(Box.createVerticalStrut(1));
 			newView.add(i.getView());
 		}
 		JViewport viewport = new JViewport();

@@ -32,22 +32,25 @@ import net.sourceforge.jdatepicker.JDatePicker;
 
 public class RightPanelController {
 	
-	RightPanelView panel;
 	
-	JLabel titleLabel;
-	JTextField title;
+	private PanicController pc;
 	
-	JLabel descriptionLabel;
-	JTextArea description;
+	private RightPanelView panel;
 	
-	JLabel priorityLabel;
-	JList priority;
+	private JLabel titleLabel;
+	private JTextField title;
 	
-	JLabel dateLabel;
-	JDatePicker date;
+	private JLabel descriptionLabel;
+	private JTextArea description;
 	
-	JLabel categoriesLabel;
-	JComboBox categories;
+	private JLabel priorityLabel;
+	private JList priority;
+	
+	private JLabel dateLabel;
+	private JDatePicker date;
+	
+	private JLabel categoriesLabel;
+	private JComboBox categories;
 	
 	private Task currentTask;
 	
@@ -57,6 +60,9 @@ public class RightPanelController {
 	 * Constructor for RightPanelController
 	 */
 	public RightPanelController() {
+		
+		
+		
 		
 		panel = new RightPanelView(this);
 		
@@ -84,60 +90,11 @@ public class RightPanelController {
 		categories = new JComboBox(cat);
 		
 		
-		title.getDocument().addDocumentListener(new DocumentListener() {
-
-			@Override
-			public void changedUpdate(DocumentEvent arg0) {
-				System.out.println("Title: " + title.getText());
-				
-			}
-
-			@Override
-			public void insertUpdate(DocumentEvent arg0) {
-				System.out.println("Title: " + title.getText());
-				
-			}
-
-			@Override
-			public void removeUpdate(DocumentEvent arg0) {
-				System.out.println("Title: " + title.getText());
-				
-			}
-
-			
-		});
+		DetailedViewListener dvl = new DetailedViewListener(this, title, description, priority);
 		
-		description.getDocument().addDocumentListener(new DocumentListener() {
-
-			@Override
-			public void changedUpdate(DocumentEvent arg0) {
-				System.out.println("Description: " + description.getText());
-				
-			}
-
-			@Override
-			public void insertUpdate(DocumentEvent arg0) {
-				System.out.println("Description: " + description.getText());
-				
-			}
-
-			@Override
-			public void removeUpdate(DocumentEvent arg0) {
-				System.out.println("Description: " + description.getText());
-			}
-
-			
-		});
-		
-		
-		priority.addListSelectionListener(new ListSelectionListener() {
-
-			@Override
-			public void valueChanged(ListSelectionEvent arg0) {
-				String s = (String) priority.getSelectedValue();
-				System.out.println("Priority: " + s);
-			}
-		});
+		title.getDocument().addDocumentListener(dvl);
+		description.getDocument().addDocumentListener(dvl);
+		priority.addListSelectionListener(dvl);
 		
 		categories.addActionListener(new AbstractAction() {
 
@@ -166,8 +123,8 @@ public class RightPanelController {
 		panel.c.weighty = 0.5;
 		panel.gridAdd(0, 3, 5, description);
 		panel.c.weighty = 0;
-		panel.gridAdd(0, 4, 10, dateLabel);
-		panel.gridAdd(0, 5, 5, (JComponent) date);
+		//panel.gridAdd(0, 4, 10, dateLabel);
+		//panel.gridAdd(0, 5, 5, (JComponent) date);
 		panel.gridAdd(0, 6, 10, categoriesLabel);
 		panel.gridAdd(0, 7, 5, categories);
 		panel.gridAdd(0, 8, 10, priorityLabel);
@@ -175,6 +132,10 @@ public class RightPanelController {
 		panel.pad(0, 10);
 	}
 	
+	
+	public void setController(PanicController pc) {
+		this.pc = pc;
+	}
 	/**
 	 * 
 	 * @return The view this controller controls
@@ -193,15 +154,23 @@ public class RightPanelController {
 		return show;
 	}
 	
+	
+	
+	public Task getCurrentTask() {
+		return currentTask;
+	}
+	
 	public void taskSelected(Task t) {
 		if (t == currentTask) {
 			currentTask = null;
 			setRightPanel(false);
 		}
 		else {
+			currentTask = null;
+			title.setText(t.getTitle());
+			description.setText(t.getDescription());
+			priority.setSelectedIndex(t.getPriority()-1);
 			currentTask = t;
-			title.setText(currentTask.getTitle());
-			description.setText(currentTask.getDescription());
 			setRightPanel(true);
 		}
 	}
@@ -214,6 +183,10 @@ public class RightPanelController {
 		show = !show;
 		title.setText(show ? s : "");
 		panel.showPanel(show);
+	}
+	
+	public void updateTask(Task t) {
+		pc.updateTask(t);
 	}
 	
 }

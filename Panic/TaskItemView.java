@@ -3,6 +3,8 @@ package Panic;
 import java.awt.Color;
 import java.awt.Component;
 import java.awt.Dimension;
+import java.awt.Font;
+import java.awt.Graphics;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.LayoutManager;
@@ -16,9 +18,10 @@ import javax.swing.JPanel;
  */
 public class TaskItemView extends JPanel {
 
-	JPanel prioPanel;
+	JPanel categoryPanel;
 	JCheckBox doneCheck;
 	JLabel titleLabel, dateLabel, prioLabel;
+	private Task t;
 
 	public TaskItemView() {
 
@@ -26,21 +29,29 @@ public class TaskItemView extends JPanel {
 
 	public TaskItemView(Task t) {
 		super(new GridBagLayout());
-
+		this.t = t;
 		GridBagConstraints c = new GridBagConstraints();
-		prioPanel = new JPanel();
+		categoryPanel = new JPanel();
 		doneCheck = new JCheckBox();
 		titleLabel = new JLabel(t.getTitle());
 		dateLabel = new JLabel(t.getDueDate());
-		prioLabel = new JLabel(Integer.toString(t.getPriority()));
+		String priorityString = "";
+		for(int i = 0; i < t.getPriority(); i++) {
+			priorityString += "!";
+		}
+		prioLabel = new JLabel(priorityString);
+		prioLabel.setFont(new Font("Verdana", 40, 40));
+		prioLabel.setForeground(Color.RED);
+		titleLabel.setForeground(Color.white);
 
-		prioPanel.setBackground(Color.red);
+		categoryPanel.setBackground(Color.red);
 		c.fill = GridBagConstraints.VERTICAL;
 		c.ipadx = 20;
 		c.ipady = 10;      //make this component tall
 		c.weightx = 0.0;
+		c.weighty = 1;
 
-		prioPanel.setBackground(Color.red);
+		categoryPanel.setBackground(Color.red);
 		c.fill = GridBagConstraints.VERTICAL;
 		c.ipadx = 20;
 		c.ipady = 10;      //make this component tall
@@ -48,7 +59,7 @@ public class TaskItemView extends JPanel {
 		c.gridwidth = 1;
 		c.gridy = 0;
 		c.gridx = GridBagConstraints.RELATIVE;
-		add(prioPanel, c);
+		add(categoryPanel, c);
 
 		// c.fill = GridBagConstraints.HORIZONTAL;
 		c.ipady = 10;      //make this component tall
@@ -57,6 +68,7 @@ public class TaskItemView extends JPanel {
 		c.gridwidth = 1;
 		c.gridy = 0;
 		c.gridx = GridBagConstraints.RELATIVE;
+		doneCheck.setBackground(Color.DARK_GRAY);
 		add(doneCheck, c);
 
 		//c.fill = GridBagConstraints.HORIZONTAL;
@@ -75,6 +87,7 @@ public class TaskItemView extends JPanel {
 		c.gridx = GridBagConstraints.RELATIVE;
 		add(dateLabel, c);
 
+		
 		//c.fill = GridBagConstraints.HORIZONTAL;
 		c.ipady = 10;      //make this component tall
 		c.weightx = 0.3;
@@ -83,9 +96,19 @@ public class TaskItemView extends JPanel {
 		c.gridx = GridBagConstraints.RELATIVE;
 		add(prioLabel, c);
 		
-		setBackground(Color.white);
-		setMaximumSize(new Dimension(Short.MAX_VALUE, 80));
-		setPreferredSize(new Dimension(0, 80));
-		setMinimumSize(new Dimension(0, 80));
+		
+		setBackground(Color.DARK_GRAY);
+	}
+	
+	public void paint(Graphics g) {
+		super.paint(g);
+		titleLabel.setText(t.getTitle());
+		String priorityString = "";
+		for(int i = 0; i < t.getPriority(); i++) {
+			priorityString += "!";
+		}
+		prioLabel.setText(priorityString);
+		prioLabel.setForeground(Color.RED);
+		titleLabel.setForeground(Color.white);
 	}
 }

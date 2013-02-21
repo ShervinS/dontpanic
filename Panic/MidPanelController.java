@@ -29,7 +29,7 @@ public class MidPanelController {
 		this.pc = pc;
 	}
 	
-	public void paintTasks(ArrayList<Task> tasks) {
+	public void updateShownTasks(ArrayList<Task> tasks) {
 		panel.updateShownTasks(tasks);
 	}
 	

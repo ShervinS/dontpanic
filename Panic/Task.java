@@ -17,7 +17,7 @@ public class Task {
 
 
 
-	Task(String title,String description,String category, int priority,String adDate,String dueDate, boolean check){
+	public Task(String title,String description,String category, int priority,String adDate,String dueDate, boolean check){
 		this.title = title;
 		this.description = description;
 		this.category = category;
@@ -31,7 +31,7 @@ public class Task {
 		view = new TaskItemView(this);
 	}
 
-	Task(String title,String description,String category, int priority,String dueDate, boolean check){
+	public Task(String title,String description,String category, int priority,String dueDate, boolean check){
 		this.title = title;
 		this.description = description;
 		this.category = category;
@@ -48,6 +48,7 @@ public class Task {
 	public TaskItemView getView() {
 		return view;
 	}
+	
 
 	public String getTitle() {
 		return title;
