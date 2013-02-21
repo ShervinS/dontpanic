@@ -90,7 +90,7 @@ public class MidPanelView extends JPanel {
 		
 		detailsButton.addActionListener(new AbstractAction() {
 			public void actionPerformed(ActionEvent e) {
-				mpc.toggleRightPanel(quickAdd.getText());
+				mpc.addTask(new Task(quickAdd.getText(), "", "", 1, "", false));
 			}
 		});
 		

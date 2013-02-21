@@ -25,6 +25,11 @@ public class MidPanelController {
 		pc.toggleRightPanel(s);
 	}
 	
+	public void addTask(Task t) {
+		pc.newTask(t);
+		pc.taskSelected(t);
+	}
+	
 	public void setController(PanicController pc) {
 		this.pc = pc;
 	}
