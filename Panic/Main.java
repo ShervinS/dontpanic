@@ -12,6 +12,7 @@ import java.io.FileOutputStream;
 import java.util.ArrayList;
 import java.util.Properties;
 
+import javax.swing.AbstractAction;
 import javax.swing.JFrame;
 import javax.swing.JMenu;
 import javax.swing.JMenuBar;
@@ -68,10 +69,30 @@ public class Main {
 		JMenuItem english = new JMenuItem("English");
 		
 		JMenuItem exit = new JMenuItem("Exit");
-		exit.addActionListener(new ActionListener() {
+		exit.addActionListener(new AbstractAction() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				System.exit(0);
+				try {
+					Properties p = new Properties();
+					p.setProperty("WindowX", String.valueOf(frame.getWidth()));
+					p.setProperty("WindowY", String.valueOf(frame.getHeight()));
+					p.setProperty("RightPanel", String.valueOf(pcRight.isOpen()));
+					String saveLocation = System.getProperty("user.home") + "/.TODO-group9/config.properties";
+					
+					File saveFile = new File(saveLocation);
+					if (!saveFile.exists()) {
+						saveFile.getParentFile().mkdirs();
+						saveFile.createNewFile();
+					}
+					p.store(new FileOutputStream(saveFile), "Settings for TODO-application");
+				}
+				catch(Exception ex) {
+					System.err.println("Could not save.");
+					ex.printStackTrace();
+				}
+				finally {
+					System.exit(0);
+				}
 			}
 		});
 		
@@ -110,4 +131,5 @@ public class Main {
 		}
 			
 	}
+	
 }
