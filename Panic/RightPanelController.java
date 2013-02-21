@@ -168,6 +168,7 @@ public class RightPanelController {
 	public void taskSelected(Task t) {
 		if (t == currentTask) {
 			currentTask = null;
+			show = false;
 			setRightPanel(false);
 		}
 		else {
@@ -176,6 +177,7 @@ public class RightPanelController {
 			description.setText(t.getDescription());
 			priority.setSelectedIndex(t.getPriority()-1);
 			currentTask = t;
+			show = true;
 			setRightPanel(true);
 		}
 	}

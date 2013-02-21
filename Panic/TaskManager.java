@@ -40,6 +40,11 @@ public class TaskManager {
 		t.getView().addMouseListener(new TaskSelectionListener(t, pc));
 	}
 	
+	public void readdTask(Task t) {
+		xml.addTask(t);
+		taskList.add(t);
+	}
+	
 	public void removeTask(Task t){
 		taskList.remove(t); //compare med vad�
 		//xml.removeTask(t);
@@ -47,7 +52,7 @@ public class TaskManager {
 	
 	public void updateTask(Task t){
 		removeTask(t);
-		addTask(t);
+		readdTask(t);
 	}
 	
 	public ArrayList<Task> getTaskList(){
