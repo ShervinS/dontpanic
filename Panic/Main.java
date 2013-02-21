@@ -40,6 +40,8 @@ public class Main {
 					Properties p = new Properties();
 					p.setProperty("WindowX", String.valueOf(frame.getWidth()));
 					p.setProperty("WindowY", String.valueOf(frame.getHeight()));
+					p.setProperty("PositionX", String.valueOf(Math.round(frame.getLocation().getX())));
+					p.setProperty("PositionY", String.valueOf(Math.round(frame.getLocation().getY())));
 					p.setProperty("RightPanel", String.valueOf(pcRight.isOpen()));
 					String saveLocation = System.getProperty("user.home") + "/.TODO-group9/config.properties";
 					
@@ -76,6 +78,8 @@ public class Main {
 					Properties p = new Properties();
 					p.setProperty("WindowX", String.valueOf(frame.getWidth()));
 					p.setProperty("WindowY", String.valueOf(frame.getHeight()));
+					p.setProperty("PositionX", String.valueOf(Math.round(frame.getLocation().getX())));
+					p.setProperty("PositionY", String.valueOf(Math.round(frame.getLocation().getY())));
 					p.setProperty("RightPanel", String.valueOf(pcRight.isOpen()));
 					String saveLocation = System.getProperty("user.home") + "/.TODO-group9/config.properties";
 					
@@ -111,6 +115,8 @@ public class Main {
 		
 		int x = 600;
 		int y = 600;
+		int posX = 20;
+		int posY = 20;
 		boolean b = false;
 		try {
 			Properties p = new Properties();
@@ -118,14 +124,17 @@ public class Main {
 			p.load(new FileInputStream(new File(saveLocation)));
 			x = Integer.parseInt(p.getProperty("WindowX"));
 			y = Integer.parseInt(p.getProperty("WindowY"));
+			posX = Integer.parseInt(p.getProperty("PositionX"));
+			
+			posY = Integer.parseInt(p.getProperty("PositionY"));
 			//b = Boolean.parseBoolean(p.getProperty("RightPanel"));		//Vi vet inte vilken task som är "vald" än...? Hur bestämmer vi det?
-			frame.setSize(new Dimension(x, y));
 		}
 		catch (Exception e) {
 			System.err.println("Could not load configuration, using default values");
 		}
 		finally {
 			frame.setSize(new Dimension(x, y));
+			frame.setLocation(posX, posY);
 			frame.setVisible(true);
 			pcRight.setRightPanel(b);
 		}
