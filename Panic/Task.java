@@ -1,90 +1,142 @@
 package Panic;
 
 import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.Calendar;
-import java.util.Locale;
+import java.util.Date;
 
 /** Contains the data belonging to each task.
  * @author Johannes Henriksson 
  * 
  */
 public class Task {
-  private String title,description,catagory/*catagory list?*/,adDate,dueDate;
+	private String title,description,category,adDate,dueDate;
 	private int priority, id;
-	
-	public static void main(String[] args) {
-		new Task("","","",4,"");
-	}
+	private boolean check;
 
-	Task(String title,String description,String catagory, int priority,String dueDate){
+
+
+	Task(String title,String description,String category, int priority,String adDate,String dueDate, boolean check){
 		this.title = title;
 		this.description = description;
-		this.catagory = catagory;
+		this.category = category;
 		this.priority = priority;
+		this.adDate = adDate;
+		this.dueDate = dueDate;
+		this.check = check;
+		DateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd");
+		Date date = new Date();
+		dueDate = dateFormat.format(date);
+	}
+
+	Task(String title,String description,String category, int priority,String dueDate, boolean check){
+		this.title = title;
+		this.description = description;
+		this.category = category;
+		this.priority = priority;
+		this.dueDate = dueDate;
+		this.check = check;
 		Calendar c = Calendar.getInstance();
 		String myString = DateFormat.getDateTimeInstance().format(c.getTime());
-		System.out.println(myString);
-        dueDate = myString;
-	}
-	
-	/**
-	 * @return the id
-	 */
-	public int getId() {
-		return id;
+		dueDate = myString;
 	}
 
-	/**
-	 * @param title the title to set
-	 */
-	public void setTitle(String title) {
-		this.title = title;
-	}
-	/**
-	 * @return the description
-	 */
-	public String getDescription() {
-		return description;
-	}
-	/**
-	 * @param description the description to set
-	 */
-	public void setDescription(String description) {
-		this.description = description;
-	}
-	/**
-	 * @return the catagory
-	 */
-	public String getCatagory() {
-		return catagory;
-	}
-	/**
-	 * @param catagory the catagory to set
-	 */
-	public void setCatagory(String catagory) {
-		this.catagory = catagory;
-	}
-	/**
-	 * @return the priority
-	 */
-	public int getPriority() {
-		return priority;
-	}
-	/**
-	 * @param prio the prio to set
-	 */
-	public void setPrio(int priority) {
-		this.priority = priority;
-	}
-	/**
-	 * @return the title
-	 */
+
+
 	public String getTitle() {
 		return title;
 	}
 
-        public String getDate(){
-            return dueDate;
-        }
-	
+
+
+	public void setTitle(String title) {
+		this.title = title;
+	}
+
+
+
+	public String getDescription() {
+		return description;
+	}
+
+
+
+	public void setDescription(String description) {
+		this.description = description;
+	}
+
+
+
+	public String getCategory() {
+		return category;
+	}
+
+
+
+	public void setCategory(String category) {
+		this.category = category;
+	}
+
+
+
+	public String getAdDate() {
+		return adDate;
+	}
+
+
+
+	public void setAdDate(String adDate) {
+		this.adDate = adDate;
+	}
+
+
+
+	public String getDueDate() {
+		return dueDate;
+	}
+
+
+
+	public void setDueDate(String dueDate) {
+		this.dueDate = dueDate;
+	}
+
+
+
+	public int getPriority() {
+		return priority;
+	}
+
+
+
+	public void setPriority(int priority) {
+		this.priority = priority;
+	}
+
+
+
+	public int getId() {
+		return id;
+	}
+
+
+
+	public void setId(int id) {
+		this.id = id;
+	}
+
+
+
+	public boolean isCheck() {
+		return check;
+	}
+
+
+
+	public void setCheck(boolean check) {
+		this.check = check;
+	}
+
+
+
 }

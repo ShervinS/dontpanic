@@ -14,71 +14,71 @@ import javax.swing.JPanel;
  */
 public class TaskItemView extends JPanel {
 
-    JPanel prioPanel;
-    JCheckBox doneCheck;
-    JLabel titleLabel, dateLabel, prioLabel;
+	JPanel prioPanel;
+	JCheckBox doneCheck;
+	JLabel titleLabel, dateLabel, prioLabel;
 
-    public TaskItemView() {
-    	
-    }
-    
-    public TaskItemView(Task t) {
-        super(new GridBagLayout());
+	public TaskItemView() {
 
-        GridBagConstraints c = new GridBagConstraints();
-        prioPanel = new JPanel();
-        doneCheck = new JCheckBox();
-        titleLabel = new JLabel(t.getTitle());
-        dateLabel = new JLabel(t.getDate());
-        prioLabel = new JLabel(Integer.toString(t.getPriority()));
+	}
 
-        prioPanel.setBackground(Color.red);
-        c.fill = GridBagConstraints.VERTICAL;
-        c.ipadx = 20;
-        c.ipady = 10;      //make this component tall
-        c.weightx = 0.0;
+	public TaskItemView(Task t) {
+		super(new GridBagLayout());
 
-        prioPanel.setBackground(Color.red);
-        c.fill = GridBagConstraints.VERTICAL;
-        c.ipadx = 20;
-        c.ipady = 10;      //make this component tall
-        c.weightx = 0.0;
-        c.gridwidth = 1;
-        c.gridy = 0;
-        c.gridx = GridBagConstraints.RELATIVE;
-        add(prioPanel, c);
+		GridBagConstraints c = new GridBagConstraints();
+		prioPanel = new JPanel();
+		doneCheck = new JCheckBox();
+		titleLabel = new JLabel(t.getTitle());
+		dateLabel = new JLabel(t.getDueDate());
+		prioLabel = new JLabel(Integer.toString(t.getPriority()));
 
-       // c.fill = GridBagConstraints.HORIZONTAL;
-        c.ipady = 10;      //make this component tall
-        c.ipadx = 20;
-        c.weightx = 0.0;
-        c.gridwidth = 1;
-        c.gridy = 0;
-        c.gridx = GridBagConstraints.RELATIVE;
-        add(doneCheck, c);
+		prioPanel.setBackground(Color.red);
+		c.fill = GridBagConstraints.VERTICAL;
+		c.ipadx = 20;
+		c.ipady = 10;      //make this component tall
+		c.weightx = 0.0;
 
-        //c.fill = GridBagConstraints.HORIZONTAL;
-        c.ipady = 10;      //make this component tall
-        c.weightx = 1;
-        c.gridwidth = 1;
-        c.gridy = 0;
-        c.gridx = GridBagConstraints.RELATIVE;
-        add(titleLabel, c);
+		prioPanel.setBackground(Color.red);
+		c.fill = GridBagConstraints.VERTICAL;
+		c.ipadx = 20;
+		c.ipady = 10;      //make this component tall
+		c.weightx = 0.0;
+		c.gridwidth = 1;
+		c.gridy = 0;
+		c.gridx = GridBagConstraints.RELATIVE;
+		add(prioPanel, c);
 
-        //c.fill = GridBagConstraints.HORIZONTAL;
-        c.ipady = 10;      //make this component tall
-        c.weightx = 0.3;
-        c.gridwidth = 1;
-        c.gridy = 0;
-        c.gridx = GridBagConstraints.RELATIVE;
-        add(dateLabel, c);
+		// c.fill = GridBagConstraints.HORIZONTAL;
+		c.ipady = 10;      //make this component tall
+		c.ipadx = 20;
+		c.weightx = 0.0;
+		c.gridwidth = 1;
+		c.gridy = 0;
+		c.gridx = GridBagConstraints.RELATIVE;
+		add(doneCheck, c);
 
-        //c.fill = GridBagConstraints.HORIZONTAL;
-        c.ipady = 10;      //make this component tall
-        c.weightx = 0.3;
-        c.gridwidth = 1;
-        c.gridy = 0;
-        c.gridx = GridBagConstraints.RELATIVE;
-        add(prioLabel, c);
-    }
+		//c.fill = GridBagConstraints.HORIZONTAL;
+		c.ipady = 10;      //make this component tall
+		c.weightx = 1;
+		c.gridwidth = 1;
+		c.gridy = 0;
+		c.gridx = GridBagConstraints.RELATIVE;
+		add(titleLabel, c);
+
+		//c.fill = GridBagConstraints.HORIZONTAL;
+		c.ipady = 10;      //make this component tall
+		c.weightx = 0.3;
+		c.gridwidth = 1;
+		c.gridy = 0;
+		c.gridx = GridBagConstraints.RELATIVE;
+		add(dateLabel, c);
+
+		//c.fill = GridBagConstraints.HORIZONTAL;
+		c.ipady = 10;      //make this component tall
+		c.weightx = 0.3;
+		c.gridwidth = 1;
+		c.gridy = 0;
+		c.gridx = GridBagConstraints.RELATIVE;
+		add(prioLabel, c);
+	}
 }
