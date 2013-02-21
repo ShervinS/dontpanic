@@ -14,7 +14,7 @@ public class TaskSelectionListener implements MouseListener {
 	}
 	@Override
 	public void mouseClicked(MouseEvent e) {
-		pc.taskSelected(task);
+		
 	}
 
 	@Override
@@ -31,7 +31,7 @@ public class TaskSelectionListener implements MouseListener {
 
 	@Override
 	public void mousePressed(MouseEvent e) {
-		// TODO Auto-generated method stub
+		pc.taskSelected(task);
 		
 	}
 
