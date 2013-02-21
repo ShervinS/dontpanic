@@ -123,9 +123,11 @@ public class MidPanelView extends JPanel {
 	public void updateShownTasks(ArrayList<Task> tasks) {
 		JPanel newView = new JPanel();
 		newView.setBackground(new Color(0));
-		newView.setLayout(new GridLayout(0, 1, 0, 1));
-		for (Task i : tasks) {
-			newView.add(i.getView());
+		newView.setLayout(new BoxLayout(newView, BoxLayout.PAGE_AXIS));
+		newView.add(tasks.get(tasks.size()-1).getView());
+		for (int i = tasks.size()-2; i>0; i--) {
+			newView.add(Box.createVerticalStrut(1));
+			newView.add(tasks.get(i).getView());
 		}
 		JViewport viewport = new JViewport();
 		viewport.setView(newView);

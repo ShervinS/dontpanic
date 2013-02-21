@@ -21,6 +21,11 @@ public class PanicController {
 	}
 
 	
+	public void deleteTask(Task t) {
+		taskManager.removeTask(t);
+		midPanelController.updateShownTasks(taskManager.getTaskList());
+	}
+	
 	public void updateTask(Task t) {
 		taskManager.updateTask(t);
 		midPanelController.updateShownTasks(taskManager.getTaskList());

@@ -98,6 +98,9 @@ public class TaskItemView extends JPanel {
 		
 		
 		setBackground(Color.DARK_GRAY);
+		setMaximumSize(new Dimension(Short.MAX_VALUE, 80));
+		setPreferredSize(new Dimension(0, 80));
+		setMinimumSize(new Dimension(0, 80));
 	}
 	
 	public void paint(Graphics g) {
@@ -110,5 +113,7 @@ public class TaskItemView extends JPanel {
 		prioLabel.setText(priorityString);
 		prioLabel.setForeground(Color.RED);
 		titleLabel.setForeground(Color.white);
+		revalidate();
+		repaint();
 	}
 }

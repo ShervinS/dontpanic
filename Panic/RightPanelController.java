@@ -116,6 +116,10 @@ public class RightPanelController {
 			
 		});
 		
+		JButton deleteButton = new JButton("Delete");
+		deleteButton.setForeground(Color.black);
+		deleteButton.setBackground(Color.red);
+		deleteButton.addActionListener(dvl);
 		
 		panel.gridAdd(0, 0, 5, titleLabel);
 		panel.gridAdd(0, 1, 5, title);
@@ -129,6 +133,7 @@ public class RightPanelController {
 		panel.gridAdd(0, 7, 5, categories);
 		panel.gridAdd(0, 8, 10, priorityLabel);
 		panel.gridAdd(0, 9, 5, priority);
+		panel.gridAdd(0, 11, 10, deleteButton);
 		panel.pad(0, 10);
 	}
 	
@@ -187,6 +192,14 @@ public class RightPanelController {
 	
 	public void updateTask(Task t) {
 		pc.updateTask(t);
+	}
+	
+	public void deleteTask(Task t) {
+		pc.deleteTask(t);
+		panel.setPreferredSize(new Dimension(0, 0));
+		panel.revalidate();
+		panel.repaint();
+		show = false;
 	}
 	
 }
