@@ -34,8 +34,6 @@ public class RightPanelController {
 	
 	RightPanelView panel;
 	
-	private TaskItem currentTask;
-	
 	JLabel titleLabel;
 	JTextField title;
 	
@@ -50,6 +48,8 @@ public class RightPanelController {
 	
 	JLabel categoriesLabel;
 	JComboBox categories;
+	
+	private Task currentTask;
 	
 	private boolean show;
 	
@@ -185,12 +185,25 @@ public class RightPanelController {
 	
 	
 	public void setRightPanel(boolean b) {
-		show = !b;
-		togglePanel("");
+		show = b;
+		panel.showPanel(b);
 	}
 	
 	public boolean isOpen() {
 		return show;
+	}
+	
+	public void taskSelected(Task t) {
+		if (t == currentTask) {
+			currentTask = null;
+			setRightPanel(false);
+		}
+		else {
+			currentTask = t;
+			title.setText(currentTask.getTitle());
+			description.setText(currentTask.getDescription());
+			setRightPanel(true);
+		}
 	}
 	
 	/**

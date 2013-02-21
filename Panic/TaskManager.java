@@ -1,5 +1,7 @@
 package Panic;
 
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
 import java.util.ArrayList;
 
 /** Manages the list of tasks and handles writing and reading from the XML database. 
@@ -12,14 +14,22 @@ public class TaskManager {
   private ArrayList<Category> categoryList;
 	private String XMLPath;
 	private XML xml;
+	private PanicController pc;
 	
 	public TaskManager(){
+		
 		xml = new XML();
 		taskList = xml.getTasks();
+		
 		categoryList = xml.getCategorys();
 	}
 
-
+	public void setController(PanicController pc) {
+		this.pc = pc;
+		for (Task i : taskList) {
+			i.getView().addMouseListener(new TaskSelectionListener(i, pc));
+		}
+	}
 
 	
 	
@@ -27,10 +37,11 @@ public class TaskManager {
 		//t.setId(xml.getId());
 		xml.addTask(t);
 		taskList.add(t);
+		t.getView().addMouseListener(new TaskSelectionListener(t, pc));
 	}
 	
 	public void removeTask(Task t){
-		taskList.remove(t); //compare med vadå
+		taskList.remove(t); //compare med vadï¿½
 		//xml.removeTask(t);
 	}
 	

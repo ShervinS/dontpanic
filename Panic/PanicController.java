@@ -14,6 +14,7 @@ public class PanicController {
 		this.midPanelController = midController;
 		this.rightPanelController = rightController;
 		this.taskManager = t;
+		t.setController(this);
 		midPanelController.setController(this);
 		midController.paintTasks(t.getTaskList());
 	}
@@ -28,6 +29,10 @@ public class PanicController {
 		rightPanelController.togglePanel(s);
 	}
 
+	public void taskSelected(Task t) {
+		rightPanelController.taskSelected(t);
+	}
+	
 	public Category[] getCategories(){
 		//TODO: This is just a stub, fix this method to get data from the model
 		
