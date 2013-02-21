@@ -22,7 +22,7 @@ public class Main {
 		
 		LeftPanelController pcLeft = new LeftPanelController();
 		MidPanelController pcMid = new MidPanelController();
-		RightPanelController pcRight = new RightPanelController();
+		final RightPanelController pcRight = new RightPanelController();
 		
 		PanicController panicController = new PanicController(pcLeft, pcMid, pcRight);
 		pcLeft.setPanicController(panicController);
@@ -37,6 +37,7 @@ public class Main {
 					Properties p = new Properties();
 					p.setProperty("WindowX", String.valueOf(frame.getWidth()));
 					p.setProperty("WindowY", String.valueOf(frame.getHeight()));
+					p.setProperty("RightPanel", String.valueOf(pcRight.isOpen()));
 					String saveLocation = System.getProperty("user.home") + "/.TODO-group9/config.properties";
 					
 					File saveFile = new File(saveLocation);
@@ -87,12 +88,14 @@ public class Main {
 		
 		int x = 600;
 		int y = 600;
+		boolean b = false;
 		try {
 			Properties p = new Properties();
 			String saveLocation = System.getProperty("user.home") + "/.TODO-group9/config.properties";
 			p.load(new FileInputStream(new File(saveLocation)));
 			x = Integer.parseInt(p.getProperty("WindowX"));
 			y = Integer.parseInt(p.getProperty("WindowY"));
+			//b = Boolean.parseBoolean(p.getProperty("RightPanel"));		//Vi vet inte vilken task som är "vald" än...? Hur bestämmer vi det?
 			frame.setSize(new Dimension(x, y));
 		}
 		catch (Exception e) {
@@ -101,6 +104,7 @@ public class Main {
 		finally {
 			frame.setSize(new Dimension(x, y));
 			frame.setVisible(true);
+			pcRight.setRightPanel(b);
 		}
 			
 	}

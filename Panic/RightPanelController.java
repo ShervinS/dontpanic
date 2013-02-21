@@ -183,12 +183,22 @@ public class RightPanelController {
 		return panel;
 	}
 	
+	
+	public void setRightPanel(boolean b) {
+		show = !b;
+		togglePanel("");
+	}
+	
+	public boolean isOpen() {
+		return show;
+	}
+	
 	/**
 	 * Will animate the view to close or open
 	 * @param s String to show as the "title" in the newly opened view.
 	 */
 	public void togglePanel(String s) {
-		show = show ? false : true;
+		show = !show;
 		title.setText(show ? s : "");
 		panel.showPanel(show);
 	}
