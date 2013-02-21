@@ -7,14 +7,23 @@ public class PanicController {
 	LeftPanelController leftPanelController;
 	MidPanelController midPanelController;
 	RightPanelController rightPanelController;
+	private TaskManager taskManager;
 	
-	public PanicController(LeftPanelController leftController, MidPanelController midController, RightPanelController rightController) {
+	public PanicController(LeftPanelController leftController, MidPanelController midController, RightPanelController rightController, TaskManager t) {
 		this.leftPanelController = leftController;
 		this.midPanelController = midController;
 		this.rightPanelController = rightController;
+		this.taskManager = t;
 		midPanelController.setController(this);
+		midController.paintTasks(t.getTaskList());
 	}
 
+	
+	public void newTask(Task t) {
+		taskManager.addTask(t);
+		System.out.println(taskManager.getTaskList());
+		midPanelController.paintTasks(taskManager.getTaskList());
+	}
 	public void toggleRightPanel(String s) {
 		rightPanelController.togglePanel(s);
 	}

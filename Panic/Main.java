@@ -9,6 +9,7 @@ import java.awt.event.WindowEvent;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
+import java.util.ArrayList;
 import java.util.Properties;
 
 import javax.swing.JFrame;
@@ -20,11 +21,12 @@ public class Main {
 
 	public static void main(String[] args) {
 		
+		
 		LeftPanelController pcLeft = new LeftPanelController();
 		MidPanelController pcMid = new MidPanelController();
 		final RightPanelController pcRight = new RightPanelController();
 		
-		PanicController panicController = new PanicController(pcLeft, pcMid, pcRight);
+		PanicController panicController = new PanicController(pcLeft, pcMid, pcRight, new TaskManager());
 		pcLeft.setPanicController(panicController);
 		
 		final JFrame frame = new JFrame("!Panic");

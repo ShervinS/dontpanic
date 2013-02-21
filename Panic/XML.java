@@ -29,9 +29,9 @@ import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 
 
-//todo, invänta en färdig categoryklass, ändra så att kategorielementen i xmlfilen i sin tur håller element om färg osv,
-//och göra samma ändring i taskobjektet.. som nu endast håller i en sträng som beskriver kategorin...
-//därefter fixa getCategorys()
+//todo, invï¿½nta en fï¿½rdig categoryklass, ï¿½ndra sï¿½ att kategorielementen i xmlfilen i sin tur hï¿½ller element om fï¿½rg osv,
+//och gï¿½ra samma ï¿½ndring i taskobjektet.. som nu endast hï¿½ller i en strï¿½ng som beskriver kategorin...
+//dï¿½refter fixa getCategorys()
 
 public class XML {
 

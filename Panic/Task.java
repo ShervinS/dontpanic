@@ -13,6 +13,7 @@ public class Task {
 	private String title,description,category,adDate,dueDate;
 	private int priority, id;
 	private boolean check;
+	private TaskItemView view;
 
 
 
@@ -27,6 +28,7 @@ public class Task {
 		DateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd");
 		Date date = new Date();
 		dueDate = dateFormat.format(date);
+		view = new TaskItemView(this);
 	}
 
 	Task(String title,String description,String category, int priority,String dueDate, boolean check){
@@ -39,9 +41,13 @@ public class Task {
 		Calendar c = Calendar.getInstance();
 		String myString = DateFormat.getDateTimeInstance().format(c.getTime());
 		dueDate = myString;
+		view = new TaskItemView(this);
 	}
 
 
+	public TaskItemView getView() {
+		return view;
+	}
 
 	public String getTitle() {
 		return title;

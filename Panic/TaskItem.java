@@ -1,5 +1,11 @@
 package Panic;
 
+
+/**
+ * DEPRECATED
+ * @author joseph
+ *
+ */
 public class TaskItem {
 
 	private String label;

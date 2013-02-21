@@ -1,6 +1,9 @@
 package Panic;
 
+import java.awt.BorderLayout;
 import java.awt.Color;
+import java.awt.ComponentOrientation;
+import java.awt.FlowLayout;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.event.ActionEvent;
@@ -10,9 +13,12 @@ import java.awt.event.FocusListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.beans.PropertyChangeListener;
+import java.util.ArrayList;
 
 import javax.swing.AbstractAction;
 import javax.swing.Action;
+import javax.swing.Box;
+import javax.swing.BoxLayout;
 import javax.swing.DefaultListModel;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
@@ -22,21 +28,20 @@ import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTextField;
+import javax.swing.JViewport;
 import javax.swing.ListSelectionModel;
 
 public class MidPanelView extends JPanel {
 
 	private GridBagConstraints c;
-	private DefaultListModel model;
-	private JList list;
+	private JScrollPane pane;
 	final private MidPanelController mpc;
 	
-
-	public MidPanelView(final MidPanelController mpc) {
+	public MidPanelView(final MidPanelController mpc, ArrayList<Task> tasks) {
 		this.mpc = mpc;
 		setLayout(new GridBagLayout());
 		c = new GridBagConstraints();
-
+		/**
 		model = new DefaultListModel();
 		list = new JList(model);
 		list.setCellRenderer(new CheckBoxListRenderer());
@@ -50,7 +55,8 @@ public class MidPanelView extends JPanel {
 				list.repaint(list.getCellBounds(index, index));
 			}
 		});
-		JScrollPane pane = new JScrollPane(list);
+		*/
+		pane = new JScrollPane(JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED, JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
 		final JTextField quickAdd = new JTextField("Quickadd...");
 		quickAdd.setEditable(true);
 		quickAdd.setForeground(Color.GRAY);
@@ -73,21 +79,11 @@ public class MidPanelView extends JPanel {
 		
 		JButton addButton = new JButton("Add Task", new ImageIcon("ikon.png"));
 		JButton detailsButton = new JButton("Add More Details");
-		addButton.addActionListener(new ActionListener() {
+		addButton.addActionListener(new AbstractAction() {
 			public void actionPerformed(ActionEvent e) {
-				TaskItem item = new TaskItem(quickAdd.getText());
+				mpc.newTask(new Task(quickAdd.getText(), "", "", 1, "", false));
 				quickAdd.setText("Quickadd...");
 				quickAdd.setForeground(Color.GRAY);
-				model.addElement(item);
-				/**
-				JFrame popup = new JFrame("!Panic");
-				String s = "";
-				while (s == "") {
-					s = (String)JOptionPane.showInputDialog(popup, "Task:", "New To-Do Task", JOptionPane.PLAIN_MESSAGE, null, null, null);
-				};
-				TaskItem item = new TaskItem(s);
-				model.addElement(item);
-				*/
 			}
 		});
 		
@@ -118,6 +114,21 @@ public class MidPanelView extends JPanel {
 		add(addButton, c);
 		c.gridx += 1;
 		add(detailsButton, c);
+		pane.revalidate();
+		pane.repaint();
 	}
 	
+	
+	public void updateShownTasks(ArrayList<Task> tasks) {
+		JPanel newView = new JPanel();
+		newView.setBackground(new Color(0));
+		newView.setLayout(new BoxLayout(newView, BoxLayout.PAGE_AXIS));
+		for (Task i : tasks) {
+			newView.add(Box.createVerticalStrut(1));
+			newView.add(i.getView());
+		}
+		JViewport viewport = new JViewport();
+		viewport.setView(newView);
+		pane.setViewport(viewport);
+	}
 }

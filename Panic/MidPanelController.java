@@ -1,5 +1,7 @@
 package Panic;
 
+import java.util.ArrayList;
+
 import javax.swing.JPanel;
 
 public class MidPanelController {
@@ -7,8 +9,12 @@ public class MidPanelController {
 	MidPanelView panel;
 	PanicController pc;
 	
+	public MidPanelController(ArrayList<Task> tasks) {
+		panel = new MidPanelView(this, tasks);
+	}
+	
 	public MidPanelController() {
-		panel = new MidPanelView(this);
+		panel = new MidPanelView(this, new ArrayList<Task>());
 	}
 
 	public MidPanelView getView() {
@@ -21,5 +27,13 @@ public class MidPanelController {
 	
 	public void setController(PanicController pc) {
 		this.pc = pc;
+	}
+	
+	public void paintTasks(ArrayList<Task> tasks) {
+		panel.updateShownTasks(tasks);
+	}
+	
+	public void newTask(Task t) {
+		pc.newTask(t);
 	}
 }

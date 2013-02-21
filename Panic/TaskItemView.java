@@ -1,6 +1,8 @@
 package Panic;
 
 import java.awt.Color;
+import java.awt.Component;
+import java.awt.Dimension;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.LayoutManager;
@@ -80,5 +82,10 @@ public class TaskItemView extends JPanel {
 		c.gridy = 0;
 		c.gridx = GridBagConstraints.RELATIVE;
 		add(prioLabel, c);
+		
+		setBackground(Color.white);
+		setMaximumSize(new Dimension(Short.MAX_VALUE, 80));
+		setPreferredSize(new Dimension(0, 80));
+		setMinimumSize(new Dimension(0, 80));
 	}
 }
