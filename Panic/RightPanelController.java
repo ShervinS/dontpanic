@@ -32,6 +32,13 @@ import net.sourceforge.jdatepicker.DateModel;
 import net.sourceforge.jdatepicker.JDateComponentFactory;
 import net.sourceforge.jdatepicker.JDatePicker;
 
+/**
+ * The RightPanelController controls the right part of the !Panic ToDo-app
+ * In this part you can add more details to your task.
+ * A window will slide in and out when it's needed.
+ * @author joseph
+ *
+ */
 public class RightPanelController {
 	
 	
@@ -146,9 +153,14 @@ public class RightPanelController {
 	}
 	
 	
+	/**
+	 * Sets the parent controller for this controller.
+	 * @param pc The parent controller
+	 */
 	public void setController(PanicController pc) {
 		this.pc = pc;
 	}
+	
 	/**
 	 * 
 	 * @return The view this controller controls
@@ -158,21 +170,38 @@ public class RightPanelController {
 	}
 	
 	
+	/**
+	 * Will slide out and or in the panel where you add more details.
+	 * @param b Slides out if True, slides in if False
+	 */
 	public void setRightPanel(boolean b) {
 		show = b;
 		panel.showPanel(b);
 	}
 	
+	/**
+	 * 
+	 * @return The status of the right panel, True if it is showing, False otherwise.
+	 */
 	public boolean isOpen() {
 		return show;
 	}
 	
 	
-	
+	/**
+	 * This will return the Task which the right panel is currently adding 
+	 * or modifying details on.
+	 * @return The currently selected Task
+	 */
 	public Task getCurrentTask() {
 		return currentTask;
 	}
 	
+	/**
+	 * Selects a Task, which the user will be able to modify using controls on 
+	 * the right panel.
+	 * @param t The Task to modify.
+	 */
 	public void taskSelected(Task t) {
 		if (t == currentTask) {
 			currentTask = null;
@@ -195,15 +224,25 @@ public class RightPanelController {
 	 * @param s String to show as the "title" in the newly opened view.
 	 */
 	public void togglePanel(String s) {
-		show = !show;
-		title.setText(show ? s : "");
-		panel.showPanel(show);
+		show = !show;					//Toggles the internal show-variable
+		title.setText(show ? s : "");	//If the panel is about to show, use the String s, otherwise it doesn't matter so use ""
+		panel.showPanel(show);	
 	}
 	
+	/**
+	 * Whenever a user modifies a task with something, this is called which will
+	 * delegate the command to the parent controller.
+	 * @param t Task which has been modified.
+	 */
 	public void updateTask(Task t) {
 		pc.updateTask(t);
 	}
 	
+	/**
+	 * Whenever a user deletes a task, this is called which will delegate
+	 * the command to the parent controller and also close the detailed view.
+	 * @param t The task to be deleted
+	 */
 	public void deleteTask(Task t) {
 		pc.deleteTask(t);
 		panel.setPreferredSize(new Dimension(0, 0));
@@ -212,6 +251,11 @@ public class RightPanelController {
 		show = false;
 	}
 	
+	/**
+	 * Called when a user changes the language, makes sure that all
+	 * views this controller controls changes their values to the correct
+	 * language.
+	 */
 	public void updateLanguage() {
 		titleLabel.setText(I18.getInstance().properties.getString("title"));
 		descriptionLabel.setText(I18.getInstance().properties.getString("description"));
