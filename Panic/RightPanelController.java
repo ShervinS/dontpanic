@@ -218,15 +218,9 @@ public class RightPanelController {
 		priorityLabel.setText(I18.getInstance().properties.getString("priority"));
 		categoriesLabel.setText(I18.getInstance().properties.getString("categories"));
 		deleteButton.setText(I18.getInstance().properties.getString("delete"));
-
-		
-		
-		 
-		  s[0] = I18.getInstance().properties.getString("low");
-			s[1] = I18.getInstance().properties.getString("medium");
-			s[2] = I18.getInstance().properties.getString("high");
-
-		
+		s[0] = I18.getInstance().properties.getString("low");
+		s[1] = I18.getInstance().properties.getString("medium");
+		s[2] = I18.getInstance().properties.getString("high");
 	}
 	
 }
