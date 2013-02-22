@@ -3,3 +3,5 @@ bin/*
 */*.class
 bin
 .settings
+file.xml
+file.xml
