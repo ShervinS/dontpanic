@@ -21,6 +21,12 @@ import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
 
 public class Main {
+	private static JMenu file;
+	private static JMenu edit;
+	private static JMenu help;
+	private static JMenu language;
+	private static JMenuItem english;
+	private static JMenuItem swedish;
 	
 	public static void main(String[] args) {
 		// Initialization of internalization
@@ -71,13 +77,13 @@ public class Main {
 			}
 		});
 		JMenuBar menuBar = new JMenuBar();
-		JMenu file = new JMenu(I18.getInstance().properties.getString("file"));
-		JMenu edit = new JMenu(I18.getInstance().properties.getString("edit"));
-		JMenu help = new JMenu(I18.getInstance().properties.getString("help"));
+		file = new JMenu(I18.getInstance().properties.getString("file"));
+		edit = new JMenu(I18.getInstance().properties.getString("edit"));
+		help = new JMenu(I18.getInstance().properties.getString("help"));
 		
-		JMenu language = new JMenu(I18.getInstance().properties.getString("changeLang"));
-		JMenuItem swedish = new JMenuItem(I18.getInstance().properties.getString("swedish"));
-		JMenuItem english = new JMenuItem(I18.getInstance().properties.getString("english"));
+		language = new JMenu(I18.getInstance().properties.getString("changeLang"));
+		swedish = new JMenuItem(I18.getInstance().properties.getString("swedish"));
+		english = new JMenuItem(I18.getInstance().properties.getString("english"));
 		
 		JMenuItem exit = new JMenuItem(I18.getInstance().properties.getString("exit"));
 		exit.addActionListener(new AbstractAction() {
@@ -116,6 +122,7 @@ public class Main {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				I18.setLocale("swe");
+				update();
 				//file.setText(I18.getInstance().properties.getString("file"));
 			}
 		});
@@ -124,6 +131,7 @@ public class Main {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				I18.setLocale("usa");
+				update();
 			}
 		});
 		language.add(swedish);
@@ -167,6 +175,13 @@ public class Main {
 
 	}
 	
-
+	private static void update(){
+		file.setText(I18.getInstance().properties.getString("file"));
+		edit.setText(I18.getInstance().properties.getString("edit"));
+		help.setText(I18.getInstance().properties.getString("help"));
+		language.setText(I18.getInstance().properties.getString("changeLang"));
+		swedish.setText(I18.getInstance().properties.getString("swedish"));
+		english.setText(I18.getInstance().properties.getString("english"));
+	}
 
 }
