@@ -33,8 +33,9 @@ public class Main {
 		I18.getInstance().setLocale("swe");
 
 		LeftPanelController pcLeft = new LeftPanelController();
-		MidPanelController pcMid = new MidPanelController();
+		final MidPanelController pcMid = new MidPanelController();
 		final RightPanelController pcRight = new RightPanelController();
+		
 
 		PanicController panicController = new PanicController(pcLeft, pcMid,
 				pcRight, new TaskManager());
@@ -124,7 +125,9 @@ public class Main {
 				I18.setLocale("swe");
 				updateLanguage();
 				pcRight.updateLanguage();
-				//file.setText(I18.getInstance().properties.getString("file"));
+				pcMid.panel.updateLanguage();
+				
+				
 			}
 		});
 		
@@ -134,6 +137,7 @@ public class Main {
 				I18.setLocale("usa");
 				updateLanguage();
 				pcRight.updateLanguage();
+				pcMid.panel.updateLanguage();
 			}
 		});
 		language.add(swedish);
@@ -164,7 +168,7 @@ public class Main {
 
 			posY = Integer.parseInt(p.getProperty("PositionY"));
 			// b = Boolean.parseBoolean(p.getProperty("RightPanel")); //Vi vet
-			// inte vilken task som √§r "vald" √§n...? Hur best√§mmer vi det?
+			// inte vilken task som ‰r "vald" ‰n...? Hur best‰mmer vi det?
 		} catch (Exception e) {
 			System.err
 					.println("Could not load configuration, using default values");
@@ -187,3 +191,4 @@ public class Main {
 	}
 
 }
+

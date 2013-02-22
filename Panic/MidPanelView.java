@@ -36,6 +36,9 @@ import javax.swing.ListSelectionModel;
 
 public class MidPanelView extends JPanel {
 
+	private final JTextField quickAdd; 
+	private JButton addButton;
+	private JButton detailsButton;
 	private GridBagConstraints c;
 	private JScrollPane pane;
 	final private MidPanelController mpc;
@@ -61,7 +64,7 @@ public class MidPanelView extends JPanel {
 		});
 		*/
 		pane = new JScrollPane(JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED, JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
-		final JTextField quickAdd = new JTextField(I18.getInstance().properties.getString("quickAdd"));
+		quickAdd = new JTextField(I18.getInstance().properties.getString("quickAdd"));
 		quickAdd.setEditable(true);
 		quickAdd.setForeground(Color.GRAY);
 		quickAdd.addFocusListener(new FocusListener() {
@@ -81,8 +84,8 @@ public class MidPanelView extends JPanel {
 			
 		});
 		
-		JButton addButton = new JButton(I18.getInstance().properties.getString("addTask"), new ImageIcon("ikon.png"));
-		JButton detailsButton = new JButton(I18.getInstance().properties.getString("addDetails"));
+		addButton = new JButton(I18.getInstance().properties.getString("addTask"), new ImageIcon("ikon.png"));
+		detailsButton = new JButton(I18.getInstance().properties.getString("addDetails"));
 		addButton.addActionListener(new AbstractAction() {
 			public void actionPerformed(ActionEvent e) {
 				mpc.newTask(new Task(quickAdd.getText(), "", "", 1, "", false));
@@ -137,5 +140,11 @@ public class MidPanelView extends JPanel {
 		JViewport viewport = new JViewport();
 		viewport.setView(newView);
 		pane.setViewport(viewport);
+	}
+	
+	public void updateLanguage(){
+		addButton.setText(I18.getInstance().properties.getString("addTask"));
+		detailsButton.setText(I18.getInstance().properties.getString("addDetails"));
+		quickAdd.setText(I18.getInstance().properties.getString("quickAdd"));
 	}
 }
