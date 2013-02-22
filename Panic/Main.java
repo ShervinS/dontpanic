@@ -122,7 +122,8 @@ public class Main {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				I18.setLocale("swe");
-				update();
+				updateLanguage();
+				pcRight.updateLanguage();
 				//file.setText(I18.getInstance().properties.getString("file"));
 			}
 		});
@@ -131,7 +132,8 @@ public class Main {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				I18.setLocale("usa");
-				update();
+				updateLanguage();
+				pcRight.updateLanguage();
 			}
 		});
 		language.add(swedish);
@@ -175,7 +177,7 @@ public class Main {
 
 	}
 	
-	private static void update(){
+	private static void updateLanguage(){
 		file.setText(I18.getInstance().properties.getString("file"));
 		edit.setText(I18.getInstance().properties.getString("edit"));
 		help.setText(I18.getInstance().properties.getString("help"));

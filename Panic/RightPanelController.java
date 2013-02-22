@@ -54,6 +54,10 @@ public class RightPanelController {
 	private JLabel categoriesLabel;
 	private JComboBox categories;
 	
+	private JButton deleteButton;
+	
+	private String[] s;
+	
 	private Task currentTask;
 	
 	private boolean show;
@@ -63,8 +67,6 @@ public class RightPanelController {
 	 */
 	public RightPanelController() {
 		I18.getInstance().setLocale("swe");
-		
-		
 		
 		panel = new RightPanelView(this);
 		
@@ -78,7 +80,10 @@ public class RightPanelController {
 		
 		priorityLabel = new JLabel(I18.getInstance().properties.getString("priority"));
 		priorityLabel.setForeground(new Color(0xFFFFFF));
-		String[] s = {I18.getInstance().properties.getString("low"), I18.getInstance().properties.getString("medium"), I18.getInstance().properties.getString("high")};
+		s = new String[3];
+		s[0] = I18.getInstance().properties.getString("low");
+		s[1] = I18.getInstance().properties.getString("medium");
+		s[2] = I18.getInstance().properties.getString("high");
 		priority = new JList(s);
 		
 		dateLabel = new JLabel(I18.getInstance().properties.getString("date"));
@@ -118,7 +123,7 @@ public class RightPanelController {
 			
 		});
 		
-		JButton deleteButton = new JButton(I18.getInstance().properties.getString("delete"));
+		deleteButton = new JButton(I18.getInstance().properties.getString("delete"));
 		deleteButton.setForeground(Color.black);
 		deleteButton.setBackground(Color.red);
 		deleteButton.addActionListener(dvl);
@@ -204,6 +209,23 @@ public class RightPanelController {
 		panel.revalidate();
 		panel.repaint();
 		show = false;
+	}
+	
+	public void updateLanguage(){
+		titleLabel.setText(I18.getInstance().properties.getString("title"));
+		descriptionLabel.setText(I18.getInstance().properties.getString("description"));
+		priorityLabel.setText(I18.getInstance().properties.getString("priority"));
+		dateLabel.setText(I18.getInstance().properties.getString("date"));
+		categoriesLabel.setText(I18.getInstance().properties.getString("categories"));
+		deleteButton.setText(I18.getInstance().properties.getString("delete"));
+		
+		s[0] = I18.getInstance().properties.getString("low");
+		s[1] = I18.getInstance().properties.getString("medium");
+		s[2] = I18.getInstance().properties.getString("high");
+		  for (int i = 0; i < priority.getModel().getSize(); i++) {
+	            String item = (String)priority.getModel().getElementAt(i);
+	            item = "hej";
+	        }
 	}
 	
 }
