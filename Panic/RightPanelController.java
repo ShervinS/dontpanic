@@ -54,6 +54,9 @@ public class RightPanelController {
 	private JLabel categoriesLabel;
 	private JComboBox categories;
 	
+	
+	private String[] s;
+	
 	private Task currentTask;
 	
 	private JButton deleteButton;
@@ -65,8 +68,6 @@ public class RightPanelController {
 	 */
 	public RightPanelController() {
 		I18.getInstance().setLocale("swe");
-		
-		
 		
 		panel = new RightPanelView(this);
 		
@@ -80,7 +81,10 @@ public class RightPanelController {
 		
 		priorityLabel = new JLabel(I18.getInstance().properties.getString("priority"));
 		priorityLabel.setForeground(new Color(0xFFFFFF));
-		String[] s = {I18.getInstance().properties.getString("low"), I18.getInstance().properties.getString("medium"), I18.getInstance().properties.getString("high")};
+		s = new String[3];
+		s[0] = I18.getInstance().properties.getString("low");
+		s[1] = I18.getInstance().properties.getString("medium");
+		s[2] = I18.getInstance().properties.getString("high");
 		priority = new JList(s);
 		
 		dateLabel = new JLabel(I18.getInstance().properties.getString("date"));
