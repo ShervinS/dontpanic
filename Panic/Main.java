@@ -83,8 +83,8 @@ public class Main {
 		help = new JMenu(I18.getInstance().properties.getString("help"));
 		
 		language = new JMenu(I18.getInstance().properties.getString("changeLang"));
-		swedish = new JMenuItem(I18.getInstance().properties.getString("swedish"));
-		english = new JMenuItem(I18.getInstance().properties.getString("english"));
+		swedish = new JMenuItem("Svenska");
+		english = new JMenuItem("English");
 		
 		JMenuItem exit = new JMenuItem(I18.getInstance().properties.getString("exit"));
 		exit.addActionListener(new AbstractAction() {
@@ -186,8 +186,6 @@ public class Main {
 		edit.setText(I18.getInstance().properties.getString("edit"));
 		help.setText(I18.getInstance().properties.getString("help"));
 		language.setText(I18.getInstance().properties.getString("changeLang"));
-		swedish.setText(I18.getInstance().properties.getString("swedish"));
-		english.setText(I18.getInstance().properties.getString("english"));
 	}
 
 }
