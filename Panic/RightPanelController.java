@@ -56,6 +56,8 @@ public class RightPanelController {
 	
 	private Task currentTask;
 	
+	private JButton deleteButton;
+	
 	private boolean show;
 	
 	/**
@@ -118,7 +120,7 @@ public class RightPanelController {
 			
 		});
 		
-		JButton deleteButton = new JButton(I18.getInstance().properties.getString("delete"));
+		deleteButton = new JButton(I18.getInstance().properties.getString("delete"));
 		deleteButton.setForeground(Color.black);
 		deleteButton.setBackground(Color.red);
 		deleteButton.addActionListener(dvl);
@@ -204,6 +206,16 @@ public class RightPanelController {
 		panel.revalidate();
 		panel.repaint();
 		show = false;
+	}
+	
+	public void updateLanguage() {
+		titleLabel.setText(I18.getInstance().properties.getString("title"));
+		descriptionLabel.setText(I18.getInstance().properties.getString("description"));
+		priorityLabel.setText(I18.getInstance().properties.getString("priority"));
+		categoriesLabel.setText(I18.getInstance().properties.getString("categories"));
+		deleteButton.setText(I18.getInstance().properties.getString("delete"));
+		String[] s = {I18.getInstance().properties.getString("low"), I18.getInstance().properties.getString("medium"), I18.getInstance().properties.getString("high")};
+		priority.setListData(s);
 	}
 	
 }

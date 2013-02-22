@@ -116,6 +116,7 @@ public class Main {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				I18.setLocale("swe");
+				pcRight.updateLanguage();
 				//file.setText(I18.getInstance().properties.getString("file"));
 			}
 		});
@@ -124,6 +125,7 @@ public class Main {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				I18.setLocale("usa");
+				pcRight.updateLanguage();
 			}
 		});
 		language.add(swedish);
