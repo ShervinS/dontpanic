@@ -9,6 +9,8 @@ import java.awt.event.KeyEvent;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.GregorianCalendar;
+import java.util.Locale;
+import java.util.ResourceBundle;
 
 import javax.swing.AbstractAction;
 import javax.swing.JButton;
@@ -60,31 +62,31 @@ public class RightPanelController {
 	 * Constructor for RightPanelController
 	 */
 	public RightPanelController() {
-		
+		I18.getInstance().setLocale("swe");
 		
 		
 		
 		panel = new RightPanelView(this);
 		
-		titleLabel = new JLabel("Title: ");
+		titleLabel = new JLabel(I18.getInstance().properties.getString("title"));
 		titleLabel.setForeground(new Color(0xFFFFFF));
 		title = new JTextField();
 		
-		descriptionLabel = new JLabel("Description: ");
+		descriptionLabel = new JLabel(I18.getInstance().properties.getString("description"));
 		descriptionLabel.setForeground(new Color(0xFFFFFF));
 		description = new JTextArea();
 		
-		priorityLabel = new JLabel("Priority: ");
+		priorityLabel = new JLabel(I18.getInstance().properties.getString("priority"));
 		priorityLabel.setForeground(new Color(0xFFFFFF));
-		String[] s = {"Low", "Medium", "High"};
+		String[] s = {I18.getInstance().properties.getString("low"), I18.getInstance().properties.getString("medium"), I18.getInstance().properties.getString("high")};
 		priority = new JList(s);
 		
-		dateLabel = new JLabel("Date: ");
+		dateLabel = new JLabel(I18.getInstance().properties.getString("date"));
 		dateLabel.setForeground(new Color(0xFFFFFF));
 		JDateComponentFactory factory = new JDateComponentFactory();
 		date = factory.createJDatePicker();
 		
-		categoriesLabel = new JLabel("Categories: ");
+		categoriesLabel = new JLabel(I18.getInstance().properties.getString("categories"));
 		categoriesLabel.setForeground(new Color(0xFFFFFF));
 		String[] cat = {"Test1", "Test2"};
 		categories = new JComboBox(cat);
@@ -116,7 +118,7 @@ public class RightPanelController {
 			
 		});
 		
-		JButton deleteButton = new JButton("Delete");
+		JButton deleteButton = new JButton(I18.getInstance().properties.getString("delete"));
 		deleteButton.setForeground(Color.black);
 		deleteButton.setBackground(Color.red);
 		deleteButton.addActionListener(dvl);

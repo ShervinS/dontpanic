@@ -15,6 +15,8 @@ import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.beans.PropertyChangeListener;
 import java.util.ArrayList;
+import java.util.Locale;
+import java.util.ResourceBundle;
 
 import javax.swing.AbstractAction;
 import javax.swing.Action;
@@ -39,6 +41,7 @@ public class MidPanelView extends JPanel {
 	final private MidPanelController mpc;
 	
 	public MidPanelView(final MidPanelController mpc, ArrayList<Task> tasks) {
+		I18.getInstance().setLocale("swe");
 		this.mpc = mpc;
 		setLayout(new GridBagLayout());
 		c = new GridBagConstraints();
@@ -58,7 +61,7 @@ public class MidPanelView extends JPanel {
 		});
 		*/
 		pane = new JScrollPane(JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED, JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
-		final JTextField quickAdd = new JTextField("Quickadd...");
+		final JTextField quickAdd = new JTextField(I18.getInstance().properties.getString("quickAdd"));
 		quickAdd.setEditable(true);
 		quickAdd.setForeground(Color.GRAY);
 		quickAdd.addFocusListener(new FocusListener() {
@@ -78,8 +81,8 @@ public class MidPanelView extends JPanel {
 			
 		});
 		
-		JButton addButton = new JButton("Add Task", new ImageIcon("ikon.png"));
-		JButton detailsButton = new JButton("Add More Details");
+		JButton addButton = new JButton(I18.getInstance().properties.getString("addTask"), new ImageIcon("ikon.png"));
+		JButton detailsButton = new JButton(I18.getInstance().properties.getString("addDetails"));
 		addButton.addActionListener(new AbstractAction() {
 			public void actionPerformed(ActionEvent e) {
 				mpc.newTask(new Task(quickAdd.getText(), "", "", 1, "", false));
