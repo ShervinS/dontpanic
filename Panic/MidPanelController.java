@@ -41,4 +41,5 @@ public class MidPanelController {
 	public void newTask(Task t) {
 		pc.newTask(t);
 	}
+
 }
