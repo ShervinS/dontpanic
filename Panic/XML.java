@@ -287,14 +287,14 @@ public class XML {
 
 
 	public void removeTask(Task t) {
-		int itemID = t.getId();
+
 		try {
 			String filepath = "./file.xml";
 			DocumentBuilderFactory docFactory = DocumentBuilderFactory.newInstance();
 			DocumentBuilder docBuilder = docFactory.newDocumentBuilder();
 			Document doc = docBuilder.parse(filepath);
 
-
+			int itemID = t.getId();
 			Node taskList = doc.getElementsByTagName("tasklist").item(0);
 			NodeList list = doc.getElementsByTagName("task");
 

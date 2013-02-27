@@ -46,12 +46,13 @@ public class TaskManager {
 	}
 	
 	public void removeTask(Task t){
-		taskList.remove(t); //compare med vad�
+		taskList.remove(t);
 		xml.removeTask(t);
 	}
 	
 	public void updateTask(Task t){
-		removeTask(t);
+		//removeTask(t);
+		taskList.remove(t);
 		readTask(t);
 	}
 	
