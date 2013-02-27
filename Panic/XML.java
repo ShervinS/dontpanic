@@ -1,5 +1,6 @@
 package Panic;
 
+import java.awt.Color;
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
@@ -43,11 +44,50 @@ public class XML {
 
 
 
-	public ArrayList<Category> getCategorys() { 
-		return null;
+	public ArrayList<Category> getCategorys() { //TODO read the categorys from the XML-database
+		/*ArrayList<Category> r = new ArrayList<Category>();
+		try {
+
+			File fXmlFile = new File("./file.xml");
+			DocumentBuilderFactory dbFactory = DocumentBuilderFactory.newInstance();
+			DocumentBuilder dBuilder = dbFactory.newDocumentBuilder();
+			Document doc = dBuilder.parse(fXmlFile);
+			doc.getDocumentElement().normalize();
+
+			NodeList nList = doc.getElementsByTagName("category"); 
+
+			for (int temp = 0; temp < nList.getLength(); temp++) {
+
+				Node nNode = nList.item(temp);
+
+
+				if (nNode.getNodeType() == Node.ELEMENT_NODE) {
+
+					Element eElement = (Element) nNode;
+
+					String id = eElement.getAttribute("id");
+					String category= eElement.getElementsByTagName("category").item(0).getTextContent();
+					
+
+					Category c = new Category()
+					t.setId(Integer.parseInt(id));
+					r.add(t);
+				}
+			}
+
+
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return r;*/
+		ArrayList<Category> cats = new ArrayList<Category>();
+		cats.add(new Category("Skola",new Color(100,100,100)));
+		return cats;
 	}
 
-
+	public void addCategory(Category c){//TODO add category to XML-database
+		
+	}
 
 
 	public ArrayList<Task> getTasks() {
@@ -158,7 +198,7 @@ public class XML {
 				tasklist.appendChild(newTask);
 
 				Element category = doc.createElement("category");
-				category.appendChild(doc.createTextNode(item.getCategory()));
+				category.appendChild(doc.createTextNode(item.getCategory().getName()));
 				newTask.appendChild(category);
 
 				Element title = doc.createElement("title");
@@ -197,7 +237,7 @@ public class XML {
 
 					if ((""+itemID).equals(((Element) node).getAttribute("id"))) {
 						Node categoryNodeToUpdate = ((Element) node).getElementsByTagName("category").item(0);
-						categoryNodeToUpdate.setTextContent(item.getCategory());
+						categoryNodeToUpdate.setTextContent(item.getCategory().getName());
 
 						Node titleNodeToUpdate = ((Element) node).getElementsByTagName("title").item(0);
 						titleNodeToUpdate.setTextContent(item.getTitle());

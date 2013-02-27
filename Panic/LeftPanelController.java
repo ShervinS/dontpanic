@@ -3,6 +3,7 @@ package Panic;
 import java.awt.Color;
 import java.awt.GridBagConstraints;
 import java.awt.Insets;
+import java.util.ArrayList;
 import java.util.Arrays;
 
 import javax.swing.JButton;
@@ -16,7 +17,7 @@ public class LeftPanelController {
 
 	LeftPanelView panel = new LeftPanelView();
 	protected PanicController panicController;
-	Category categories[];
+	ArrayList<Category> categories;
 	
 	public LeftPanelView getView() {
 		return panel;
@@ -32,8 +33,8 @@ public class LeftPanelController {
 		//logCategories();
 		int i = 0;
 		for (Category cat : this.categories) {
-			JButton addButton = new JButton(cat.name);
-			addButton.setBackground(cat.color);
+			JButton addButton = new JButton(cat.getName());
+			addButton.setBackground(cat.getColor());
 			addButton.setOpaque(true);
 			addButton.setForeground(Color.BLACK);
 			

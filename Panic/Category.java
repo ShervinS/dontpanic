@@ -14,19 +14,19 @@ import java.awt.Color;
 
 public class Category {
 
-	protected String name;
-	protected Color color;
+	private String name;
+	private Color color;
 	
 	public Category(String categoryName, Color color){
 		this.name = categoryName;
 		this.color = color;
 	}
 	
-	public String name(){
+	public String getName(){
 		return this.name;
 	}
 	
-	public Color color(){
+	public Color getColor(){
 		return this.color;
 	}
 	
@@ -68,8 +68,5 @@ public class Category {
      *
      * @return The name of the category
      */
-    public String getName(){
-        return this.name;
-    }
             
 }

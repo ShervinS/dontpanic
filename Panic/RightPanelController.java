@@ -101,8 +101,9 @@ public class RightPanelController {
 		
 		categoriesLabel = new JLabel(I18.getInstance().properties.getString("categories"));
 		categoriesLabel.setForeground(new Color(0xFFFFFF));
-		String[] cat = {"Test1", "Test2"};
-		categories = new JComboBox(cat);
+		
+		//fixCategoryNameFormat( pc.getCategories());
+		categories = new JComboBox(new String[]{"test1","test2"});
 		
 		
 		DetailedViewListener dvl = new DetailedViewListener(this, title, description, priority);
@@ -152,6 +153,15 @@ public class RightPanelController {
 		panel.pad(0, 10);
 	}
 	
+	private String[] fixCategoryNameFormat(ArrayList<Category> cats){
+		ArrayList<String> names = new ArrayList<String>();
+		for(Category cat : cats){
+			names.add(cat.getName());
+		}
+		String[] catNameArray = new String[names.size()];
+		System.out.println(names.size()+"");
+		return names.toArray(catNameArray);
+	}
 	
 	/**
 	 * Sets the parent controller for this controller.

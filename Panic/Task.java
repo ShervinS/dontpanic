@@ -1,5 +1,6 @@
 package Panic;
 
+import java.awt.Color;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
@@ -10,17 +11,18 @@ import java.util.Date;
  * 
  */
 public class Task {
-	private String title,description,category,adDate,dueDate;
+	private String title,description,adDate,dueDate;
 	private int priority, id;
 	private boolean check;
 	private TaskItemView view;
+	Category category;
 
 
 
 	public Task(String title,String description,String category, int priority,String adDate,String dueDate, boolean check){
 		this.title = title;
 		this.description = description;
-		this.category = category;
+		this.category = new Category(category,new Color(10,10,10));
 		this.priority = priority;
 		this.adDate = adDate;
 		this.dueDate = dueDate;
@@ -34,7 +36,7 @@ public class Task {
 	public Task(String title,String description,String category, int priority,String dueDate, boolean check){
 		this.title = title;
 		this.description = description;
-		this.category = category;
+		this.category = new Category(category,new Color(10,10,10));
 		this.priority = priority;
 		this.dueDate = dueDate;
 		this.check = check;
@@ -74,13 +76,13 @@ public class Task {
 
 
 
-	public String getCategory() {
+	public Category getCategory() {
 		return category;
 	}
 
 
 
-	public void setCategory(String category) {
+	public void setCategory(Category category) {
 		this.category = category;
 	}
 
