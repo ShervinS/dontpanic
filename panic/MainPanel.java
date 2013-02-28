@@ -8,7 +8,6 @@ import javax.swing.JPanel;
 
 import tasks.TasksPanelView;
 import tasks.TaskView;
-import tasks.TaskModiferView;
 
 import categories.CategoryView;
 import categories.CategoryPanel;
@@ -17,11 +16,9 @@ import details.DetailsPanelView;
 public class MainPanel extends JPanel {
 	CategoryView catView;
 	TaskView taskView;
-	TaskModiferView modiView;
 	
 	
 	/**
-	 * Bara testar lite /Joseph Lundström
 	 * @param leftView
 	 * @param midView
 	 * @param rightView

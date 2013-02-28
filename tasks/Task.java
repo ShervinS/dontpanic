@@ -147,6 +147,10 @@ public class Task {
 	public void setCheck(boolean check) {
 		this.check = check;
 	}
+	
+	public boolean isSelected() {
+		return false;
+	}
 
 
 

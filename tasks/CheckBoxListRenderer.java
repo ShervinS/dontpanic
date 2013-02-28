@@ -12,7 +12,7 @@ class CheckBoxListRenderer extends JCheckBox implements ListCellRenderer {
 
 	public Component getListCellRendererComponent(JList list, Object value, int index, boolean isSelected, boolean hasFocus) {
 		setEnabled(list.isEnabled());
-		setSelected(((TaskItem)value).isSelected());
+		setSelected(((Task)value).isSelected());
 		setFont(list.getFont());
 		setBackground(list.getBackground());
 		setForeground(list.getForeground());
