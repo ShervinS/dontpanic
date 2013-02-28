@@ -69,6 +69,7 @@ public class TaskItemView extends JPanel {
 		c.gridy = 0;
 		c.gridx = GridBagConstraints.RELATIVE;
 		doneCheck.setBackground(Color.DARK_GRAY);
+		//doneCheck.addActionListener();
 		add(doneCheck, c);
 
 		//c.fill = GridBagConstraints.HORIZONTAL;

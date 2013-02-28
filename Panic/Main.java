@@ -27,6 +27,7 @@ public class Main {
 	private static JMenu language;
 	private static JMenuItem english;
 	private static JMenuItem swedish;
+	private static JMenuItem exit;
 	
 	public static void main(String[] args) {
 		// Initialization of internalization
@@ -86,7 +87,7 @@ public class Main {
 		swedish = new JMenuItem("Svenska");
 		english = new JMenuItem("English");
 		
-		JMenuItem exit = new JMenuItem(I18.getInstance().properties.getString("exit"));
+		exit = new JMenuItem(I18.getInstance().properties.getString("exit"));
 		exit.addActionListener(new AbstractAction() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
@@ -185,6 +186,7 @@ public class Main {
 		file.setText(I18.getInstance().properties.getString("file"));
 		edit.setText(I18.getInstance().properties.getString("edit"));
 		help.setText(I18.getInstance().properties.getString("help"));
+		exit.setText(I18.getInstance().properties.getString("exit"));
 		language.setText(I18.getInstance().properties.getString("changeLang"));
 	}
 

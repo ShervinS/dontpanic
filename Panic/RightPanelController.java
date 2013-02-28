@@ -41,7 +41,7 @@ import net.sourceforge.jdatepicker.JDatePicker;
  */
 public class RightPanelController {
 	
-	
+	String[] categoryStringArray;
 	private PanicController pc;
 	
 	private RightPanelView panel;
@@ -102,8 +102,8 @@ public class RightPanelController {
 		categoriesLabel = new JLabel(I18.getInstance().properties.getString("categories"));
 		categoriesLabel.setForeground(new Color(0xFFFFFF));
 		
-		//fixCategoryNameFormat( pc.getCategories());
-		categories = new JComboBox(new String[]{"test1","test2"});
+		categories = new JComboBox();
+		
 		
 		
 		DetailedViewListener dvl = new DetailedViewListener(this, title, description, priority);
@@ -169,6 +169,11 @@ public class RightPanelController {
 	 */
 	public void setController(PanicController pc) {
 		this.pc = pc;
+		categoryStringArray = fixCategoryNameFormat( pc.getCategories());
+		for(String name:categoryStringArray){
+			categories.addItem(name);
+		}
+		
 	}
 	
 	/**
