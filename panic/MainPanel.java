@@ -6,17 +6,17 @@ import java.awt.LayoutManager;
 
 import javax.swing.JPanel;
 
-import tasks.MidPanelView;
-import tasks.TaskItemView;
+import tasks.TasksPanelView;
+import tasks.TaskView;
 import tasks.TaskModiferView;
 
-import categories.CategoryItemView;
-import categories.LeftPanelView;
-import detailed.RightPanelView;
+import categories.CategoryView;
+import categories.CategoryPanel;
+import details.DetailsPanelView;
 
 public class MainPanel extends JPanel {
-	CategoryItemView catView;
-	TaskItemView taskView;
+	CategoryView catView;
+	TaskView taskView;
 	TaskModiferView modiView;
 	
 	
@@ -26,7 +26,7 @@ public class MainPanel extends JPanel {
 	 * @param midView
 	 * @param rightView
 	 */
-	public MainPanel(LeftPanelView leftView, MidPanelView midView, RightPanelView rightView) {
+	public MainPanel(CategoryPanel leftView, TasksPanelView midView, DetailsPanelView rightView) {
 		super();
 		setLayout(new BorderLayout());
 		add(leftView, BorderLayout.LINE_START);
@@ -35,7 +35,7 @@ public class MainPanel extends JPanel {
 		
 	}
 	
-	public MainPanel(LayoutManager lm, LeftPanelView leftView, MidPanelView midView, RightPanelView rightView){
+	public MainPanel(LayoutManager lm, CategoryPanel leftView, TasksPanelView midView, DetailsPanelView rightView){
 		super(lm);
 		GridBagConstraints c = new GridBagConstraints();
 		c.fill = GridBagConstraints.BOTH;
@@ -50,8 +50,8 @@ public class MainPanel extends JPanel {
 		c.gridx = 2;
 		c.weightx = 0.5;
 		add(rightView, c);
-		catView = new CategoryItemView();
-		taskView = new TaskItemView();
+		catView = new CategoryView();
+		taskView = new TaskView();
 	}
 	
 }

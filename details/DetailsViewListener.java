@@ -1,4 +1,4 @@
-package detailed;
+package details;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -11,15 +11,15 @@ import javax.swing.event.DocumentListener;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 
-public class DetailedViewListener implements DocumentListener, ListSelectionListener, ActionListener {
+public class DetailsViewListener implements DocumentListener, ListSelectionListener, ActionListener {
 
 	
-	private RightPanelController pc;
+	private DetailsPanelController pc;
 	private JTextField title;
 	private JTextArea description;
 	private JList priority;
 	
-	public DetailedViewListener(RightPanelController pc, JTextField title, JTextArea description, JList priority) {
+	public DetailsViewListener(DetailsPanelController pc, JTextField title, JTextArea description, JList priority) {
 		this.pc = pc;
 		this.title = title;
 		this.description = description;

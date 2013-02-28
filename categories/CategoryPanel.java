@@ -6,10 +6,10 @@ import java.awt.GridBagLayout;
 
 import javax.swing.JPanel;
 
-public class LeftPanelView extends JPanel {
+public class CategoryPanel extends JPanel {
 	 
 	
-	public LeftPanelView () {
+	public CategoryPanel () {
 		super();
 		setBackground(new Color(0xdddddd));
 		setLayout(new GridBagLayout());

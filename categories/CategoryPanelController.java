@@ -16,13 +16,13 @@ import javax.swing.border.LineBorder;
 import panic.PanicController;
 
 
-public class LeftPanelController {
+public class CategoryPanelController {
 
-	LeftPanelView panel = new LeftPanelView();
+	CategoryPanel panel = new CategoryPanel();
 	protected PanicController panicController;
 	ArrayList<Category> categories;
 	
-	public LeftPanelView getView() {
+	public CategoryPanel getView() {
 		return panel;
 	}
 	

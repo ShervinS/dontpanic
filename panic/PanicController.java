@@ -3,22 +3,22 @@ package panic;
 import java.awt.Color;
 import java.util.ArrayList;
 
-import tasks.MidPanelController;
+import tasks.TasksPanelController;
 import tasks.Task;
 import tasks.TaskManager;
 
 import categories.Category;
-import categories.LeftPanelController;
-import detailed.RightPanelController;
+import categories.CategoryPanelController;
+import details.DetailsPanelController;
 
 public class PanicController {
 
-	LeftPanelController leftPanelController;
-	MidPanelController midPanelController;
-	RightPanelController rightPanelController;
+	CategoryPanelController leftPanelController;
+	TasksPanelController midPanelController;
+	DetailsPanelController rightPanelController;
 	private TaskManager taskManager;
 	
-	public PanicController(LeftPanelController leftController, MidPanelController midController, RightPanelController rightController, TaskManager t) {
+	public PanicController(CategoryPanelController leftController, TasksPanelController midController, DetailsPanelController rightController, TaskManager t) {
 		this.leftPanelController = leftController;
 		this.midPanelController = midController;
 		this.rightPanelController = rightController;

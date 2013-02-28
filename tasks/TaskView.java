@@ -16,18 +16,18 @@ import javax.swing.JPanel;
  *
  * @author johannes
  */
-public class TaskItemView extends JPanel {
+public class TaskView extends JPanel {
 
 	JPanel categoryPanel;
 	JCheckBox doneCheck;
 	JLabel titleLabel, dateLabel, prioLabel;
 	private Task t;
 
-	public TaskItemView() {
+	public TaskView() {
 
 	}
 
-	public TaskItemView(Task t) {
+	public TaskView(Task t) {
 		super(new GridBagLayout());
 		this.t = t;
 		GridBagConstraints c = new GridBagConstraints();

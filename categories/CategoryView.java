@@ -6,12 +6,12 @@ import javax.swing.JButton;
 import javax.swing.JPanel;
 
 
-public class CategoryItemView extends JPanel {
-	public CategoryItemView(LayoutManager lm) {
+public class CategoryView extends JPanel {
+	public CategoryView(LayoutManager lm) {
 		super(lm);
 		// TODO Auto-generated constructor stub
 	}
-	public CategoryItemView() {
+	public CategoryView() {
 		super();
 		// TODO Auto-generated constructor stub
 	}

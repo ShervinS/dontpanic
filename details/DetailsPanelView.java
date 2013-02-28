@@ -1,4 +1,4 @@
-package detailed;
+package details;
 
 import java.awt.Color;
 import java.awt.Component;
@@ -19,9 +19,9 @@ import javax.swing.Timer;
 
 import net.sourceforge.jdatepicker.JDatePicker;
 
-public class RightPanelView extends JPanel implements ActionListener {
+public class DetailsPanelView extends JPanel implements ActionListener {
 	
-	private RightPanelController pc;
+	private DetailsPanelController pc;
 	
 	public GridBagConstraints c;
 	
@@ -37,7 +37,7 @@ public class RightPanelView extends JPanel implements ActionListener {
 	 * RightPanelView
 	 * @param p The controller for this panel
 	 */
-	public RightPanelView(RightPanelController p) {
+	public DetailsPanelView(DetailsPanelController p) {
 		super();
 		pc = p;
 		setLayout(new GridBagLayout());

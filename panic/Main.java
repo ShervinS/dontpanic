@@ -20,11 +20,11 @@ import javax.swing.JMenu;
 import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
 
-import tasks.MidPanelController;
+import tasks.TasksPanelController;
 import tasks.TaskManager;
 
-import categories.LeftPanelController;
-import detailed.RightPanelController;
+import categories.CategoryPanelController;
+import details.DetailsPanelController;
 
 public class Main {
 	private static JMenu file;
@@ -39,9 +39,9 @@ public class Main {
 		// Initialization of internalization
 		I18.getInstance().setLocale("swe");
 
-		LeftPanelController pcLeft = new LeftPanelController();
-		final MidPanelController pcMid = new MidPanelController();
-		final RightPanelController pcRight = new RightPanelController();
+		CategoryPanelController pcLeft = new CategoryPanelController();
+		final TasksPanelController pcMid = new TasksPanelController();
+		final DetailsPanelController pcRight = new DetailsPanelController();
 		
 
 		PanicController panicController = new PanicController(pcLeft, pcMid,

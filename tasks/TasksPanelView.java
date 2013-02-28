@@ -38,16 +38,16 @@ import javax.swing.ListSelectionModel;
 import panic.I18;
 
 
-public class MidPanelView extends JPanel {
+public class TasksPanelView extends JPanel {
 
 	private final JTextField quickAdd; 
 	private JButton addButton;
 	private JButton detailsButton;
 	private GridBagConstraints c;
 	private JScrollPane pane;
-	final private MidPanelController mpc;
+	final private TasksPanelController mpc;
 	
-	public MidPanelView(final MidPanelController mpc, ArrayList<Task> tasks) {
+	public TasksPanelView(final TasksPanelController mpc, ArrayList<Task> tasks) {
 		I18.getInstance().setLocale("swe");
 		this.mpc = mpc;
 		setLayout(new GridBagLayout());

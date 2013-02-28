@@ -8,20 +8,20 @@ import javax.swing.JPanel;
 import panic.PanicController;
 
 
-public class MidPanelController {
+public class TasksPanelController {
 	
-	MidPanelView panel;
+	TasksPanelView panel;
 	PanicController pc;
 	
-	public MidPanelController(ArrayList<Task> tasks) {
-		panel = new MidPanelView(this, tasks);
+	public TasksPanelController(ArrayList<Task> tasks) {
+		panel = new TasksPanelView(this, tasks);
 	}
 	
-	public MidPanelController() {
-		panel = new MidPanelView(this, new ArrayList<Task>());
+	public TasksPanelController() {
+		panel = new TasksPanelView(this, new ArrayList<Task>());
 	}
 
-	public MidPanelView getView() {
+	public TasksPanelView getView() {
 		return panel;
 	}
 	

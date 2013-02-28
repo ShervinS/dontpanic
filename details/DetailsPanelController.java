@@ -1,4 +1,4 @@
-package detailed;
+package details;
 
 import java.awt.Color;
 import java.awt.Dimension;
@@ -42,12 +42,12 @@ import categories.Category;
  * @author joseph
  *
  */
-public class RightPanelController {
+public class DetailsPanelController {
 	
 	String[] categoryStringArray;
 	private PanicController pc;
 	
-	private RightPanelView panel;
+	private DetailsPanelView panel;
 	
 	private JLabel titleLabel;
 	private JTextField title;
@@ -76,10 +76,10 @@ public class RightPanelController {
 	/**
 	 * Constructor for RightPanelController
 	 */
-	public RightPanelController() {
+	public DetailsPanelController() {
 		I18.getInstance().setLocale("swe");
 		
-		panel = new RightPanelView(this);
+		panel = new DetailsPanelView(this);
 		
 		titleLabel = new JLabel(I18.getInstance().properties.getString("title"));
 		titleLabel.setForeground(new Color(0xFFFFFF));
@@ -109,7 +109,7 @@ public class RightPanelController {
 		
 		
 		
-		DetailedViewListener dvl = new DetailedViewListener(this, title, description, priority);
+		DetailsViewListener dvl = new DetailsViewListener(this, title, description, priority);
 		
 		title.getDocument().addDocumentListener(dvl);
 		description.getDocument().addDocumentListener(dvl);
@@ -183,7 +183,7 @@ public class RightPanelController {
 	 * 
 	 * @return The view this controller controls
 	 */
-	public RightPanelView getView() {
+	public DetailsPanelView getView() {
 		return panel;
 	}
 	
