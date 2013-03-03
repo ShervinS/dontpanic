@@ -1,4 +1,4 @@
-package details;
+package details.actions;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -11,29 +11,19 @@ import javax.swing.event.DocumentListener;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 
-public class DetailsViewListener implements DocumentListener, ListSelectionListener, ActionListener {
+import details.DetailsPanelController;
+
+public class DescriptionAction implements DocumentListener {
 
 	
 	private DetailsPanelController pc;
-	private JTextField title;
 	private JTextArea description;
-	private JList priority;
 	
-	public DetailsViewListener(DetailsPanelController pc, JTextField title, JTextArea description, JList priority) {
+	public DescriptionAction(DetailsPanelController pc, JTextArea description) {
 		this.pc = pc;
-		this.title = title;
 		this.description = description;
-		this.priority = priority;
 	}
 	
-	@Override
-	public void valueChanged(ListSelectionEvent arg0) {
-		if (pc.getCurrentTask() != null) {
-			pc.getCurrentTask().setPriority(priority.getAnchorSelectionIndex()+1);
-			pc.updateTask(pc.getCurrentTask());
-		}
-		
-	}
 
 	@Override
 	public void changedUpdate(DocumentEvent e) {
@@ -54,16 +44,8 @@ public class DetailsViewListener implements DocumentListener, ListSelectionListe
 	
 	public void updateTask() {
 		if (pc.getCurrentTask() != null) {
-			pc.getCurrentTask().setTitle(title.getText());
 			pc.getCurrentTask().setDescription(description.getText());
 			pc.updateTask(pc.getCurrentTask());
-		}
-	}
-
-	@Override
-	public void actionPerformed(ActionEvent arg0) {
-		if (pc.getCurrentTask() != null) {
-			pc.deleteTask(pc.getCurrentTask());
 		}
 	}
 

@@ -10,6 +10,7 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.GregorianCalendar;
 import java.util.Locale;
+import java.util.Properties;
 import java.util.ResourceBundle;
 
 import javax.swing.AbstractAction;
@@ -28,12 +29,23 @@ import javax.swing.event.DocumentListener;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 
+import net.sourceforge.jdatepicker.DateModel;
+import net.sourceforge.jdatepicker.JDateComponentFactory;
+import net.sourceforge.jdatepicker.JDatePicker;
+import net.sourceforge.jdatepicker.impl.UtilCalendarModel;
+
 import panic.I18;
 import panic.PanicController;
 
 import tasks.Task;
 
 import categories.Category;
+import details.actions.CategoriesAction;
+import details.actions.DateAction;
+import details.actions.DeleteAction;
+import details.actions.DescriptionAction;
+import details.actions.PriorityAction;
+import details.actions.TitleAction;
 
 /**
  * The RightPanelController controls the right part of the !Panic ToDo-app
@@ -44,7 +56,8 @@ import categories.Category;
  */
 public class DetailsPanelController {
 	
-	String[] categoryStringArray;
+	private String[] categoryStringArray;
+	
 	private PanicController pc;
 	
 	private DetailsPanelView panel;
@@ -56,13 +69,13 @@ public class DetailsPanelController {
 	private JTextArea description;
 	
 	private JLabel priorityLabel;
-	private JList priority;
+	private JList<String> priority;
 	
 	private JLabel dateLabel;
-	//private JDatePicker date;
+	private JDatePicker date;
 	
 	private JLabel categoriesLabel;
-	private JComboBox categories;
+	private JComboBox<String> categories;
 	
 	
 	private String[] s;
@@ -75,87 +88,59 @@ public class DetailsPanelController {
 	
 	/**
 	 * Constructor for RightPanelController
+	 * Will initialize all the views.
+	 * However, enable(PanicController c) needs to 
+	 * be called before the views get their actions 
+	 * and get painted.
 	 */
 	public DetailsPanelController() {
-		I18.getInstance().setLocale("swe");
+		//Get language
+		I18.getInstance();
+		I18.setLocale("swe");
 		
+		//Initialize the RightPanel, which all views will be painted on
 		panel = new DetailsPanelView(this);
 		
-		titleLabel = new JLabel(I18.getInstance().properties.getString("title"));
+		//Initialization of title and its label
+		titleLabel = new JLabel(I18.properties.getString("title"));
 		titleLabel.setForeground(new Color(0xFFFFFF));
 		title = new JTextField();
 		
-		descriptionLabel = new JLabel(I18.getInstance().properties.getString("description"));
+		//Initialization of description and its label
+		descriptionLabel = new JLabel(I18.properties.getString("description"));
 		descriptionLabel.setForeground(new Color(0xFFFFFF));
 		description = new JTextArea();
 		
-		priorityLabel = new JLabel(I18.getInstance().properties.getString("priority"));
+		//Initialization of priority and its label
+		priorityLabel = new JLabel(I18.properties.getString("priority"));
 		priorityLabel.setForeground(new Color(0xFFFFFF));
-		s = new String[3];
-		s[0] = I18.getInstance().properties.getString("low");
-		s[1] = I18.getInstance().properties.getString("medium");
-		s[2] = I18.getInstance().properties.getString("high");
-		priority = new JList(s);
+		String[] s = {I18.getInstance().properties.getString("low"), 
+				      I18.getInstance().properties.getString("medium"),
+				      I18.getInstance().properties.getString("high")};
+		priority = new JList<String>(s);
 		
-		dateLabel = new JLabel(I18.getInstance().properties.getString("date"));
+		//Initialization of date and its label
+		dateLabel = new JLabel(I18.properties.getString("date"));
 		dateLabel.setForeground(new Color(0xFFFFFF));
-		//JDateComponentFactory factory = new JDateComponentFactory();
-		//date = factory.createJDatePicker();
+		date = JDateComponentFactory.createJDatePicker();
 		
-		categoriesLabel = new JLabel(I18.getInstance().properties.getString("categories"));
+		//Initialization of categories and its label
+		categoriesLabel = new JLabel(I18.properties.getString("categories"));
 		categoriesLabel.setForeground(new Color(0xFFFFFF));
+		categories = new JComboBox<String>();	
 		
-		categories = new JComboBox();
-		
-		
-		
-		DetailsViewListener dvl = new DetailsViewListener(this, title, description, priority);
-		
-		title.getDocument().addDocumentListener(dvl);
-		description.getDocument().addDocumentListener(dvl);
-		priority.addListSelectionListener(dvl);
-		
-		categories.addActionListener(new AbstractAction() {
-
-			@Override
-			public void actionPerformed(ActionEvent arg0) {
-				String s = (String) categories.getSelectedItem();
-				System.out.println("Category: " + s);
-			}
-			
-		});
-		
-		/*date.addActionListener(new AbstractAction() {
-
-			@Override
-			public void actionPerformed(ActionEvent arg0) {
-				GregorianCalendar theDate = (GregorianCalendar) date.getModel().getValue();
-				System.out.println(theDate.get(Calendar.YEAR) + theDate.get(Calendar.MONTH) + theDate.get(Calendar.DAY_OF_MONTH));
-			}
-			
-		});*/
-		
+		//Initialization of the delete button
 		deleteButton = new JButton(I18.getInstance().properties.getString("delete"));
 		deleteButton.setForeground(Color.black);
 		deleteButton.setBackground(Color.red);
-		deleteButton.addActionListener(dvl);
-		
-		panel.gridAdd(0, 0, 5, titleLabel);
-		panel.gridAdd(0, 1, 5, title);
-		panel.gridAdd(0, 2, 10, descriptionLabel);
-		panel.c.weighty = 0.5;
-		panel.gridAdd(0, 3, 5, description);
-		panel.c.weighty = 0;
-		//panel.gridAdd(0, 4, 10, dateLabel);
-		//panel.gridAdd(0, 5, 5, (JComponent) date);
-		panel.gridAdd(0, 6, 10, categoriesLabel);
-		panel.gridAdd(0, 7, 5, categories);
-		panel.gridAdd(0, 8, 10, priorityLabel);
-		panel.gridAdd(0, 9, 5, priority);
-		panel.gridAdd(0, 11, 10, deleteButton);
-		panel.pad(0, 10);
 	}
 	
+	
+	/**
+	 * Formats the array of Category to an array of String representing the categories
+	 * @param cats The array of Category
+	 * @return The array of String
+	 */
 	private String[] fixCategoryNameFormat(ArrayList<Category> cats){
 		ArrayList<String> names = new ArrayList<String>();
 		for(Category cat : cats){
@@ -167,15 +152,41 @@ public class DetailsPanelController {
 	}
 	
 	/**
-	 * Sets the parent controller for this controller.
+	 * Enables this part of the TodoApp, will need a parent controller
+	 * PanicController to be enabled
 	 * @param pc The parent controller
 	 */
-	public void setController(PanicController pc) {
+	public void enable(PanicController pc) {
 		this.pc = pc;
+		
 		categoryStringArray = fixCategoryNameFormat( pc.getCategories());
 		for(String name:categoryStringArray){
 			categories.addItem(name);
 		}
+		
+		//Add actions to all the components
+		title.getDocument().addDocumentListener(new TitleAction(this, title));
+		description.getDocument().addDocumentListener(new DescriptionAction(this, description));
+		priority.addListSelectionListener(new PriorityAction(this, priority));
+		categories.addActionListener(new CategoriesAction(this, categories));
+		date.addActionListener(new DateAction(this, date));
+		deleteButton.addActionListener(new DeleteAction(this));
+		
+		//Add every view component to the panel
+		panel.gridAdd(0, 0, 5, titleLabel);
+		panel.gridAdd(0, 1, 5, title);
+		panel.gridAdd(0, 2, 10, descriptionLabel);
+		panel.c.weighty = 0.5;
+		panel.gridAdd(0, 3, 5, description);
+		panel.c.weighty = 0;
+		panel.gridAdd(0, 4, 10, dateLabel);
+		panel.gridAdd(0, 5, 5, (JComponent) date);
+		panel.gridAdd(0, 6, 10, categoriesLabel);
+		panel.gridAdd(0, 7, 5, categories);
+		panel.gridAdd(0, 8, 10, priorityLabel);
+		panel.gridAdd(0, 9, 5, priority);
+		panel.pad(0, 11);
+		panel.gridAdd(0, 12, 10, deleteButton);
 		
 	}
 	
@@ -193,7 +204,6 @@ public class DetailsPanelController {
 	 * @param b Slides out if True, slides in if False
 	 */
 	public void setRightPanel(boolean b) {
-		show = b;
 		panel.showPanel(b);
 	}
 	
@@ -202,7 +212,7 @@ public class DetailsPanelController {
 	 * @return The status of the right panel, True if it is showing, False otherwise.
 	 */
 	public boolean isOpen() {
-		return show;
+		return panel.isOpen();
 	}
 	
 	
@@ -223,28 +233,22 @@ public class DetailsPanelController {
 	public void taskSelected(Task t) {
 		if (t == currentTask) {
 			currentTask = null;
-			show = false;
 			setRightPanel(false);
 		}
 		else {
+			//First set the currentTask to null, ensuring no further changes
+			//will be made during the "transition period"
 			currentTask = null;
+			
+			//Set the new Task t title, description and priority
 			title.setText(t.getTitle());
 			description.setText(t.getDescription());
 			priority.setSelectedIndex(t.getPriority()-1);
+			
+			//Lastly, make the currentTask t and show the right panel
 			currentTask = t;
-			show = true;
 			setRightPanel(true);
 		}
-	}
-	
-	/**
-	 * Will animate the view to close or open
-	 * @param s String to show as the "title" in the newly opened view.
-	 */
-	public void togglePanel(String s) {
-		show = !show;					//Toggles the internal show-variable
-		title.setText(show ? s : "");	//If the panel is about to show, use the String s, otherwise it doesn't matter so use ""
-		panel.showPanel(show);	
 	}
 	
 	/**
@@ -264,9 +268,9 @@ public class DetailsPanelController {
 	public void deleteTask(Task t) {
 		pc.deleteTask(t);
 		panel.setPreferredSize(new Dimension(0, 0));
+		panel.setOpen(false);
 		panel.revalidate();
 		panel.repaint();
-		show = false;
 	}
 	
 	/**

@@ -24,7 +24,7 @@ public class PanicController {
 		this.rightPanelController = rightController;
 		this.taskManager = t;
 		t.setController(this);
-		rightPanelController.setController(this);
+		rightPanelController.enable(this);
 		midPanelController.setController(this);
 		midController.updateShownTasks(t.getTaskList());
 	}
@@ -44,9 +44,6 @@ public class PanicController {
 		taskManager.addTask(t);
 		System.out.println(taskManager.getTaskList());
 		midPanelController.updateShownTasks(taskManager.getTaskList());
-	}
-	public void toggleRightPanel(String s) {
-		rightPanelController.togglePanel(s);
 	}
 
 	public void taskSelected(Task t) {

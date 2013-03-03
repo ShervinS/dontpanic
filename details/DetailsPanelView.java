@@ -10,6 +10,7 @@ import java.awt.Insets;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
+import javax.swing.JComponent;
 import javax.swing.JLabel;
 import javax.swing.JMenu;
 import javax.swing.JMenuItem;
@@ -58,7 +59,7 @@ public class DetailsPanelView extends JPanel implements ActionListener {
 	 * @param pad How much padding should be done before the component
 	 * @param comp The component to add
 	 */
-	public void gridAdd(int x, int y, int pad, Component comp) {
+	public void gridAdd(int x, int y, int pad, JComponent comp) {
 		c.insets = new Insets(pad, 5, 0, 5);
 		c.gridx = x;
 		c.gridy = y;
@@ -123,4 +124,12 @@ public class DetailsPanelView extends JPanel implements ActionListener {
 		}
 	}
 	
+	
+	public boolean isOpen() {
+		return show;
+	}
+	
+	public void setOpen(boolean b)  {
+		show = b;
+	}
 }

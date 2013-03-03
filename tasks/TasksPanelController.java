@@ -25,9 +25,6 @@ public class TasksPanelController {
 		return panel;
 	}
 	
-	public void toggleRightPanel(String s) {
-		pc.toggleRightPanel(s);
-	}
 	
 	public void addTask(Task t) {
 		pc.newTask(t);
