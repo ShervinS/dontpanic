@@ -93,7 +93,9 @@ public class XML {
 			Document doc = dBuilder.parse(fXmlFile);
 			doc.getDocumentElement().normalize();
 
-			NodeList nList = doc.getElementsByTagName("category"); 
+			Node categorys = doc.getElementsByTagName("categorys").item(0);
+			NodeList nList = categorys.getChildNodes();
+			
 
 			for (int temp = 0; temp < nList.getLength(); temp++) {
 

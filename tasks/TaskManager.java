@@ -22,10 +22,8 @@ public class TaskManager {
 	private PanicController pc;
 	
 	public TaskManager(){
-		
 		xml = new XML();
 		taskList = xml.getTasks();
-		
 		categoryList = xml.getCategorys();
 	}
 
@@ -56,7 +54,6 @@ public class TaskManager {
 	}
 	
 	public void updateTask(Task t){
-		//removeTask(t);
 		taskList.remove(t);
 		readTask(t);
 	}
