@@ -47,6 +47,7 @@ public class MainPanel extends JPanel {
 		c.gridx = 2;
 		c.weightx = 0.5;
 		add(rightView, c);
+		
 		catView = new CategoryView();
 		taskView = new TaskView();
 	}

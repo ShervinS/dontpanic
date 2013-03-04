@@ -7,6 +7,7 @@ import java.awt.Font;
 import java.awt.Graphics;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
+import java.awt.Image;
 import java.awt.LayoutManager;
 import javax.swing.JCheckBox;
 import javax.swing.JLabel;
@@ -21,6 +22,7 @@ public class TaskView extends JPanel {
 	JPanel categoryPanel;
 	JCheckBox doneCheck;
 	JLabel titleLabel, dateLabel, prioLabel;
+	Image bgImage;
 	private Task t;
 
 	public TaskView() {
@@ -42,14 +44,14 @@ public class TaskView extends JPanel {
 		prioLabel = new JLabel(priorityString);
 		prioLabel.setFont(new Font("Verdana", 40, 40));
 		prioLabel.setForeground(Color.RED);
-		titleLabel.setForeground(Color.WHITE);
+		titleLabel.setForeground(Color.BLACK);
 
-		categoryPanel.setBackground(Color.RED);
+		/*categoryPanel.setBackground(Color.RED);
 		c.fill = GridBagConstraints.VERTICAL;
 		c.ipadx = 20;
 		c.ipady = 10;      //make this component tall
 		c.weightx = 0.0;
-		c.weighty = 1;
+		c.weighty = 1;*/
 
 		categoryPanel.setBackground(Color.red);
 		c.fill = GridBagConstraints.VERTICAL;
@@ -72,7 +74,7 @@ public class TaskView extends JPanel {
 		//doneCheck.addActionListener();
 		add(doneCheck, c);
 
-		//c.fill = GridBagConstraints.HORIZONTAL;
+		c.fill = GridBagConstraints.HORIZONTAL;
 		c.ipady = 10;      //make this component tall
 		c.weightx = 1;
 		c.gridwidth = 1;
@@ -98,11 +100,26 @@ public class TaskView extends JPanel {
 		add(prioLabel, c);
 		
 		
-		setBackground(Color.DARK_GRAY);
+		//setBackground(Color.DARK_GRAY);
 		setMaximumSize(new Dimension(Short.MAX_VALUE, 50));
 		setPreferredSize(new Dimension(0, 50));
 		setMinimumSize(new Dimension(0, 50));
+		
+		try
+	    {
+	      bgImage = javax.imageio.ImageIO.read(this.getClass().getResource("/resources/taskCellBackground_light.png"));
+	    }
+	    catch (Exception e) { /*handled in paintComponent()*/ System.out.println("No bg!");}
 	}
+	
+
+	  @Override
+	  protected void paintComponent(Graphics g)
+	  {
+	    super.paintComponent(g); 
+	    if (bgImage != null)
+	      g.drawImage(bgImage, 0,0,this.getWidth(),this.getHeight(),this);
+	  }
 	
 	public void paint(Graphics g) {
 		super.paint(g);
@@ -113,7 +130,7 @@ public class TaskView extends JPanel {
 		}
 		prioLabel.setText(priorityString);
 		prioLabel.setForeground(Color.RED);
-		titleLabel.setForeground(Color.white);
+		titleLabel.setForeground(Color.BLACK);
 		revalidate();
 		repaint();
 	}

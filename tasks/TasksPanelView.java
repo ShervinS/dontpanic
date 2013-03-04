@@ -87,7 +87,7 @@ public class TasksPanelView extends JPanel {
 			
 		});
 		
-		addButton = new JButton(I18.getInstance().properties.getString("addTask"), new ImageIcon("ikon.png"));
+		addButton = new JButton(I18.getInstance().properties.getString("addTask"), new ImageIcon(this.getClass().getResource("/resources/addIcon.png")));
 		addButton.addActionListener(new AbstractAction() {
 			public void actionPerformed(ActionEvent e) {
 				mpc.addTask(new Task(quickAdd.getText(), "", "", 1, "", false));
@@ -123,7 +123,7 @@ public class TasksPanelView extends JPanel {
 	
 	public void updateShownTasks(ArrayList<Task> tasks) {
 		JPanel newView = new JPanel();
-		newView.setBackground(new Color(0x252525));
+		newView.setBackground(new Color(0xdcdcdc));
 		newView.setLayout(new BoxLayout(newView, BoxLayout.PAGE_AXIS));
 		if (tasks.size() > 0) {
 			newView.add(tasks.get(tasks.size()-1).getView());

@@ -16,6 +16,7 @@ import java.util.Properties;
 import java.util.ResourceBundle;
 
 import javax.swing.AbstractAction;
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JComponent;
@@ -140,12 +141,12 @@ public class DetailsPanelController implements ActionListener {
 		categories = new JComboBox();	
 		
 		//Initialization of the delete button
-		deleteButton = new JButton(I18.getInstance().properties.getString("delete"));
+		deleteButton = new JButton(I18.getInstance().properties.getString("delete"), new ImageIcon(this.getClass().getResource("/resources/xIcon.png")));
 		deleteButton.setForeground(Color.black);
 		deleteButton.setBackground(Color.red);
 		
 		//Initialization of the done-button
-		doneButton = new JButton("Klar");
+		doneButton = new JButton("Klar", new ImageIcon(this.getClass().getResource("/resources/okIcon.png")));
 		doneButton.setForeground(Color.black);
 		doneButton.setBackground(Color.green);
 	}
