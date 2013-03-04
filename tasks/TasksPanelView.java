@@ -101,20 +101,21 @@ public class TasksPanelView extends JPanel {
 		c.gridx = 0;
 		c.gridy = 0;
 		
+		c.weighty = 0.0;
+		c.weightx = 0.9;
+		add(quickAdd, c);
+		c.gridx += 1;
+		c.weighty = 0.0;
+		c.weightx = 0.1;
+		add(addButton, c);
 		
 		c.gridwidth += 1;
+		c.gridy += 1;
+		c.gridx = 0;
 		c.weightx = 0.5;
 		c.weighty = 0.5;
 		add(pane, c);
-		c.gridy += 1;
-		c.weighty = 0.0;
-		add(quickAdd, c);
 		
-		
-		c.gridwidth -= 1;
-		c.gridy += 1;
-		c.weighty = 0.0;
-		add(addButton, c);
 		pane.revalidate();
 		pane.repaint();
 	}
