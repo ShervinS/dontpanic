@@ -26,6 +26,7 @@ import javax.swing.JMenuItem;
 import javax.swing.JPopupMenu;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
+import javax.swing.Timer;
 import javax.swing.event.DocumentEvent;
 import javax.swing.event.DocumentListener;
 import javax.swing.event.ListSelectionEvent;
@@ -61,7 +62,7 @@ import details.actions.TitleAction;
  * @author joseph
  *
  */
-public class DetailsPanelController {
+public class DetailsPanelController implements ActionListener {
 	
 	private String[] categoryStringArray;
 	
@@ -84,8 +85,11 @@ public class DetailsPanelController {
 	private JLabel categoriesLabel;
 	private JComboBox categories;
 	
+	private Timer t;
 	
 	private String[] s;
+	
+	private boolean animate;
 	
 	private Task currentTask;
 	
@@ -240,6 +244,12 @@ public class DetailsPanelController {
 		return currentTask;
 	}
 	
+	public void animateChangeOfTask() {
+		setRightPanel(false);
+		t = new Timer(100, this);
+		t.start();
+	}
+	
 	/**
 	 * Selects a Task, which the user will be able to modify using controls on 
 	 * the right panel.
@@ -251,9 +261,12 @@ public class DetailsPanelController {
 			setRightPanel(false);
 		}
 		else {
-			//First set the currentTask to null, ensuring no further changes
-			//will be made during the "transition period"
-			currentTask = null;
+			if (t != null) {
+				//First set the currentTask to null, ensuring no further changes
+				//will be made during the "transition period"
+				currentTask = null;
+				animateChangeOfTask();
+			}
 			
 			//Use the Task t information to show on the right panel
 			title.setText(t.getTitle());
@@ -274,7 +287,6 @@ public class DetailsPanelController {
 			
 			//Lastly, make the currentTask t and show the right panel
 			currentTask = t;
-			setRightPanel(true);
 		}
 	}
 	
@@ -298,6 +310,11 @@ public class DetailsPanelController {
 		panel.setOpen(false);
 		panel.revalidate();
 		panel.repaint();
+	}
+	
+	public void actionPerformed(ActionEvent e) {
+		setRightPanel(true);
+		t.stop();
 	}
 	
 	/**
