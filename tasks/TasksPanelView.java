@@ -123,7 +123,7 @@ public class TasksPanelView extends JPanel {
 	
 	public void updateShownTasks(ArrayList<Task> tasks) {
 		JPanel newView = new JPanel();
-		newView.setBackground(new Color(0));
+		newView.setBackground(new Color(0x252525));
 		newView.setLayout(new BoxLayout(newView, BoxLayout.PAGE_AXIS));
 		if (tasks.size() > 0) {
 			newView.add(tasks.get(tasks.size()-1).getView());
