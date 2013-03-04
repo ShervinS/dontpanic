@@ -42,7 +42,6 @@ public class TasksPanelView extends JPanel {
 
 	private final JTextField quickAdd; 
 	private JButton addButton;
-	private JButton detailsButton;
 	private GridBagConstraints c;
 	private JScrollPane pane;
 	final private TasksPanelController mpc;
@@ -89,18 +88,11 @@ public class TasksPanelView extends JPanel {
 		});
 		
 		addButton = new JButton(I18.getInstance().properties.getString("addTask"), new ImageIcon("ikon.png"));
-		detailsButton = new JButton(I18.getInstance().properties.getString("addDetails"));
 		addButton.addActionListener(new AbstractAction() {
 			public void actionPerformed(ActionEvent e) {
-				mpc.newTask(new Task(quickAdd.getText(), "", "", 1, "", false));
+				mpc.addTask(new Task(quickAdd.getText(), "", "", 1, "", false));
 				quickAdd.setText("Quickadd...");
 				quickAdd.setForeground(Color.GRAY);
-			}
-		});
-		
-		detailsButton.addActionListener(new AbstractAction() {
-			public void actionPerformed(ActionEvent e) {
-				mpc.addTask(new Task(quickAdd.getText(), "", "", 1, "", false));
 			}
 		});
 		
@@ -123,8 +115,6 @@ public class TasksPanelView extends JPanel {
 		c.gridy += 1;
 		c.weighty = 0.0;
 		add(addButton, c);
-		c.gridx += 1;
-		add(detailsButton, c);
 		pane.revalidate();
 		pane.repaint();
 	}
@@ -148,7 +138,6 @@ public class TasksPanelView extends JPanel {
 	
 	public void updateLanguage(){
 		addButton.setText(I18.getInstance().properties.getString("addTask"));
-		detailsButton.setText(I18.getInstance().properties.getString("addDetails"));
 		quickAdd.setText(I18.getInstance().properties.getString("quickAdd"));
 	}
 }
