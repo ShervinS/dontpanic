@@ -4,7 +4,6 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 import javax.swing.AbstractAction;
-import javax.swing.JComboBox;
 import javax.swing.JList;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
@@ -15,21 +14,20 @@ import javax.swing.event.ListSelectionListener;
 
 import details.DetailsPanelController;
 
-public class CategoriesAction extends AbstractAction {
+public class DoneAction extends AbstractAction {
 
 	
 	private DetailsPanelController pc;
-	private JComboBox categories;
 	
-	public CategoriesAction(DetailsPanelController pc, JComboBox categories) {
+	public DoneAction(DetailsPanelController pc) {
 		this.pc = pc;
-		this.categories = categories;
 	}
 
 	@Override
 	public void actionPerformed(ActionEvent arg0) {
-		String s = (String) categories.getSelectedItem();
-		System.out.println("Category: " + s);
+		if (pc.getCurrentTask() != null) {
+			pc.setRightPanel(false);
+		}
 	}
 
 }

@@ -6,8 +6,10 @@ import java.awt.GridBagConstraints;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Date;
 import java.util.GregorianCalendar;
 import java.util.Locale;
 import java.util.Properties;
@@ -29,9 +31,13 @@ import javax.swing.event.DocumentListener;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 
+import com.toedter.calendar.JCalendar;
+import com.toedter.calendar.JDateChooser;
+
 import net.sourceforge.jdatepicker.DateModel;
 import net.sourceforge.jdatepicker.JDateComponentFactory;
 import net.sourceforge.jdatepicker.JDatePicker;
+import net.sourceforge.jdatepicker.impl.SqlDateModel;
 import net.sourceforge.jdatepicker.impl.UtilCalendarModel;
 
 import panic.I18;
@@ -44,6 +50,7 @@ import details.actions.CategoriesAction;
 import details.actions.DateAction;
 import details.actions.DeleteAction;
 import details.actions.DescriptionAction;
+import details.actions.DoneAction;
 import details.actions.PriorityAction;
 import details.actions.TitleAction;
 
@@ -69,13 +76,13 @@ public class DetailsPanelController {
 	private JTextArea description;
 	
 	private JLabel priorityLabel;
-	private JList<String> priority;
+	private JList priority;
 	
 	private JLabel dateLabel;
-	private JDatePicker date;
+	private JDateChooser date;
 	
 	private JLabel categoriesLabel;
-	private JComboBox<String> categories;
+	private JComboBox categories;
 	
 	
 	private String[] s;
@@ -83,8 +90,7 @@ public class DetailsPanelController {
 	private Task currentTask;
 	
 	private JButton deleteButton;
-	
-	private boolean show;
+	private JButton doneButton;
 	
 	/**
 	 * Constructor for RightPanelController
@@ -117,22 +123,27 @@ public class DetailsPanelController {
 		String[] s = {I18.getInstance().properties.getString("low"), 
 				      I18.getInstance().properties.getString("medium"),
 				      I18.getInstance().properties.getString("high")};
-		priority = new JList<String>(s);
+		priority = new JList(s);
 		
 		//Initialization of date and its label
 		dateLabel = new JLabel(I18.properties.getString("date"));
 		dateLabel.setForeground(new Color(0xFFFFFF));
-		date = JDateComponentFactory.createJDatePicker();
+		date = new JDateChooser();
 		
 		//Initialization of categories and its label
 		categoriesLabel = new JLabel(I18.properties.getString("categories"));
 		categoriesLabel.setForeground(new Color(0xFFFFFF));
-		categories = new JComboBox<String>();	
+		categories = new JComboBox();	
 		
 		//Initialization of the delete button
 		deleteButton = new JButton(I18.getInstance().properties.getString("delete"));
 		deleteButton.setForeground(Color.black);
 		deleteButton.setBackground(Color.red);
+		
+		//Initialization of the done-button
+		doneButton = new JButton("Klar");
+		doneButton.setForeground(Color.black);
+		doneButton.setBackground(Color.green);
 	}
 	
 	
@@ -169,8 +180,9 @@ public class DetailsPanelController {
 		description.getDocument().addDocumentListener(new DescriptionAction(this, description));
 		priority.addListSelectionListener(new PriorityAction(this, priority));
 		categories.addActionListener(new CategoriesAction(this, categories));
-		date.addActionListener(new DateAction(this, date));
+		date.addPropertyChangeListener(new DateAction(this, date));
 		deleteButton.addActionListener(new DeleteAction(this));
+		doneButton.addActionListener(new DoneAction(this));
 		
 		//Add every view component to the panel
 		panel.gridAdd(0, 0, 5, titleLabel);
@@ -186,7 +198,8 @@ public class DetailsPanelController {
 		panel.gridAdd(0, 8, 10, priorityLabel);
 		panel.gridAdd(0, 9, 5, priority);
 		panel.pad(0, 11);
-		panel.gridAdd(0, 12, 10, deleteButton);
+		panel.gridAdd(0, 12, 10, doneButton);
+		panel.gridAdd(0, 13, 10, deleteButton);
 		
 	}
 	
@@ -204,6 +217,8 @@ public class DetailsPanelController {
 	 * @param b Slides out if True, slides in if False
 	 */
 	public void setRightPanel(boolean b) {
+		if (!b)
+			currentTask = null;
 		panel.showPanel(b);
 	}
 	
@@ -240,10 +255,22 @@ public class DetailsPanelController {
 			//will be made during the "transition period"
 			currentTask = null;
 			
-			//Set the new Task t title, description and priority
+			//Use the Task t information to show on the right panel
 			title.setText(t.getTitle());
 			description.setText(t.getDescription());
 			priority.setSelectedIndex(t.getPriority()-1);
+			String dateString = t.getDueDate();
+			if (dateString.length() < 8) {
+				date.setCalendar(null);
+			}
+			else {
+				int year = Integer.parseInt(dateString.substring(0, 4));
+				int month = Integer.parseInt(dateString.substring(4, 6));
+				int day = Integer.parseInt(dateString.substring(6, 8));
+				Calendar c = Calendar.getInstance();
+				c.set(year, month-1, day);
+				date.setDate(c.getTime());
+			}
 			
 			//Lastly, make the currentTask t and show the right panel
 			currentTask = t;
