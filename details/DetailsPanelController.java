@@ -113,17 +113,17 @@ public class DetailsPanelController implements ActionListener {
 		
 		//Initialization of title and its label
 		titleLabel = new JLabel(I18.properties.getString("title"));
-		titleLabel.setForeground(new Color(0xFFFFFF));
+		titleLabel.setForeground(Color.BLACK);
 		title = new JTextField();
 		
 		//Initialization of description and its label
 		descriptionLabel = new JLabel(I18.properties.getString("description"));
-		descriptionLabel.setForeground(new Color(0xFFFFFF));
+		descriptionLabel.setForeground(Color.BLACK);
 		description = new JTextArea();
 		
 		//Initialization of priority and its label
 		priorityLabel = new JLabel(I18.properties.getString("priority"));
-		priorityLabel.setForeground(new Color(0xFFFFFF));
+		priorityLabel.setForeground(Color.BLACK);
 		String[] s = {I18.getInstance().properties.getString("low"), 
 				      I18.getInstance().properties.getString("medium"),
 				      I18.getInstance().properties.getString("high")};
@@ -131,12 +131,12 @@ public class DetailsPanelController implements ActionListener {
 		
 		//Initialization of date and its label
 		dateLabel = new JLabel(I18.properties.getString("date"));
-		dateLabel.setForeground(new Color(0xFFFFFF));
+		dateLabel.setForeground(Color.BLACK);
 		date = new JDateChooser();
 		
 		//Initialization of categories and its label
 		categoriesLabel = new JLabel(I18.properties.getString("categories"));
-		categoriesLabel.setForeground(new Color(0xFFFFFF));
+		categoriesLabel.setForeground(Color.BLACK);
 		categories = new JComboBox();	
 		
 		//Initialization of the delete button
@@ -204,6 +204,7 @@ public class DetailsPanelController implements ActionListener {
 		panel.pad(0, 11);
 		panel.gridAdd(0, 12, 10, doneButton);
 		panel.gridAdd(0, 13, 10, deleteButton);
+
 		
 	}
 	

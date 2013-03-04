@@ -42,9 +42,9 @@ public class TaskView extends JPanel {
 		prioLabel = new JLabel(priorityString);
 		prioLabel.setFont(new Font("Verdana", 40, 40));
 		prioLabel.setForeground(Color.RED);
-		titleLabel.setForeground(Color.white);
+		titleLabel.setForeground(Color.WHITE);
 
-		categoryPanel.setBackground(Color.red);
+		categoryPanel.setBackground(Color.RED);
 		c.fill = GridBagConstraints.VERTICAL;
 		c.ipadx = 20;
 		c.ipady = 10;      //make this component tall
@@ -99,9 +99,9 @@ public class TaskView extends JPanel {
 		
 		
 		setBackground(Color.DARK_GRAY);
-		setMaximumSize(new Dimension(Short.MAX_VALUE, 80));
-		setPreferredSize(new Dimension(0, 80));
-		setMinimumSize(new Dimension(0, 80));
+		setMaximumSize(new Dimension(Short.MAX_VALUE, 50));
+		setPreferredSize(new Dimension(0, 50));
+		setMinimumSize(new Dimension(0, 50));
 	}
 	
 	public void paint(Graphics g) {

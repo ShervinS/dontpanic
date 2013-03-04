@@ -46,7 +46,7 @@ public class DetailsPanelView extends JPanel implements ActionListener {
 		c.fill = GridBagConstraints.BOTH;
 		c.weightx = 0.7;
 		c.insets = new Insets(0, 5, 5, 5);
-		setBackground(new Color(0x000000));
+		setBackground(new Color(0xededed));
 		setPreferredSize(new Dimension(0, 600));
 		t = new Timer(1, this);
 	}

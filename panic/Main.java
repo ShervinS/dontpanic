@@ -55,6 +55,7 @@ public class Main {
 				pcRight.getView()));
 		// frame.setContentPane(new MainPanel(new GridBagLayout(),
 		// pcLeft.getView(), pcMid.getView(), pcRight.getView()));
+		frame.setMinimumSize(new Dimension(500, 500));
 		frame.setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
 		frame.addWindowListener(new WindowAdapter() {
 			public void windowClosing(WindowEvent e) {
