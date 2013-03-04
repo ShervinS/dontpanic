@@ -4,7 +4,6 @@ import java.awt.Color;
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
-
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
@@ -13,45 +12,81 @@ import javax.xml.transform.TransformerException;
 import javax.xml.transform.TransformerFactory;
 import javax.xml.transform.dom.DOMSource;
 import javax.xml.transform.stream.StreamResult;
-
-import org.w3c.dom.Attr;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.NamedNodeMap;
 import org.xml.sax.SAXException;
-
-
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
-
 import tasks.Task;
-
 import categories.Category;
-
-
 import java.util.Date;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 
-
-//todo, inv�nta en f�rdig categoryklass, �ndra s� att kategorielementen i xmlfilen i sin tur h�ller element om f�rg osv,
-//och g�ra samma �ndring i taskobjektet.. som nu endast h�ller i en str�ng som beskriver kategorin...
-//d�refter fixa getCategorys()
+/**
+* Class for management of XML
+* @version 1.0
+* @author Erik Samuelsson
+*/
 
 public class XML {
 
+	/**
+	* Constuctor that check if there is a file.xml exists, if not it will create one using makeEmptyXML()
+	*/	
+	
 	public XML() {
 		if (!new File("./file.xml").isFile()) 
 			makeEmptyXML();
 	}
 
-
-
-
-	public ArrayList<Category> getCategorys() { //TODO read the categorys from the XML-database
-		/*ArrayList<Category> r = new ArrayList<Category>();
+	/**
+	* Makes file.xml with wrapper as root element
+	* tasklist, categorys, idCounter are appended to the root element
+	*/
+	public void makeEmptyXML() {
 		try {
 
+			DocumentBuilderFactory docFactory = DocumentBuilderFactory.newInstance();
+			DocumentBuilder docBuilder = docFactory.newDocumentBuilder();
+
+			Document doc = docBuilder.newDocument();
+			Element rootElement = doc.createElement("wrapper");
+			doc.appendChild(rootElement);
+
+			Element tasklist = doc.createElement("tasklist");
+			rootElement.appendChild(tasklist);
+
+			Element categorys = doc.createElement("categorys");
+			rootElement.appendChild(categorys);
+
+			Element idCounter = doc.createElement("idCounter");
+			idCounter.setAttribute("id", "1");
+			rootElement.appendChild(idCounter);
+
+			// write the content into xml file
+			TransformerFactory transformerFactory = TransformerFactory.newInstance();
+			Transformer transformer = transformerFactory.newTransformer();
+			DOMSource source = new DOMSource(doc);
+			StreamResult result = new StreamResult(new File("./file.xml"));
+			transformer.transform(source, result);
+
+		} catch (ParserConfigurationException pce) {
+			pce.printStackTrace();
+		} catch (TransformerException tfe) {
+			tfe.printStackTrace();
+		}
+	}	
+	
+	/**
+	* Gets all the categorys from file.xml
+	* @return an arraylist containing all categorys in file.xml
+	*/
+	
+	public ArrayList<Category> getCategorys() {
+		ArrayList<Category> r = new ArrayList<Category>();
+		try {
 			File fXmlFile = new File("./file.xml");
 			DocumentBuilderFactory dbFactory = DocumentBuilderFactory.newInstance();
 			DocumentBuilder dBuilder = dbFactory.newDocumentBuilder();
@@ -64,36 +99,139 @@ public class XML {
 
 				Node nNode = nList.item(temp);
 
-
 				if (nNode.getNodeType() == Node.ELEMENT_NODE) {
 
 					Element eElement = (Element) nNode;
 
-					String id = eElement.getAttribute("id");
-					String category= eElement.getElementsByTagName("category").item(0).getTextContent();
-					
+					String name = eElement.getElementsByTagName("name").item(0).getTextContent();
+					String red = eElement.getElementsByTagName("red").item(0).getTextContent();
+					String green = eElement.getElementsByTagName("green").item(0).getTextContent();
+					String blue = eElement.getElementsByTagName("blue").item(0).getTextContent();
 
-					Category c = new Category()
-					t.setId(Integer.parseInt(id));
+					Color c = new Color(Integer.parseInt(red),Integer.parseInt(green),Integer.parseInt(blue));
+					Category t = new Category(name,c);
 					r.add(t);
 				}
 			}
-
-
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-		return r;*/
-		ArrayList<Category> cats = new ArrayList<Category>();
-		cats.add(new Category("Skola",new Color(100,100,100)));
-		return cats;
+		return r;
 	}
 
-	public void addCategory(Category c){//TODO add category to XML-database
-		
+	/**
+	* Adds the content of c to the file.xml, if an other category with the same name already was in file.txt, that category will get updated content according to c'
+	*/
+	
+	public void addCategory(Category c){
+		try {
+			String filepath = "./file.xml";
+			DocumentBuilderFactory docFactory = DocumentBuilderFactory.newInstance();
+			DocumentBuilder docBuilder = docFactory.newDocumentBuilder();
+			Document doc = docBuilder.parse(filepath); //
+
+			Node categorys = doc.getElementsByTagName("categorys").item(0);
+			NodeList categoryList = doc.getElementsByTagName("category");
+
+
+			for(int i = 0; i < categoryList.getLength(); i++) {
+				String n = ((Element)categoryList.item(i)).getAttribute("name");
+				if (n.equals(c.getName())) {
+					NamedNodeMap attr = categoryList.item(i).getAttributes();
+					Node nodeRed = attr.getNamedItem("red");
+					nodeRed.setTextContent("" + c.getColor().getRed());;
+					Node nodeGreen = attr.getNamedItem("green");
+					nodeGreen.setTextContent("" + c.getColor().getGreen());;
+					Node nodeBlue = attr.getNamedItem("blue");
+					nodeBlue.setTextContent("" + c.getColor().getBlue());;
+				}
+			}
+
+			Element category = doc.createElement("category");
+			categorys.appendChild(category);
+
+			Element name = doc.createElement("name");
+			name.appendChild(doc.createTextNode(c.getName()));
+			category.appendChild(name);
+
+			Element red = doc.createElement("red");
+			String x = "" + c.getColor().getRed();
+			red.appendChild(doc.createTextNode(x));
+			category.appendChild(red);
+
+			Element green = doc.createElement("green");
+			String y = "" + c.getColor().getGreen();
+			green.appendChild(doc.createTextNode(y));
+			category.appendChild(green);
+
+			Element blue = doc.createElement("blue");
+			String z = "" + c.getColor().getBlue();
+			blue.appendChild(doc.createTextNode(z));
+			category.appendChild(blue);
+
+			TransformerFactory transformerFactory = TransformerFactory.newInstance();
+			Transformer transformer = transformerFactory.newTransformer();
+
+			DOMSource source = new DOMSource(doc);
+			StreamResult result = new StreamResult(new File(filepath));
+			transformer.transform(source, result); //
+
+		} catch (ParserConfigurationException pce) {
+			pce.printStackTrace();
+		} catch (TransformerException tfe) {
+			tfe.printStackTrace();
+		} catch (IOException ioe) {
+			ioe.printStackTrace();
+		} catch (SAXException sae) {
+			sae.printStackTrace();
+		}
 	}
 
+	/**
+	* Removes all categorys in file.xml that has same name as t
+	*/
+	public void removeCategory(Category t) {
 
+		try {
+			String filepath = "./file.xml";
+			DocumentBuilderFactory docFactory = DocumentBuilderFactory.newInstance();
+			DocumentBuilder docBuilder = docFactory.newDocumentBuilder();
+			Document doc = docBuilder.parse(filepath);
+
+			Node categorys = doc.getElementsByTagName("categorys").item(0);
+			NodeList categoryList = doc.getElementsByTagName("category");
+
+			for (int i = 0; i < categoryList.getLength(); i++) {
+
+				Node node = categoryList.item(i);
+
+				String nodeName = ((Element)node).getAttribute("name");
+
+
+				if (nodeName.equals(t.getName())) {
+					categorys.removeChild(node);
+				}
+			}
+			TransformerFactory transformerFactory = TransformerFactory.newInstance();
+			Transformer transformer = transformerFactory.newTransformer();
+			DOMSource source = new DOMSource(doc);
+			StreamResult result = new StreamResult(new File(filepath));
+			transformer.transform(source, result);
+		} catch (ParserConfigurationException pce) {
+			pce.printStackTrace();
+		} catch (TransformerException tfe) {
+			tfe.printStackTrace();
+		} catch (IOException ioe) {
+			ioe.printStackTrace();
+		} catch (SAXException sae) {
+			sae.printStackTrace();
+		}
+	}
+
+	/**
+	* Gets all the categorys from file.xml
+	* @return an arraylist containing all task in file.xml
+	*/
 	public ArrayList<Task> getTasks() {
 		ArrayList<Task> r = new ArrayList<Task>();
 		try {
@@ -137,46 +275,9 @@ public class XML {
 		return r;
 	}
 
-
-
-
-
-	public void makeEmptyXML() {
-		try {
-
-			DocumentBuilderFactory docFactory = DocumentBuilderFactory.newInstance();
-			DocumentBuilder docBuilder = docFactory.newDocumentBuilder();
-
-			Document doc = docBuilder.newDocument();
-			Element rootElement = doc.createElement("wrapper");
-			doc.appendChild(rootElement);
-
-			Element tasklist = doc.createElement("tasklist");
-			rootElement.appendChild(tasklist);
-
-			Element categorys = doc.createElement("categorys");
-			rootElement.appendChild(categorys);
-
-			Element idCounter = doc.createElement("idCounter");
-			idCounter.setAttribute("id", "1");
-			rootElement.appendChild(idCounter);
-
-			// write the content into xml file
-			TransformerFactory transformerFactory = TransformerFactory.newInstance();
-			Transformer transformer = transformerFactory.newTransformer();
-			DOMSource source = new DOMSource(doc);
-			StreamResult result = new StreamResult(new File("./file.xml"));
-			transformer.transform(source, result);
-
-
-		} catch (ParserConfigurationException pce) {
-			pce.printStackTrace();
-		} catch (TransformerException tfe) {
-			tfe.printStackTrace();
-		}
-	}
-
-
+	/**
+	* Adds the content of item to the file.xml, if an other item with the same id already was in file.txt, that item will get updated content according to items'
+	*/
 	public void addTask(Task item) {
 
 		try {
@@ -288,7 +389,9 @@ public class XML {
 		}
 	}
 
-
+	/**
+	* Removes all tasks in file.xml that has same id as t
+	*/
 
 	public void removeTask(Task t) {
 
@@ -303,12 +406,7 @@ public class XML {
 			NodeList list = doc.getElementsByTagName("task");
 
 			for (int i = 0; i < list.getLength(); i++) {
-
 				Node node = list.item(i);
-				System.out.println((""+ itemID));
-
-				System.out.println(node.getAttributes().getNamedItem("id"));
-
 
 				if ((""+ itemID).equals(((Element) node).getAttribute("id"))) {
 					taskList.removeChild(node);
