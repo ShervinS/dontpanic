@@ -19,6 +19,7 @@ import javax.swing.JFrame;
 import javax.swing.JMenu;
 import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
+import javax.swing.JOptionPane;
 
 import tasks.TasksPanelController;
 import tasks.TaskManager;
@@ -31,6 +32,7 @@ public class Main {
 	private static JMenu edit;
 	private static JMenu help;
 	private static JMenu language;
+	private static JMenuItem about;
 	private static JMenuItem english;
 	private static JMenuItem swedish;
 	private static JMenuItem exit;
@@ -88,6 +90,7 @@ public class Main {
 		file = new JMenu(I18.getInstance().properties.getString("file"));
 		edit = new JMenu(I18.getInstance().properties.getString("edit"));
 		help = new JMenu(I18.getInstance().properties.getString("help"));
+		about = new JMenuItem(I18.getInstance().properties.getString("about"));
 		
 		language = new JMenu(I18.getInstance().properties.getString("changeLang"));
 		swedish = new JMenuItem("Svenska");
@@ -147,10 +150,20 @@ public class Main {
 				pcMid.getView().updateLanguage();
 			}
 		});
+		
+		about.addActionListener(new AbstractAction() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				JOptionPane.showMessageDialog(frame,"Version: 1.0");
+			}
+		});
+		
+		
 		language.add(swedish);
 		language.add(english);
 		edit.add(language);
 		file.add(exit);
+		help.add(about);
 
 		menuBar.add(file);
 		menuBar.add(edit);
@@ -193,6 +206,7 @@ public class Main {
 		edit.setText(I18.getInstance().properties.getString("edit"));
 		help.setText(I18.getInstance().properties.getString("help"));
 		exit.setText(I18.getInstance().properties.getString("exit"));
+		about.setText(I18.getInstance().properties.getString("about"));
 		language.setText(I18.getInstance().properties.getString("changeLang"));
 	}
 
