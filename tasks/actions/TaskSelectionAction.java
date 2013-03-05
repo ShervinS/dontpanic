@@ -1,25 +1,20 @@
-package tasks;
-
-import java.awt.event.MouseEvent;
-import java.awt.event.MouseListener;
-import java.util.HashMap;
+package tasks.actions;
 
 import javax.swing.JTable;
-import javax.swing.ListSelectionModel;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
-import javax.swing.event.TableModelEvent;
-import javax.swing.event.TableModelListener;
 
-import panic.PanicController;
+import tasks.Task;
+import tasks.TaskTableModel;
+import tasks.TasksPanelController;
 
-public class TaskSelectionListener implements ListSelectionListener {
+public class TaskSelectionAction implements ListSelectionListener {
 
 	private TasksPanelController pc;
 	private TaskTableModel tm;
 	private JTable table;
 	
-	public TaskSelectionListener(JTable table, TasksPanelController p, TaskTableModel tm) {
+	public TaskSelectionAction(JTable table, TasksPanelController p, TaskTableModel tm) {
 		pc = p;
 		this.tm = tm;
 		this.table = table;

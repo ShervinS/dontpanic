@@ -29,6 +29,7 @@ public class DetailsPanelView extends JPanel implements ActionListener {
 	private JPanel filler;
 	private boolean show;
 	private Timer t;
+	private int y;
 	
 	private int currentWidth;
 	private int currentHeight;
@@ -40,6 +41,7 @@ public class DetailsPanelView extends JPanel implements ActionListener {
 	 */
 	public DetailsPanelView(DetailsPanelController p) {
 		super();
+		y = 0;
 		pc = p;
 		setLayout(new GridBagLayout());
 		c = new GridBagConstraints();
@@ -59,10 +61,10 @@ public class DetailsPanelView extends JPanel implements ActionListener {
 	 * @param pad How much padding should be done before the component
 	 * @param comp The component to add
 	 */
-	public void gridAdd(int x, int y, int pad, JComponent comp) {
+	public void gridAdd(int pad, JComponent comp) {
 		c.insets = new Insets(pad, 5, 0, 5);
-		c.gridx = x;
 		c.gridy = y;
+		y += 1;
 		this.add(comp, c);
 	}
 	
@@ -73,12 +75,12 @@ public class DetailsPanelView extends JPanel implements ActionListener {
 	 * @param y The position vertically in the gird where the padding should be,
 	 * 			should be the last.
 	 */
-	public void pad(int x, int y) {
+	public void pad() {
 		if (filler != null) {
 			remove(filler);
 		}
-		c.gridx = x;
 		c.gridy = y;
+		y += 1;
 		GridBagConstraints fill = (GridBagConstraints) c.clone();
 		fill.weighty = 1;
 		filler = new JPanel();

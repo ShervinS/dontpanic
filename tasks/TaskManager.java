@@ -15,8 +15,8 @@ import categories.Category;
  *
  */
 public class TaskManager {
-  private ArrayList<Task> taskList;
-  private ArrayList<Category> categoryList;
+	private ArrayList<Task> taskList;
+	private ArrayList<Category> categoryList;
 	private String XMLPath;
 	private XML xml;
 	private PanicController pc;
@@ -27,7 +27,7 @@ public class TaskManager {
 		categoryList = xml.getCategorys();
 	}
 
-	public void setController(PanicController pc) {
+	public void enable(PanicController pc) {
 		this.pc = pc;
 		//for (Task i : taskList) {
 		//	i.getView().addMouseListener(new TaskSelectionListener(i, pc));

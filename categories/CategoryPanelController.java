@@ -26,7 +26,7 @@ public class CategoryPanelController {
 		return panel;
 	}
 	
-	public void setPanicController(PanicController panicController) {
+	public void enable(PanicController panicController) {
 		this.panicController = panicController;
 	}
 	

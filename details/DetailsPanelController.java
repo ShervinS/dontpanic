@@ -190,21 +190,21 @@ public class DetailsPanelController implements ActionListener {
 		doneButton.addActionListener(new DoneAction(this));
 		
 		//Add every view component to the panel
-		panel.gridAdd(0, 0, 5, titleLabel);
-		panel.gridAdd(0, 1, 5, title);
-		panel.gridAdd(0, 2, 10, descriptionLabel);
+		panel.gridAdd(5, titleLabel);
+		panel.gridAdd(5, title);
+		panel.gridAdd(10, descriptionLabel);
 		panel.c.weighty = 0.5;
-		panel.gridAdd(0, 3, 5, description);
+		panel.gridAdd(5, description);
 		panel.c.weighty = 0;
-		panel.gridAdd(0, 4, 10, dateLabel);
-		panel.gridAdd(0, 5, 5, (JComponent) date);
-		panel.gridAdd(0, 6, 10, categoriesLabel);
-		panel.gridAdd(0, 7, 5, categories);
-		panel.gridAdd(0, 8, 10, priorityLabel);
-		panel.gridAdd(0, 9, 5, priority);
-		panel.pad(0, 11);
-		panel.gridAdd(0, 12, 10, doneButton);
-		panel.gridAdd(0, 13, 10, deleteButton);
+		panel.gridAdd(10, dateLabel);
+		panel.gridAdd(5, (JComponent) date);
+		panel.gridAdd(10, categoriesLabel);
+		panel.gridAdd(5, categories);
+		panel.gridAdd(10, priorityLabel);
+		panel.gridAdd(5, priority);
+		panel.pad();
+		panel.gridAdd(10, doneButton);
+		panel.gridAdd(10, deleteButton);
 
 		
 	}
