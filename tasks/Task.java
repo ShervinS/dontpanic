@@ -124,6 +124,10 @@ public class Task {
 		this.priority = priority;
 	}
 
+	
+	public String toString() {
+		return title;
+	}
 
 
 	public int getId() {

@@ -29,9 +29,9 @@ public class TaskManager {
 
 	public void setController(PanicController pc) {
 		this.pc = pc;
-		for (Task i : taskList) {
-			i.getView().addMouseListener(new TaskSelectionListener(i, pc));
-		}
+		//for (Task i : taskList) {
+		//	i.getView().addMouseListener(new TaskSelectionListener(i, pc));
+		//}
 	}
 
 	
@@ -40,7 +40,7 @@ public class TaskManager {
 		//t.setId(xml.getId());
 		xml.addTask(t);
 		taskList.add(t);
-		t.getView().addMouseListener(new TaskSelectionListener(t, pc));
+		//t.getView().addMouseListener(new TaskSelectionListener(t, pc));
 	}
 	
 	public void readTask(Task t) {

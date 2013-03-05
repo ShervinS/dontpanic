@@ -35,6 +35,10 @@ public class TasksPanelController {
 		this.pc = pc;
 	}
 	
+	public void taskSelected(Task t) {
+		pc.taskSelected(t);
+	}
+	
 	public void updateShownTasks(ArrayList<Task> tasks) {
 		panel.updateShownTasks(tasks);
 	}

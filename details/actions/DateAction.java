@@ -53,7 +53,8 @@ public class DateAction implements PropertyChangeListener {
 				month = "0" + month;
 			}
 			String dateString = year + month + day;
-			pc.getCurrentTask().setDueDate(dateString);	
+			pc.getCurrentTask().setDueDate(dateString);
+			pc.updateTask(pc.getCurrentTask());
 		}
 	}
 

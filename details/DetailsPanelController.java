@@ -245,30 +245,27 @@ public class DetailsPanelController implements ActionListener {
 	public Task getCurrentTask() {
 		return currentTask;
 	}
-	
+	/**
 	public void animateChangeOfTask() {
 		setRightPanel(false);
 		t = new Timer(100, this);
 		t.start();
 	}
-	
+	*/
 	/**
 	 * Selects a Task, which the user will be able to modify using controls on 
 	 * the right panel.
 	 * @param t The Task to modify.
 	 */
 	public void taskSelected(Task t) {
-		if (t == currentTask) {
+		if (t != t) {
 			currentTask = null;
 			setRightPanel(false);
 		}
 		else {
-			if (t != null) {
-				//First set the currentTask to null, ensuring no further changes
-				//will be made during the "transition period"
-				currentTask = null;
-				animateChangeOfTask();
-			}
+			//First set the currentTask to null, ensuring no further changes
+			//will be made during the "transition period"
+			currentTask = null;
 			
 			//Use the Task t information to show on the right panel
 			title.setText(t.getTitle());
@@ -289,6 +286,7 @@ public class DetailsPanelController implements ActionListener {
 			
 			//Lastly, make the currentTask t and show the right panel
 			currentTask = t;
+			setRightPanel(true);
 		}
 	}
 	

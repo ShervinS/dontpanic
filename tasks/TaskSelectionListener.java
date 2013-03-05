@@ -2,45 +2,34 @@ package tasks;
 
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
+import java.util.HashMap;
+
+import javax.swing.JTable;
+import javax.swing.ListSelectionModel;
+import javax.swing.event.ListSelectionEvent;
+import javax.swing.event.ListSelectionListener;
+import javax.swing.event.TableModelEvent;
+import javax.swing.event.TableModelListener;
 
 import panic.PanicController;
 
-public class TaskSelectionListener implements MouseListener {
+public class TaskSelectionListener implements ListSelectionListener {
 
-	private Task task;
-	private PanicController pc;
+	private TasksPanelController pc;
+	private TaskTableModel tm;
+	private JTable table;
 	
-	public TaskSelectionListener(Task t, PanicController p) {
-		task = t;
+	public TaskSelectionListener(JTable table, TasksPanelController p, TaskTableModel tm) {
 		pc = p;
-	}
-	@Override
-	public void mouseClicked(MouseEvent e) {
-		
+		this.tm = tm;
+		this.table = table;
 	}
 
 	@Override
-	public void mouseEntered(MouseEvent e) {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	public void mouseExited(MouseEvent e) {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	public void mousePressed(MouseEvent e) {
-		pc.taskSelected(task);
-		
-	}
-
-	@Override
-	public void mouseReleased(MouseEvent e) {
-		// TODO Auto-generated method stub
-		
+	public void valueChanged(ListSelectionEvent e) {
+		Task task = (Task) tm.getValueAt(table.getSelectedRow(), 0);
+		if (task != null)
+			pc.taskSelected((Task) tm.getValueAt(table.getSelectedRow(), 0));
 	}
 
 }

@@ -31,6 +31,7 @@ import javax.swing.JList;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
+import javax.swing.JTable;
 import javax.swing.JTextField;
 import javax.swing.JViewport;
 import javax.swing.ListSelectionModel;
@@ -39,7 +40,101 @@ import panic.I18;
 
 
 public class TasksPanelView extends JPanel {
+	
+	private final JTextField quickAdd; 
+	private JButton addButton;
+	private GridBagConstraints c;
+	private JScrollPane pane; 
+	private TaskTableModel tableModel;
+	final private TasksPanelController mpc;
+	
+	
+	public TasksPanelView(final TasksPanelController mpc, ArrayList<Task> tasks) {
+		I18.getInstance().setLocale("swe");
+		this.mpc = mpc;
+		setLayout(new GridBagLayout());
+		c = new GridBagConstraints();
+	
+		
+		String[] h = {"Title", "DueDate", "Priority"};
+		tableModel = new TaskTableModel(h);
+		JTable table = new JTable(tableModel);
+		table.getSelectionModel().addListSelectionListener(new TaskSelectionListener(table, mpc, tableModel));
+		table.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+		pane = new JScrollPane(table, JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED, JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
+		quickAdd = new JTextField(I18.getInstance().properties.getString("quickAdd"));
+		quickAdd.setEditable(true);
+		quickAdd.setForeground(Color.GRAY);
+		quickAdd.addFocusListener(new FocusListener() {
 
+			@Override
+			public void focusGained(FocusEvent arg0) {
+				quickAdd.selectAll();
+				quickAdd.setForeground(new Color(0));
+				
+			}
+
+			@Override
+			public void focusLost(FocusEvent arg0) {
+				quickAdd.select(0, 0);
+				quickAdd.setForeground(Color.gray);		
+			}
+			
+		});
+		
+		addButton = new JButton(I18.getInstance().properties.getString("addTask"), new ImageIcon(this.getClass().getResource("/resources/addIcon.png")));
+		addButton.addActionListener(new AbstractAction() {
+			public void actionPerformed(ActionEvent e) {
+				mpc.addTask(new Task(quickAdd.getText(), "", "", 1, "", false));
+				quickAdd.setText("Quickadd...");
+				quickAdd.setForeground(Color.GRAY);
+			}
+		});
+		
+		c.fill = GridBagConstraints.BOTH;
+		c.gridwidth = 1;
+		c.gridx = 0;
+		c.gridy = 0;
+		
+		c.weighty = 0.0;
+		c.weightx = 0.9;
+		add(quickAdd, c);
+		c.gridx += 1;
+		c.weighty = 0.0;
+		c.weightx = 0.1;
+		add(addButton, c);
+		
+		c.gridwidth += 1;
+		c.gridy += 1;
+		c.gridx = 0;
+		c.weightx = 0.5;
+		c.weighty = 0.5;
+		add(pane, c);
+		
+		pane.revalidate();
+		pane.repaint();
+	}
+	
+	public void updateShownTasks(ArrayList<Task> tasks) {
+		ArrayList<Object[]> newData = new ArrayList<Object[]>();
+		for (int i = tasks.size()-1; i >= 0;i--) {
+			Task task = tasks.get(i);
+			Object[] newRow = new Object[3];
+			newRow[0] = task;
+			newRow[1] = task.getDueDate();
+			newRow[2] = task.getPriority();
+			newData.add(newRow);
+		}
+		tableModel.changeData(newData);
+		tableModel.fireTableDataChanged();
+	}
+	
+	public void updateLanguage() {
+		
+	}
+	
+	
+/**
 	private final JTextField quickAdd; 
 	private JButton addButton;
 	private GridBagConstraints c;
@@ -66,6 +161,7 @@ public class TasksPanelView extends JPanel {
 			}
 		});
 		*/
+		/**
 		pane = new JScrollPane(JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED, JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
 		quickAdd = new JTextField(I18.getInstance().properties.getString("quickAdd"));
 		quickAdd.setEditable(true);
@@ -141,4 +237,5 @@ public class TasksPanelView extends JPanel {
 		addButton.setText(I18.getInstance().properties.getString("addTask"));
 		quickAdd.setText(I18.getInstance().properties.getString("quickAdd"));
 	}
+*/
 }
