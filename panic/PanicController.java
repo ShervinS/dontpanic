@@ -1,30 +1,23 @@
 package panic;
 
-import java.awt.Color;
 import java.awt.Dimension;
-import java.awt.event.ActionEvent;
 import java.io.File;
 import java.io.FileInputStream;
-import java.io.FileOutputStream;
 import java.util.ArrayList;
 import java.util.Properties;
 
-import javax.swing.AbstractAction;
 import javax.swing.JFrame;
 import javax.swing.JMenu;
 import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
-import javax.swing.JOptionPane;
 import javax.swing.SwingUtilities;
 
 import panic.actions.AboutAction;
 import panic.actions.ChangeLanguageAction;
 import panic.actions.ExitAction;
-
-import tasks.TasksPanelController;
 import tasks.Task;
 import tasks.TaskManager;
-
+import tasks.TasksPanelController;
 import categories.Category;
 import categories.CategoryPanelController;
 import details.DetailsPanelController;
@@ -133,7 +126,7 @@ public class PanicController implements Runnable {
 	
 	public void updateLanguage(){
 		rightPanelController.updateLanguage();
-		midPanelController.getView().updateLanguage();
+		midPanelController.updateLanguage();
 		file.setText(I18.getInstance().properties.getString("file"));
 		edit.setText(I18.getInstance().properties.getString("edit"));
 		help.setText(I18.getInstance().properties.getString("help"));

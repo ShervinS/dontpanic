@@ -91,5 +91,10 @@ public class TasksPanelController {
 	public void newTask(Task t) {
 		pc.newTask(t);
 	}
+	
+	public void updateLanguage() {
+		quickAdd.setText(I18.getInstance().properties.getString("quickAdd"));
+		addButton.setText(I18.getInstance().properties.getString("addTask"));
+	}
 
 }

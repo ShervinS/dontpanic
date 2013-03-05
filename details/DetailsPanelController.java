@@ -2,52 +2,28 @@ package details;
 
 import java.awt.Color;
 import java.awt.Dimension;
-import java.awt.GridBagConstraints;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.awt.event.KeyEvent;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
-import java.util.Date;
-import java.util.GregorianCalendar;
-import java.util.Locale;
-import java.util.Properties;
-import java.util.ResourceBundle;
 
-import javax.swing.AbstractAction;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JComponent;
 import javax.swing.JLabel;
 import javax.swing.JList;
-import javax.swing.JMenu;
-import javax.swing.JMenuItem;
-import javax.swing.JPopupMenu;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
 import javax.swing.Timer;
-import javax.swing.event.DocumentEvent;
-import javax.swing.event.DocumentListener;
-import javax.swing.event.ListSelectionEvent;
-import javax.swing.event.ListSelectionListener;
-
-import com.toedter.calendar.JCalendar;
-import com.toedter.calendar.JDateChooser;
-
-import net.sourceforge.jdatepicker.DateModel;
-import net.sourceforge.jdatepicker.JDateComponentFactory;
-import net.sourceforge.jdatepicker.JDatePicker;
-import net.sourceforge.jdatepicker.impl.SqlDateModel;
-import net.sourceforge.jdatepicker.impl.UtilCalendarModel;
 
 import panic.I18;
 import panic.PanicController;
-
 import tasks.Task;
-
 import categories.Category;
+
+import com.toedter.calendar.JDateChooser;
+
 import details.actions.CategoriesAction;
 import details.actions.DateAction;
 import details.actions.DeleteAction;
@@ -125,9 +101,10 @@ public class DetailsPanelController implements ActionListener {
 		//Initialization of priority and its label
 		priorityLabel = new JLabel(I18.properties.getString("priority"));
 		priorityLabel.setForeground(Color.BLACK);
-		String[] s = {I18.getInstance().properties.getString("low"), 
-				      I18.getInstance().properties.getString("medium"),
-				      I18.getInstance().properties.getString("high")};
+		s = new String[3];
+		s[0] = I18.getInstance().properties.getString("low");
+		s[1] = I18.getInstance().properties.getString("medium");
+		s[2] = I18.getInstance().properties.getString("high");
 		priority = new JList(s);
 		
 		//Initialization of date and its label

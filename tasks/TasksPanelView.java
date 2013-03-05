@@ -44,7 +44,5 @@ public class TasksPanelView extends JPanel {
 		pane.repaint();
 	}
 	
-	public void updateLanguage() {
-		
-	}
+
 }
