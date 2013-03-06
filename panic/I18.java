@@ -5,7 +5,7 @@ import java.util.ResourceBundle;
 
 public class I18 {
     private static I18 instance = null;
-    public static ResourceBundle properties;
+    public ResourceBundle properties;
 
     private I18() {
     	Locale currentLocale = new Locale(Locale.getDefault().getLanguage(), Locale.getDefault().getCountry());
@@ -24,7 +24,7 @@ public class I18 {
             return instance;
     }
     
-    public static void setLocale(String country){
+    public void setLocale(String country){
     	if(country.equals("swe")){
     		properties = ResourceBundle.getBundle("MessagesBundle",new Locale("se", "SE"));
     	}else if(country.equals("usa")){

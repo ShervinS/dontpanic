@@ -1,14 +1,13 @@
 package tasks;
 
 import java.awt.Color;
-import java.awt.Component;
 import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.Graphics;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.Image;
-import java.awt.LayoutManager;
+
 import javax.swing.JCheckBox;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
@@ -19,6 +18,7 @@ import javax.swing.JPanel;
  */
 public class TaskView extends JPanel {
 
+	private static final long serialVersionUID = 1L;
 	JPanel categoryPanel;
 	JCheckBox doneCheck;
 	JLabel titleLabel, dateLabel, prioLabel;

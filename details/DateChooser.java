@@ -12,6 +12,8 @@ import details.actions.DateAction;
 
 public class DateChooser extends JPanel {
 	
+	private static final long serialVersionUID = 1L;
+	
 	private JYearChooser year;
 	private JMonthChooser month;
 	private JDayChooser day;

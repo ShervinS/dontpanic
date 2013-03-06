@@ -66,7 +66,7 @@ public class DetailsPanelController implements ActionListener {
 	
 	private String[] s;
 	
-	private boolean animate;
+	private static DetailsPanelController instance;
 	
 	private Task currentTask;
 	
@@ -82,24 +82,23 @@ public class DetailsPanelController implements ActionListener {
 	 */
 	public DetailsPanelController() {
 		//Get language
-		I18.getInstance();
-		I18.setLocale("swe");
+		I18.getInstance().setLocale("swe");
 		
 		//Initialize the RightPanel, which all views will be painted on
-		panel = new DetailsPanelView(this);
+		panel = new DetailsPanelView();
 		
 		//Initialization of title and its label
-		titleLabel = new JLabel(I18.properties.getString("title"));
+		titleLabel = new JLabel(I18.getInstance().properties.getString("title"));
 		titleLabel.setForeground(Color.BLACK);
 		title = new JTextField();
 		
 		//Initialization of description and its label
-		descriptionLabel = new JLabel(I18.properties.getString("description"));
+		descriptionLabel = new JLabel(I18.getInstance().properties.getString("description"));
 		descriptionLabel.setForeground(Color.BLACK);
 		description = new JTextArea();
 		
 		//Initialization of priority and its label
-		priorityLabel = new JLabel(I18.properties.getString("priority"));
+		priorityLabel = new JLabel(I18.getInstance().properties.getString("priority"));
 		priorityLabel.setForeground(Color.BLACK);
 		s = new String[3];
 		s[0] = I18.getInstance().properties.getString("low");
@@ -108,12 +107,12 @@ public class DetailsPanelController implements ActionListener {
 		priority = new JList(s);
 		
 		//Initialization of date and its label
-		dateLabel = new JLabel(I18.properties.getString("date"));
+		dateLabel = new JLabel(I18.getInstance().properties.getString("date"));
 		dateLabel.setForeground(Color.BLACK);
 		date = new JDateChooser();
 		
 		//Initialization of categories and its label
-		categoriesLabel = new JLabel(I18.properties.getString("categories"));
+		categoriesLabel = new JLabel(I18.getInstance().properties.getString("categories"));
 		categoriesLabel.setForeground(Color.BLACK);
 		categories = new JComboBox();	
 		
@@ -126,31 +125,9 @@ public class DetailsPanelController implements ActionListener {
 		doneButton = new JButton("Klar", new ImageIcon(this.getClass().getResource("/resources/okIcon.png")));
 		doneButton.setForeground(Color.black);
 		doneButton.setBackground(Color.green);
-	}
-	
-	
-	/**
-	 * Formats the array of Category to an array of String representing the categories
-	 * @param cats The array of Category
-	 * @return The array of String
-	 */
-	private String[] fixCategoryNameFormat(ArrayList<Category> cats){
-		ArrayList<String> names = new ArrayList<String>();
-		for(Category cat : cats){
-			names.add(cat.getName());
-		}
-		String[] catNameArray = new String[names.size()];
-		System.out.println(names.size()+"");
-		return names.toArray(catNameArray);
-	}
-	
-	/**
-	 * Enables this part of the TodoApp, will need a parent controller
-	 * PanicController to be enabled
-	 * @param pc The parent controller
-	 */
-	public void enable(PanicController pc) {
-		this.pc = pc;
+		
+		//Set parent controller
+		this.pc = PanicController.getInstance();
 		
 		categoryStringArray = fixCategoryNameFormat( pc.getCategories());
 		for(String name:categoryStringArray){
@@ -158,13 +135,13 @@ public class DetailsPanelController implements ActionListener {
 		}
 		
 		//Add actions to all the components
-		title.getDocument().addDocumentListener(new TitleAction(this, title));
-		description.getDocument().addDocumentListener(new DescriptionAction(this, description));
-		priority.addListSelectionListener(new PriorityAction(this, priority));
-		categories.addActionListener(new CategoriesAction(this, categories));
-		date.addPropertyChangeListener(new DateAction(this, date));
-		deleteButton.addActionListener(new DeleteAction(this));
-		doneButton.addActionListener(new DoneAction(this));
+		title.getDocument().addDocumentListener(new TitleAction(title));
+		description.getDocument().addDocumentListener(new DescriptionAction(description));
+		priority.addListSelectionListener(new PriorityAction(priority));
+		categories.addActionListener(new CategoriesAction(categories));
+		date.addPropertyChangeListener(new DateAction(date));
+		deleteButton.addActionListener(new DeleteAction());
+		doneButton.addActionListener(new DoneAction());
 		
 		//Add every view component to the panel
 		panel.gridAdd(5, titleLabel);
@@ -182,8 +159,32 @@ public class DetailsPanelController implements ActionListener {
 		panel.pad();
 		panel.gridAdd(10, doneButton);
 		panel.gridAdd(10, deleteButton);
-
-		
+	}
+	
+	public static DetailsPanelController getInstance() {
+		 if (instance == null) {
+			 synchronized (DetailsPanelController.class){
+				 if (instance == null) {
+					 instance = new DetailsPanelController();
+				 }
+			 }
+		 }
+		 return instance;
+	}
+	
+	/**
+	 * Formats the array of Category to an array of String representing the categories
+	 * @param cats The array of Category
+	 * @return The array of String
+	 */
+	private String[] fixCategoryNameFormat(ArrayList<Category> cats){
+		ArrayList<String> names = new ArrayList<String>();
+		for(Category cat : cats){
+			names.add(cat.getName());
+		}
+		String[] catNameArray = new String[names.size()];
+		System.out.println(names.size()+"");
+		return names.toArray(catNameArray);
 	}
 	
 	/**
@@ -235,36 +236,30 @@ public class DetailsPanelController implements ActionListener {
 	 * @param t The Task to modify.
 	 */
 	public void taskSelected(Task t) {
-		if (t != t) {
-			currentTask = null;
-			setRightPanel(false);
+		//First set the currentTask to null, ensuring no further changes
+		//will be made during the "transition period"
+		currentTask = null;
+		
+		//Use the Task t information to show on the right panel
+		title.setText(t.getTitle());
+		description.setText(t.getDescription());
+		priority.setSelectedIndex(t.getPriority()-1);
+		String dateString = t.getDueDate();
+		if (dateString.length() < 8) {
+			date.setCalendar(null);
 		}
 		else {
-			//First set the currentTask to null, ensuring no further changes
-			//will be made during the "transition period"
-			currentTask = null;
-			
-			//Use the Task t information to show on the right panel
-			title.setText(t.getTitle());
-			description.setText(t.getDescription());
-			priority.setSelectedIndex(t.getPriority()-1);
-			String dateString = t.getDueDate();
-			if (dateString.length() < 8) {
-				date.setCalendar(null);
-			}
-			else {
-				int year = Integer.parseInt(dateString.substring(0, 4));
-				int month = Integer.parseInt(dateString.substring(4, 6));
-				int day = Integer.parseInt(dateString.substring(6, 8));
-				Calendar c = Calendar.getInstance();
-				c.set(year, month-1, day);
-				date.setDate(c.getTime());
-			}
-			
-			//Lastly, make the currentTask t and show the right panel
-			currentTask = t;
-			setRightPanel(true);
+			int year = Integer.parseInt(dateString.substring(0, 4));
+			int month = Integer.parseInt(dateString.substring(4, 6));
+			int day = Integer.parseInt(dateString.substring(6, 8));
+			Calendar c = Calendar.getInstance();
+			c.set(year, month-1, day);
+			date.setDate(c.getTime());
 		}
+		
+		//Lastly, make the currentTask t and show the right panel
+		currentTask = t;
+		setRightPanel(true);
 	}
 	
 	/**

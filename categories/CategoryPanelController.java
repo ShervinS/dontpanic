@@ -4,14 +4,8 @@ import java.awt.Color;
 import java.awt.GridBagConstraints;
 import java.awt.Insets;
 import java.util.ArrayList;
-import java.util.Arrays;
 
 import javax.swing.JButton;
-import javax.swing.JLabel;
-import javax.swing.JPanel;
-import javax.swing.JTextField;
-import javax.swing.border.Border;
-import javax.swing.border.LineBorder;
 
 import panic.PanicController;
 
@@ -19,19 +13,22 @@ import panic.PanicController;
 public class CategoryPanelController {
 
 	CategoryPanel panel = new CategoryPanel();
-	protected PanicController panicController;
+	protected PanicController pc;
 	ArrayList<Category> categories;
+	private static CategoryPanelController instance;
+	
+	public CategoryPanelController() {
+		this.pc = PanicController.getInstance();
+	}
+	
 	
 	public CategoryPanel getView() {
 		return panel;
 	}
 	
-	public void enable(PanicController panicController) {
-		this.panicController = panicController;
-	}
 	
 	public void updateGUI(){
-		this.categories = panicController.getCategories();
+		this.categories = pc.getCategories();
 	
 		//logCategories();
 		int i = 0;
@@ -58,6 +55,17 @@ public class CategoryPanelController {
 			i++;
 		}
 		
+	}
+	
+	public static CategoryPanelController getInstance() {
+		 if (instance == null) {
+			 synchronized (CategoryPanelController.class){
+				 if (instance == null) {
+					 instance = new CategoryPanelController();
+				 }
+			 }
+		 }
+		 return instance;
 	}
 	
 	public void logCategories() {

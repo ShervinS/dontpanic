@@ -6,14 +6,15 @@ import java.awt.LayoutManager;
 
 import javax.swing.JPanel;
 
-import tasks.TasksPanelView;
 import tasks.TaskView;
-
-import categories.CategoryView;
+import tasks.TasksPanelView;
 import categories.CategoryPanel;
+import categories.CategoryView;
 import details.DetailsPanelView;
 
 public class MainPanel extends JPanel {
+
+	private static final long serialVersionUID = 1L;
 	CategoryView catView;
 	TaskView taskView;
 	

@@ -2,9 +2,6 @@ package categories;
 
 import java.awt.Color;
 
-
-import java.awt.Color;
-
 /** A class intended to hold the name and color of the catagorys for the todo application.
  * Each separate catogory is inteded to have an uniqe color.
  *

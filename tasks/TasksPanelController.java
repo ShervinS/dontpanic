@@ -26,18 +26,19 @@ public class TasksPanelController {
 	private JButton addButton;
 	private JScrollPane pane; 
 	private TaskTableModel tableModel;
+	private static TasksPanelController instance;
 	
 	
 	public TasksPanelController() {
 		I18.getInstance().setLocale("swe");
 		
 		//Initialize the views
-		panel = new TasksPanelView(this);
+		panel = new TasksPanelView();
 		
 		String[] h = {"Title", "DueDate", "Priority"};
 		tableModel = new TaskTableModel(h);
 		JTable table = new JTable(tableModel);
-		table.getSelectionModel().addListSelectionListener(new TaskSelectionAction(table, this, tableModel));
+		table.getSelectionModel().addListSelectionListener(new TaskSelectionAction(table, tableModel));
 		table.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
 		pane = new JScrollPane(table, JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED, JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
 		
@@ -45,19 +46,27 @@ public class TasksPanelController {
 		quickAdd.setEditable(true);
 		quickAdd.setForeground(Color.GRAY);
 		addButton = new JButton(I18.getInstance().properties.getString("addTask"), new ImageIcon(this.getClass().getResource("/resources/addIcon.png")));
-	}
 	
-	public void enable(PanicController pc) {
 		//Set parent controller
-		this.pc = pc;
-		
+		this.pc = PanicController.getInstance();
+				
 		//Add actions and listeners
 		quickAdd.addFocusListener(new QuickAddAction(quickAdd));
-		addButton.addActionListener(new AddAction(this, quickAdd));			
-		
+		addButton.addActionListener(new AddAction(quickAdd));			
+				
 		//Give everything to the view
 		panel.addToView(quickAdd, addButton, pane);
-		
+	}
+	
+	public static TasksPanelController getInstance() {
+		 if (instance == null) {
+			 synchronized (TasksPanelController.class){
+				 if (instance == null) {
+					 instance = new TasksPanelController();
+				 }
+			 }
+		 }
+		 return instance;
 	}
 
 	public TasksPanelView getView() {

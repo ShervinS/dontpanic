@@ -22,7 +22,7 @@ import categories.Category;
 import categories.CategoryPanelController;
 import details.DetailsPanelController;
 
-public class PanicController implements Runnable {
+public class PanicController {
 
 	private JMenu file;
 	private JMenu edit;
@@ -33,28 +33,42 @@ public class PanicController implements Runnable {
 	private JMenuItem swedish;
 	private JMenuItem exit;
 	
+	private static PanicController instance;
+	
 	private CategoryPanelController leftPanelController;
 	private TasksPanelController midPanelController;
 	private DetailsPanelController rightPanelController;
 	private TaskManager taskManager;
 	
-	public PanicController(CategoryPanelController leftController, TasksPanelController midController, DetailsPanelController rightController, TaskManager t) {
-		this.leftPanelController = leftController;
-		this.midPanelController = midController;
-		this.rightPanelController = rightController;
-		this.taskManager = t;
-		taskManager.enable(this);
-		rightPanelController.enable(this);
-		midPanelController.enable(this);
-		leftPanelController.enable(this);
-		
-		SwingUtilities.invokeLater(this);
+	
+	private PanicController() {
 		
 	}
-
-	@Override
-	public void run() {
-		initGui();
+	
+	public void start() {
+		this.taskManager = TaskManager.getInstance();
+		this.leftPanelController = CategoryPanelController.getInstance();
+		this.midPanelController = TasksPanelController.getInstance();
+		this.rightPanelController = DetailsPanelController.getInstance();
+		
+		SwingUtilities.invokeLater(new Runnable() {
+			@Override
+			public void run() {
+				initGui();
+			}
+			
+		});
+	}
+	
+	public static PanicController getInstance() {
+		 if (instance == null) {
+			 synchronized (PanicController.class){
+				 if (instance == null) {
+					 instance = new PanicController();
+				 }
+			 }
+		 }
+		 return instance;
 	}
 	
 	private void initGui() {
@@ -90,11 +104,11 @@ public class PanicController implements Runnable {
 		frame.setJMenuBar(menuBar);
 
 		//Add listeners and actions to all components
-		ExitAction closeAction = new ExitAction(rightPanelController, frame);
+		ExitAction closeAction = new ExitAction(frame);
 		frame.addWindowListener(closeAction);
 		exit.addActionListener(closeAction);
-		swedish.addActionListener(new ChangeLanguageAction("swe", this));
-		english.addActionListener(new ChangeLanguageAction("eng", this));
+		swedish.addActionListener(new ChangeLanguageAction("swe"));
+		english.addActionListener(new ChangeLanguageAction("eng"));
 		about.addActionListener(new AboutAction(frame));
 		
 		

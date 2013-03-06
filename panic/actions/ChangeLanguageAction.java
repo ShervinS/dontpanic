@@ -9,17 +9,16 @@ import panic.PanicController;
 
 public class ChangeLanguageAction extends AbstractAction {
 
-	private PanicController pc;
+	private static final long serialVersionUID = 1L;
 	private String lang;
 	
-	public ChangeLanguageAction(String lang, PanicController pc) {
+	public ChangeLanguageAction(String lang) {
 		this.lang = lang;
-		this.pc = pc;
 	}
 	@Override
 	public void actionPerformed(ActionEvent e) {
-		I18.setLocale(lang);
-		pc.updateLanguage();
+		I18.getInstance().setLocale(lang);
+		PanicController.getInstance().updateLanguage();
 	}
 
 }

@@ -6,6 +6,7 @@ import javax.swing.table.AbstractTableModel;
 
 public class TaskTableModel extends AbstractTableModel {
 
+	private static final long serialVersionUID = 1L;
 	private String[] header;
 	private ArrayList<Object[]> data;
 	

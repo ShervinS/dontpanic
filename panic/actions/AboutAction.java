@@ -8,6 +8,7 @@ import javax.swing.JOptionPane;
 
 public class AboutAction extends AbstractAction {
 
+	private static final long serialVersionUID = 1L;
 	private JFrame frame;
 	
 	public AboutAction(JFrame frame) {

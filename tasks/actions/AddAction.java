@@ -11,16 +11,16 @@ import tasks.TasksPanelController;
 
 public class AddAction extends AbstractAction {
 
-	private TasksPanelController pc;
+
+	private static final long serialVersionUID = 1L;
 	private JTextField quickAdd;
 	
-	public AddAction(TasksPanelController pc, JTextField quickAdd) {
-		this.pc = pc;
+	public AddAction(JTextField quickAdd) {
 		this.quickAdd = quickAdd;
 	}
 	@Override
 	public void actionPerformed(ActionEvent arg0) {
-		pc.addTask(new Task(quickAdd.getText(), "", "", 1, "", false));
+		TasksPanelController.getInstance().addTask(new Task(quickAdd.getText(), "", "", 1, "", false));
 		quickAdd.setText("Quickadd...");
 		quickAdd.setForeground(Color.GRAY);
 	}

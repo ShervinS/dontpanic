@@ -1,9 +1,7 @@
 package details;
 
 import java.awt.Color;
-import java.awt.Component;
 import java.awt.Dimension;
-import java.awt.Graphics;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.Insets;
@@ -11,18 +9,12 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 import javax.swing.JComponent;
-import javax.swing.JLabel;
-import javax.swing.JMenu;
-import javax.swing.JMenuItem;
 import javax.swing.JPanel;
-import javax.swing.JTextField;
 import javax.swing.Timer;
-
-import net.sourceforge.jdatepicker.JDatePicker;
 
 public class DetailsPanelView extends JPanel implements ActionListener {
 	
-	private DetailsPanelController pc;
+	private static final long serialVersionUID = 1L;
 	
 	public GridBagConstraints c;
 	
@@ -39,10 +31,9 @@ public class DetailsPanelView extends JPanel implements ActionListener {
 	 * RightPanelView
 	 * @param p The controller for this panel
 	 */
-	public DetailsPanelView(DetailsPanelController p) {
+	public DetailsPanelView() {
 		super();
 		y = 0;
-		pc = p;
 		setLayout(new GridBagLayout());
 		c = new GridBagConstraints();
 		c.fill = GridBagConstraints.BOTH;

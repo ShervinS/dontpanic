@@ -1,28 +1,16 @@
 package details.actions;
 
 import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 
 import javax.swing.AbstractAction;
 import javax.swing.JComboBox;
-import javax.swing.JList;
-import javax.swing.JTextArea;
-import javax.swing.JTextField;
-import javax.swing.event.DocumentEvent;
-import javax.swing.event.DocumentListener;
-import javax.swing.event.ListSelectionEvent;
-import javax.swing.event.ListSelectionListener;
-
-import details.DetailsPanelController;
 
 public class CategoriesAction extends AbstractAction {
 
-	
-	private DetailsPanelController pc;
+	private static final long serialVersionUID = 1L;
 	private JComboBox categories;
 	
-	public CategoriesAction(DetailsPanelController pc, JComboBox categories) {
-		this.pc = pc;
+	public CategoriesAction(JComboBox categories) {
 		this.categories = categories;
 	}
 

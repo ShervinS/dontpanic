@@ -10,15 +10,11 @@ import java.util.Properties;
 
 import javax.swing.JFrame;
 
-import details.DetailsPanelController;
-
 public class ExitAction extends WindowAdapter implements ActionListener {
 
-	private DetailsPanelController c;
 	private JFrame frame;
 	
-	public ExitAction(DetailsPanelController c, JFrame frame) {
-		this.c = c;
+	public ExitAction(JFrame frame) {
 		this.frame = frame;
 	}
 	
@@ -31,7 +27,6 @@ public class ExitAction extends WindowAdapter implements ActionListener {
 									   Math.round(frame.getLocation().getX())));
 			p.setProperty("PositionY", String.valueOf(
 									   Math.round(frame.getLocation().getY())));
-			p.setProperty("RightPanel", String.valueOf(c.isOpen()));
 			String saveLocation = System.getProperty("user.home")
 					+ "/.TODO-group9/config.properties";
 

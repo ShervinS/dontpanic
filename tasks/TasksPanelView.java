@@ -10,13 +10,12 @@ import javax.swing.JPanel;
 
 public class TasksPanelView extends JPanel {
 	
-	private TasksPanelController mpc;
+	private static final long serialVersionUID = 1L;
 	private GridBagConstraints c;
 	
-	public TasksPanelView(TasksPanelController mpc) {
+	public TasksPanelView() {
 		setLayout(new GridBagLayout());
 		c = new GridBagConstraints();
-		this.mpc = mpc;
 	}
 	
 	public void addToView(JComponent quickAdd, JComponent addButton, JComponent pane) {
