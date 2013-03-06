@@ -4,7 +4,11 @@ import java.awt.Dimension;
 import java.io.File;
 import java.io.FileInputStream;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Properties;
+import java.util.concurrent.Executors;
+import java.util.concurrent.ScheduledExecutorService;
+import java.util.concurrent.TimeUnit;
 
 import javax.swing.JFrame;
 import javax.swing.JMenu;
@@ -15,6 +19,7 @@ import javax.swing.SwingUtilities;
 import panic.actions.AboutAction;
 import panic.actions.ChangeLanguageAction;
 import panic.actions.ExitAction;
+import panic.actions.ShowTodayAction;
 import tasks.Task;
 import tasks.TaskManager;
 import tasks.TasksPanelController;
@@ -51,12 +56,21 @@ public class PanicController {
 		this.midPanelController = TasksPanelController.getInstance();
 		this.rightPanelController = DetailsPanelController.getInstance();
 		
+		//We want to show todays tasks at some time in the morning 
+		//(at the moment hard coded to 8 in the morning).
+		ScheduledExecutorService service = Executors.newSingleThreadScheduledExecutor();
+		Calendar cal = Calendar.getInstance();
+		int timeToRun = 8*60 - cal.get(Calendar.HOUR_OF_DAY)*60 + cal.get(Calendar.MINUTE);
+		if (timeToRun < 0)
+			timeToRun += 24*60;
+	    service.schedule(new ShowTodayAction(), timeToRun, TimeUnit.MINUTES);  
+		
+		
 		SwingUtilities.invokeLater(new Runnable() {
 			@Override
 			public void run() {
 				initGui();
 			}
-			
 		});
 	}
 	
