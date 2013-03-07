@@ -16,10 +16,10 @@ import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
 import javax.swing.SwingUtilities;
 
+import panic.TodayTasks.ShowTodayAction;
 import panic.actions.AboutAction;
 import panic.actions.ChangeLanguageAction;
 import panic.actions.ExitAction;
-import panic.actions.ShowTodayAction;
 import tasks.Task;
 import tasks.TaskManager;
 import tasks.TasksPanelController;
@@ -44,6 +44,7 @@ public class PanicController {
 	private TasksPanelController midPanelController;
 	private DetailsPanelController rightPanelController;
 	private TaskManager taskManager;
+	private JFrame frame;
 	
 	
 	private PanicController() {
@@ -85,9 +86,13 @@ public class PanicController {
 		 return instance;
 	}
 	
+	public JFrame getFrame() {
+		return frame;
+	}
+	
 	private void initGui() {
 		//Initialization of frame
-		JFrame frame = new JFrame("!Panic");
+		frame = new JFrame("!Panic");
 		frame.setContentPane(
 				new MainPanel(
 						leftPanelController.getView(), 

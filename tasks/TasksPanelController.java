@@ -13,6 +13,7 @@ import javax.swing.ListSelectionModel;
 
 import panic.I18;
 import panic.PanicController;
+import panic.TodayTasks.ShowTodayAction;
 import tasks.actions.AddAction;
 import tasks.actions.QuickAddAction;
 import tasks.actions.TaskSelectionAction;
@@ -24,8 +25,10 @@ public class TasksPanelController {
 	PanicController pc;
 	private JTextField quickAdd; 
 	private JButton addButton;
+	private JButton showToday;
 	private JScrollPane pane; 
 	private TaskTableModel tableModel;
+	private ShowTodayAction showTodayAction;
 	private static TasksPanelController instance;
 	
 	
@@ -35,7 +38,7 @@ public class TasksPanelController {
 		//Initialize the views
 		panel = new TasksPanelView();
 		
-		String[] h = {"Title", "DueDate", "Priority"};
+		String[] h = {"Title", "DueDate", "Priority", "Done"};
 		tableModel = new TaskTableModel(h);
 		JTable table = new JTable(tableModel);
 		table.getSelectionModel().addListSelectionListener(new TaskSelectionAction(table, tableModel));
@@ -46,16 +49,18 @@ public class TasksPanelController {
 		quickAdd.setEditable(true);
 		quickAdd.setForeground(Color.GRAY);
 		addButton = new JButton(I18.getInstance().properties.getString("addTask"), new ImageIcon(this.getClass().getResource("/resources/addIcon.png")));
-	
+		showToday = new JButton("Show Tasks For Today");
+		
 		//Set parent controller
 		this.pc = PanicController.getInstance();
 				
 		//Add actions and listeners
 		quickAdd.addFocusListener(new QuickAddAction(quickAdd));
-		addButton.addActionListener(new AddAction(quickAdd));			
-				
+		addButton.addActionListener(new AddAction(quickAdd));
+		showTodayAction = new ShowTodayAction();
+		showToday.addActionListener(showTodayAction);
 		//Give everything to the view
-		panel.addToView(quickAdd, addButton, pane);
+		panel.addToView(quickAdd, addButton, pane, showToday);
 	}
 	
 	public static TasksPanelController getInstance() {
@@ -73,6 +78,12 @@ public class TasksPanelController {
 		return panel;
 	}
 	
+	public void updateTodayView() {
+		showTodayAction.update();
+		updateShownTasks(TaskManager.getInstance().getTaskList());
+		tableModel.fireTableDataChanged();
+	}
+	
 	
 	public void addTask(Task t) {
 		pc.newTask(t);
@@ -83,10 +94,11 @@ public class TasksPanelController {
 		ArrayList<Object[]> newData = new ArrayList<Object[]>();
 		for (int i = tasks.size()-1; i >= 0;i--) {
 			Task task = tasks.get(i);
-			Object[] newRow = new Object[3];
+			Object[] newRow = new Object[4];
 			newRow[0] = task;
 			newRow[1] = task.getDueDate();
 			newRow[2] = task.getPriority();
+			newRow[3] = task.isCheck() ? "Done" : "Not Done";
 			newData.add(newRow);
 		}
 		tableModel.changeData(newData);

@@ -4,6 +4,7 @@ package tasks;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 
+import javax.swing.JButton;
 import javax.swing.JComponent;
 import javax.swing.JPanel;
 
@@ -18,7 +19,7 @@ public class TasksPanelView extends JPanel {
 		c = new GridBagConstraints();
 	}
 	
-	public void addToView(JComponent quickAdd, JComponent addButton, JComponent pane) {
+	public void addToView(JComponent quickAdd, JComponent addButton, JComponent pane, JButton showToday) {
 		c.fill = GridBagConstraints.BOTH;
 		c.gridwidth = 1;
 		c.gridx = 0;
@@ -31,8 +32,12 @@ public class TasksPanelView extends JPanel {
 		c.weighty = 0.0;
 		c.weightx = 0.1;
 		add(addButton, c);
+		c.gridx += 1;
+		c.weighty = 0.0;
+		c.weightx = 0.1;
+		add(showToday, c);
 		
-		c.gridwidth += 1;
+		c.gridwidth += 2;
 		c.gridy += 1;
 		c.gridx = 0;
 		c.weightx = 0.5;

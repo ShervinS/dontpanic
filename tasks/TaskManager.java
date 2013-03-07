@@ -1,7 +1,6 @@
 package tasks;
 
 import java.util.ArrayList;
-import java.util.Calendar;
 
 import panic.XML;
 import categories.Category;
@@ -32,26 +31,6 @@ public class TaskManager {
 			 }
 		 }
 		 return instance;
-	}
-
-	
-	public ArrayList<Task> getTodayTasks() {
-		String day = String.valueOf(Calendar.getInstance().get(Calendar.DAY_OF_MONTH));
-		String month = String.valueOf(Calendar.getInstance().get(Calendar.MONTH)+1);
-		String year = String.valueOf(Calendar.getInstance().get(Calendar.YEAR));
-		ArrayList<Task> today = new ArrayList<Task>();
-		if (day.length() < 2) {
-			day = "0" + day;
-		}
-		if (month.length() < 2) {
-			month = "0" + month;
-		}
-		for (Task i : taskList) {
-			if (i.getDueDate().equalsIgnoreCase(year+month+day)) {
-				today.add(i);
-			}
-		}
-		return today;
 	}
 	
 	
