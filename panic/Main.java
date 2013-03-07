@@ -1,5 +1,10 @@
 package panic;
 
+import java.io.File;
+
+import javax.swing.UIManager;
+import javax.swing.plaf.synth.SynthLookAndFeel;
+
 
 
 public class Main {
