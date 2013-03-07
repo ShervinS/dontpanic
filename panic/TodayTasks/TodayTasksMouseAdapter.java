@@ -9,6 +9,7 @@ import javax.swing.JList;
 import javax.swing.JMenuItem;
 import javax.swing.JPopupMenu;
 
+import panic.PanicController;
 import tasks.Task;
 import tasks.TasksPanelController;
 
@@ -27,6 +28,7 @@ public class TodayTasksMouseAdapter extends MouseAdapter {
 					Task t = (Task) l.getSelectedValue();
 					t.setCheck(true);
 					TasksPanelController.getInstance().updateTodayView();
+					PanicController.getInstance().updateTask(t);
 				}
 			});
 			menu.add(done);
