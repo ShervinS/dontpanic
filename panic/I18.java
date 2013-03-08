@@ -10,7 +10,7 @@ public class I18 {
     private I18() {
     	Locale currentLocale = new Locale(Locale.getDefault().getLanguage(), Locale.getDefault().getCountry());
     	//currentLocale = new Locale("se", "SE");
-    	properties = ResourceBundle.getBundle("MessagesBundle",currentLocale);
+    	properties = ResourceBundle.getBundle("resources.MessagesBundle",currentLocale);
     }
 
     public static I18 getInstance() {
@@ -26,11 +26,11 @@ public class I18 {
     
     public void setLocale(String country){
     	if(country.equals("swe")){
-    		properties = ResourceBundle.getBundle("MessagesBundle",new Locale("se", "SE"));
+    		properties = ResourceBundle.getBundle("resources.MessagesBundle",new Locale("se", "SE"));
     	}else if(country.equals("usa")){
-    		properties = ResourceBundle.getBundle("MessagesBundle",new Locale("en", "US"));
+    		properties = ResourceBundle.getBundle("resources.MessagesBundle",new Locale("en", "US"));
     	}else{
-    		properties = ResourceBundle.getBundle("MessagesBundle",new Locale(Locale.getDefault().getLanguage(), Locale.getDefault().getCountry()));
+    		properties = ResourceBundle.getBundle("resources.MessagesBundle",new Locale(Locale.getDefault().getLanguage(), Locale.getDefault().getCountry()));
     	}
     }
 }

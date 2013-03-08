@@ -2,7 +2,6 @@ package panic;
 
 import java.awt.Color;
 import java.io.File;
-import java.util.ArrayList;
 
 import javax.swing.UIManager;
 import javax.xml.parsers.DocumentBuilder;
@@ -12,10 +11,6 @@ import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
-
-import tasks.Task;
-
-import categories.Category;
 
 /**
 * Loads the color theme (Based on the XML-manager by Erik Samuelsson)
@@ -31,7 +26,7 @@ public class ThemeLoader {
 	public void loadColors() {
 		try {
 
-			File fXmlFile = new File("./resources/colors.xml");
+			File fXmlFile = new File(this.getClass().getClassLoader().getResource("resources/colors.xml").toString());
 			DocumentBuilderFactory dbFactory = DocumentBuilderFactory.newInstance();
 			DocumentBuilder dBuilder = dbFactory.newDocumentBuilder();
 			Document doc = dBuilder.parse(fXmlFile);
@@ -69,7 +64,7 @@ public class ThemeLoader {
 	public Color getColor(String k) {
 		try {
 
-			File fXmlFile = new File("./resources/colors.xml");
+			File fXmlFile = new File(this.getClass().getClassLoader().getResource("resources/colors.xml").toString());
 			DocumentBuilderFactory dbFactory = DocumentBuilderFactory.newInstance();
 			DocumentBuilder dBuilder = dbFactory.newDocumentBuilder();
 			Document doc = dBuilder.parse(fXmlFile);

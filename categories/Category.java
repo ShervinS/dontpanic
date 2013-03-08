@@ -65,5 +65,8 @@ public class Category {
      *
      * @return The name of the category
      */
-            
+           
+	public String toString() {
+		return this.name;
+	}
 }

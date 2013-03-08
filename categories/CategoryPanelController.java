@@ -3,27 +3,17 @@ package categories;
 import java.awt.Color;
 import java.awt.Component;
 import java.awt.Font;
-import java.awt.GridBagConstraints;
-import java.awt.Insets;
 import java.util.ArrayList;
 
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
-import javax.swing.JTextField;
 import javax.swing.ListSelectionModel;
 import javax.swing.table.TableCellRenderer;
-import javax.swing.table.TableColumn;
 
 import panic.I18;
 import panic.PanicController;
-import panic.TodayTasks.ShowTodayAction;
-import tasks.TaskTableModel;
-import tasks.TasksPanelView;
-import tasks.actions.AddAction;
-import tasks.actions.QuickAddAction;
-import tasks.actions.TaskSelectionAction;
 
 
 public class CategoryPanelController {
@@ -114,7 +104,7 @@ public class CategoryPanelController {
 		this.categoriesModel.setCategories(pc.getCategories());
 		this.categoriesModel.fireTableDataChanged();
 		//logCategories();
-		//generateDefaultCategories();
+		generateDefaultCategories();
 		System.out.print("HELLO");
 		int i = 0;
 		/*for (Category cat : this.categories) {
@@ -143,10 +133,10 @@ public class CategoryPanelController {
 	
 	public void generateDefaultCategories() {
 			Category category1 = new Category("School", new Color(10,100,150));
-			Category category2 = new Category("School", new Color(100,100,150));
-			Category category3 = new Category("School", new Color(110,200,150));
-			Category category4 = new Category("School", new Color(10,130,130));
-			Category category5 = new Category("School", new Color(130,10,100));
+			Category category2 = new Category("Work", new Color(100,100,150));
+			Category category3 = new Category("Activities", new Color(110,200,150));
+			Category category4 = new Category("Workout", new Color(10,130,130));
+			Category category5 = new Category("Fun", new Color(130,10,100));
 			
 			pc.addCategory(category1);
 			pc.addCategory(category2);
@@ -173,4 +163,5 @@ public class CategoryPanelController {
 	public void updateLanguage(){
 		addButton.setText(I18.getInstance().properties.getString("addCategory"));
 	}
+	
 }
