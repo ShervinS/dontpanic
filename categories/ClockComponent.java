@@ -21,21 +21,20 @@ public class ClockComponent extends JComponent implements ActionListener {
 	Timer time;
 	Calendar cal;
 	
-	BufferedImage pcFaceImg;
-	BufferedImage pcHourImg;
-	BufferedImage pcMinuteImg;
+	BufferedImage pcFaceImg = null;
+	BufferedImage pcHourImg = null;
+	BufferedImage pcMinuteImg = null;
  
     public ClockComponent() {
     	try {
-	    	pcFaceImg = ImageIO.read(new FileInputStream(new File("/resources/clockFace.png")));
-	    	pcHourImg = ImageIO.read(this.getClass().getResource("/resources/hourHand.png"));
-	    	pcMinuteImg = ImageIO.read(this.getClass().getResource("/resources/minuteHand.png"));
+	    	pcFaceImg = ImageIO.read(new File("imgClockBase.png"));
+	    	pcHourImg = ImageIO.read(new File("imgClockHour.png"));
+	    	pcMinuteImg = ImageIO.read(new File("imgClockMinute.png"));
     	} catch (Exception e) {
     		e.printStackTrace();
-    		System.out.println("Skit");
     	}
     	if (pcFaceImg == null) {
-    		System.out.println("bilderna Šr null!!");
+    		System.out.println("Bilderna Šr null!!!");
     	}
     	
     	cal = Calendar.getInstance();
