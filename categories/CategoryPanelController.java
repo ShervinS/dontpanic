@@ -69,8 +69,10 @@ public class CategoryPanelController {
 		// set gap between columns, api in TableColumnModel
 		this.categoriesTable.getColumnModel().setColumnMargin(0);
 		// convenience for setting both row and column gaps
-		this.categoriesTable.setRowMargin(0); 
-		
+		this.categoriesTable.setRowMargin(0);
+		this.categoriesTable.setTableHeader(null);
+	    this.categoriesTable.setColumnSelectionAllowed(false);
+
 		//Set column width
 		this.categoriesTable.getColumnModel().getColumn(0).setPreferredWidth(240);
 		//this.categoriesTable.setDefaultRenderer(Object.class, )
