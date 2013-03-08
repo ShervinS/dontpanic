@@ -194,7 +194,7 @@ public class PanicController {
 		midPanelController.updateShownTasks(taskManager.getTaskList());
 	}
 	
-	public ArrayList<Category> getCategories(){
+	public ArrayList<Category> getCategories() {
 		return taskManager.getCategoryList();
 	}
 	

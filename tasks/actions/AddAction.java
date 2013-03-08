@@ -20,7 +20,11 @@ public class AddAction extends AbstractAction {
 	}
 	@Override
 	public void actionPerformed(ActionEvent arg0) {
-		TasksPanelController.getInstance().addTask(new Task(quickAdd.getText(), "", "", 1, "", false));
+		TasksPanelController pc = TasksPanelController.getInstance();
+		pc.addTask(
+				new Task(quickAdd.getText(), "", 
+						pc.getCategory() == null ? "" : pc.getCategory().getName(), 
+						1, "", false));
 		quickAdd.setText("Quickadd...");
 		quickAdd.setForeground(Color.GRAY);
 	}

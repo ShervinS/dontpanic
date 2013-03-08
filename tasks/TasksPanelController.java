@@ -103,6 +103,10 @@ public class TasksPanelController {
 		currentCategory = c;
 	}
 	
+	public Category getCategory() {
+		return currentCategory;
+	}
+	
 	public void updateShownTasks(ArrayList<Task> tasks) {
 		ArrayList<Object[]> newData = new ArrayList<Object[]>();
 		for (int i = tasks.size()-1; i >= 0;i--) {
