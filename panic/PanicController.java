@@ -3,8 +3,6 @@ package panic;
 import java.awt.Dimension;
 import java.io.File;
 import java.io.FileInputStream;
-import java.io.InputStream;
-import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Properties;
@@ -17,8 +15,6 @@ import javax.swing.JMenu;
 import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
 import javax.swing.SwingUtilities;
-import javax.swing.UIManager;
-import javax.swing.plaf.synth.SynthLookAndFeel;
 
 import panic.TodayTasks.ShowTodayAction;
 import panic.actions.AboutAction;
@@ -190,6 +186,16 @@ public class PanicController {
 
 	public void taskSelected(Task t) {
 		rightPanelController.taskSelected(t);
+	}
+	
+	public void setCategory(Category c) {
+		ArrayList<Task> tasks = new ArrayList<Task>();
+		for (Task i : taskManager.getTaskList()) {
+			if (i.getCategory().equals(c)) {
+				tasks.add(i);
+			}
+		}
+		midPanelController.updateShownTasks(tasks);
 	}
 	
 	public ArrayList<Category> getCategories(){

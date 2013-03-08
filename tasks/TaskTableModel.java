@@ -39,7 +39,7 @@ public class TaskTableModel extends AbstractTableModel {
 	@Override
 	public Object getValueAt(int x, int y) {
 		// TODO Auto-generated method stub
-		if (x <= data.size() && x >= 0 && y >= 0 && y <= 3)
+		if (x <= data.size() && x >= 0 && y >= 0 && y <= header.length)
 			return data.get(x)[y];
 		return null;
 	}

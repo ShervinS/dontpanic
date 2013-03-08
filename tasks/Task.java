@@ -7,7 +7,6 @@ import java.util.Calendar;
 import java.util.Date;
 
 import panic.I18;
-
 import categories.Category;
 
 /** Contains the data belonging to each task.
@@ -119,9 +118,15 @@ public class Task {
 	public String getPriorityString() {
 		String p = "unknown";
 		switch (priority) {
-			case 1: p = I18.getInstance().properties.getString("low");
-			case 2: p = I18.getInstance().properties.getString("medium");
-			case 3: p = I18.getInstance().properties.getString("high");
+			case 1: 
+				p = I18.getInstance().properties.getString("low");
+				break;
+			case 2: 
+				p = I18.getInstance().properties.getString("medium");
+				break;
+			case 3: 
+				p = I18.getInstance().properties.getString("high");
+				break;
 		}
 		return p;
 	}

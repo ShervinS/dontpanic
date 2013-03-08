@@ -1,7 +1,6 @@
 package tasks;
 
 
-import java.awt.Color;
 import java.util.ArrayList;
 
 import javax.swing.ImageIcon;
@@ -38,7 +37,7 @@ public class TasksPanelController {
 		//Initialize the views
 		panel = new TasksPanelView();
 		
-		String[] h = {"Title", "DueDate", "Priority", "Done"};
+		String[] h = {"Title", "DueDate", "Priority","Category", "Done"};
 		tableModel = new TaskTableModel(h);
 		JTable table = new JTable(tableModel);
 		table.getSelectionModel().addListSelectionListener(new TaskSelectionAction(table, tableModel));
@@ -94,11 +93,12 @@ public class TasksPanelController {
 		ArrayList<Object[]> newData = new ArrayList<Object[]>();
 		for (int i = tasks.size()-1; i >= 0;i--) {
 			Task task = tasks.get(i);
-			Object[] newRow = new Object[4];
+			Object[] newRow = new Object[5];
 			newRow[0] = task;
 			newRow[1] = task.getDueDate();
 			newRow[2] = task.getPriorityString();
-			newRow[3] = task.isCheck() ? "Done" : "Not Done";
+			newRow[3] = task.getCategory().getName();
+			newRow[4] = task.isCheck() ? "Done" : "Not Done";
 			newData.add(newRow);
 		}
 		tableModel.changeData(newData);

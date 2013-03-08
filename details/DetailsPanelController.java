@@ -1,12 +1,12 @@
 package details;
 
-import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
 import java.util.Calendar;
 
+import javax.swing.DefaultComboBoxModel;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
@@ -15,6 +15,7 @@ import javax.swing.JLabel;
 import javax.swing.JList;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
+import javax.swing.ListSelectionModel;
 import javax.swing.Timer;
 
 import panic.I18;
@@ -29,6 +30,7 @@ import details.actions.DateAction;
 import details.actions.DeleteAction;
 import details.actions.DescriptionAction;
 import details.actions.DoneAction;
+import details.actions.MarkAsDoneAction;
 import details.actions.PriorityAction;
 import details.actions.TitleAction;
 
@@ -72,6 +74,7 @@ public class DetailsPanelController implements ActionListener {
 	
 	private JButton deleteButton;
 	private JButton doneButton;
+	private JButton markDoneButton;
 	
 	/**
 	 * Constructor for RightPanelController
@@ -105,6 +108,7 @@ public class DetailsPanelController implements ActionListener {
 		s[1] = I18.getInstance().properties.getString("medium");
 		s[2] = I18.getInstance().properties.getString("high");
 		priority = new JList(s);
+		priority.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
 		
 		//Initialization of date and its label
 		dateLabel = new JLabel(I18.getInstance().properties.getString("date"));
@@ -123,8 +127,9 @@ public class DetailsPanelController implements ActionListener {
 		
 		//Initialization of the done-button
 		doneButton = new JButton(I18.getInstance().properties.getString("done"), new ImageIcon(this.getClass().getResource("/resources/okIcon.png")));
-		//doneButton.setForeground(Color.black);
-		//doneButton.setBackground(Color.green);
+
+		//Initialization of the button that marks the task as done
+		markDoneButton = new JButton();
 		
 		//Set parent controller
 		this.pc = PanicController.getInstance();
@@ -142,6 +147,7 @@ public class DetailsPanelController implements ActionListener {
 		date.addPropertyChangeListener(new DateAction(date));
 		deleteButton.addActionListener(new DeleteAction());
 		doneButton.addActionListener(new DoneAction());
+		markDoneButton.addActionListener(new MarkAsDoneAction(markDoneButton));
 		
 		//Add every view component to the panel
 		panel.gridAdd(5, titleLabel);
@@ -156,6 +162,7 @@ public class DetailsPanelController implements ActionListener {
 		panel.gridAdd(5, categories);
 		panel.gridAdd(10, priorityLabel);
 		panel.gridAdd(5, priority);
+		panel.gridAdd(10, markDoneButton);
 		panel.pad();
 		panel.gridAdd(10, doneButton);
 		panel.gridAdd(10, deleteButton);
@@ -223,13 +230,8 @@ public class DetailsPanelController implements ActionListener {
 	public Task getCurrentTask() {
 		return currentTask;
 	}
-	/**
-	public void animateChangeOfTask() {
-		setRightPanel(false);
-		t = new Timer(100, this);
-		t.start();
-	}
-	*/
+
+	
 	/**
 	 * Selects a Task, which the user will be able to modify using controls on 
 	 * the right panel.
@@ -244,7 +246,10 @@ public class DetailsPanelController implements ActionListener {
 		title.setText(t.getTitle());
 		description.setText(t.getDescription());
 		priority.setSelectedIndex(t.getPriority()-1);
+		DefaultComboBoxModel newModel = new DefaultComboBoxModel(PanicController.getInstance().getCategories().toArray());
+		categories.setModel(newModel);
 		String dateString = t.getDueDate();
+		markDoneButton.setText(t.isCheck() ? "Mark as not done" : "Mark as done");
 		if (dateString.length() < 8) {
 			date.setCalendar(null);
 		}
