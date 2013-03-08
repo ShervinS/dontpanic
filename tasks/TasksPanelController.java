@@ -2,6 +2,7 @@ package tasks;
 
 
 import java.util.ArrayList;
+import java.util.ResourceBundle;
 
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
@@ -37,7 +38,12 @@ public class TasksPanelController {
 		//Initialize the views
 		panel = new TasksPanelView();
 		
-		String[] h = {"Title", "DueDate", "Priority","Category", "Done"};
+		ResourceBundle langProp = I18.getInstance().properties;
+		String[] h = {langProp.getString("title"), 
+					  langProp.getString("duedate"), 
+					  langProp.getString("priority"),
+					  langProp.getString("category"), 
+					  langProp.getString("done")};
 		tableModel = new TaskTableModel(h);
 		JTable table = new JTable(tableModel);
 		table.getSelectionModel().addListSelectionListener(new TaskSelectionAction(table, tableModel));
@@ -48,7 +54,7 @@ public class TasksPanelController {
 		quickAdd.setEditable(true);
 		//quickAdd.setForeground(Color.GRAY);
 		addButton = new JButton(I18.getInstance().properties.getString("addTask"), new ImageIcon(this.getClass().getResource("/resources/addIcon.png")));
-		showToday = new JButton("Show Tasks For Today");
+		showToday = new JButton(I18.getInstance().properties.getString("showToday"));
 		
 		//Set parent controller
 		this.pc = PanicController.getInstance();
@@ -114,8 +120,16 @@ public class TasksPanelController {
 	}
 	
 	public void updateLanguage() {
-		quickAdd.setText(I18.getInstance().properties.getString("quickAdd"));
-		addButton.setText(I18.getInstance().properties.getString("addTask"));
+		ResourceBundle langProp = I18.getInstance().properties;
+		String[] h = {langProp.getString("title"), 
+					  langProp.getString("duedate"), 
+					  langProp.getString("priority"),
+					  langProp.getString("category"), 
+					  langProp.getString("done")};
+		quickAdd.setText(langProp.getString("quickAdd"));
+		addButton.setText(langProp.getString("addTask"));
+		showToday.setText(langProp.getString("showToday"));
+		tableModel.setHeader(h);
 	}
 
 }

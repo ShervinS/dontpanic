@@ -5,6 +5,7 @@ import java.awt.event.ActionEvent;
 import javax.swing.AbstractAction;
 import javax.swing.JButton;
 
+import panic.I18;
 import details.DetailsPanelController;
 
 public class MarkAsDoneAction extends AbstractAction {
@@ -23,7 +24,7 @@ public class MarkAsDoneAction extends AbstractAction {
 		if (pc.getCurrentTask() != null) {
 			pc.getCurrentTask().setCheck(!pc.getCurrentTask().isCheck());
 			pc.updateTask(pc.getCurrentTask());
-			button.setText(pc.getCurrentTask().isCheck() ? "Mark as not done" : "Mark as done");
+			button.setText(pc.getCurrentTask().isCheck() ? I18.getInstance().properties.getString("markUnDone") : I18.getInstance().properties.getString("markDone"));
 		}
 	}
 

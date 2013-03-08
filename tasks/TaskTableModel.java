@@ -35,6 +35,10 @@ public class TaskTableModel extends AbstractTableModel {
 		// TODO Auto-generated method stub
 		return data.size();
 	}
+	
+	public void setHeader(String[] h) {
+		h = header;
+	}
 
 	@Override
 	public Object getValueAt(int x, int y) {

@@ -249,7 +249,7 @@ public class DetailsPanelController implements ActionListener {
 		DefaultComboBoxModel newModel = new DefaultComboBoxModel(PanicController.getInstance().getCategories().toArray());
 		categories.setModel(newModel);
 		String dateString = t.getDueDate();
-		markDoneButton.setText(t.isCheck() ? "Mark as not done" : "Mark as done");
+		markDoneButton.setText(t.isCheck() ? I18.getInstance().properties.getString("markUnDone") : I18.getInstance().properties.getString("markDone"));
 		if (dateString.length() < 8) {
 			date.setCalendar(null);
 		}
@@ -310,6 +310,9 @@ public class DetailsPanelController implements ActionListener {
 		s[0] = I18.getInstance().properties.getString("low");
 		s[1] = I18.getInstance().properties.getString("medium");
 		s[2] = I18.getInstance().properties.getString("high");
+		if (currentTask != null) {
+			markDoneButton.setText(currentTask.isCheck() ? I18.getInstance().properties.getString("markUnDone") : I18.getInstance().properties.getString("markDone"));
+		}
 	}
 	
 }
