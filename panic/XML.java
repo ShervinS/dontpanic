@@ -96,7 +96,6 @@ public class XML {
 			Node categorys = doc.getElementsByTagName("categorys").item(0);
 			NodeList nList = categorys.getChildNodes();
 			
-
 			for (int temp = 0; temp < nList.getLength(); temp++) {
 
 				Node nNode = nList.item(temp);

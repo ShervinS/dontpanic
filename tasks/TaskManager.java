@@ -63,4 +63,9 @@ public class TaskManager {
 	public ArrayList<Category> getCategoryList(){
 		return categoryList;
 	}
+	
+	public void addCategory(Category category){
+		xml.addCategory(category);
+		categoryList.add(category);
+	}
 }

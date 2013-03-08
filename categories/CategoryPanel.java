@@ -1,20 +1,62 @@
 package categories;
 
 import java.awt.Color;
+import java.awt.Dimension;
+import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 
+import javax.swing.JButton;
+import javax.swing.JComponent;
 import javax.swing.JPanel;
+import javax.swing.JScrollPane;
 
 public class CategoryPanel extends JPanel {
-	 
+	private static final int NEWCATEGORY = 0;
+	private static final int CATEGORIES = 1;
+	private static final int CLOCKVIEW = 2;
 	
 	private static final long serialVersionUID = 1L;
+	private GridBagConstraints c;
 
 	public CategoryPanel () {
 		super();
-		setBackground(new Color(0xdddddd));
+		//setBackground(new Color(0xdddddd));
+		setPreferredSize(new Dimension(200,0));
+		setBackground(new Color(88, 91, 95));
 		setLayout(new GridBagLayout());
-		
+		c = new GridBagConstraints();
 	}
 	
+	public void addNewCategoryButton(JComponent addButton) {
+		c.fill = GridBagConstraints.HORIZONTAL;
+		c.gridwidth = 1;
+		c.gridx = 0;
+		c.gridy = NEWCATEGORY;
+		
+		c.weighty = 0.0;
+		c.weightx = 0.1;
+		add(addButton, c);
+		
+		//add(pane, c);
+		
+	//	pane.revalidate();
+		//pane.repaint();
+	}
+	
+	public void addCategoriesScrollView(JScrollPane scrollView) {
+		c.weighty = 1.0;
+		c.gridy = CATEGORIES;
+		c.fill = GridBagConstraints.BOTH;
+
+
+		add(scrollView, c);
+		//pane.revalidate();
+	//	pane.repaint();
+	}
+	
+	public void addClockView(ClockView clockView){
+		c.weighty = 0.1;
+		c.gridy = CLOCKVIEW;
+		add(clockView, c);
+	}
 }

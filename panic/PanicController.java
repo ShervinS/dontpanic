@@ -130,8 +130,7 @@ public class PanicController {
 		english.addActionListener(new ChangeLanguageAction("eng"));
 		about.addActionListener(new AboutAction(frame));
 		
-		
-		
+
 		//Load save configurations
 		int x = 600;
 		int y = 600;
@@ -190,5 +189,10 @@ public class PanicController {
 	
 	public ArrayList<Category> getCategories(){
 		return taskManager.getCategoryList();
+	}
+	
+	public void addCategory(Category category) {
+			System.out.println("PanicController: Adding category");
+			taskManager.addCategory(category);
 	}
 }

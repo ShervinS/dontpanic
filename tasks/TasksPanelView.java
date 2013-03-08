@@ -48,5 +48,4 @@ public class TasksPanelView extends JPanel {
 		pane.repaint();
 	}
 	
-
 }

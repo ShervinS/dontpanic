@@ -1,5 +1,9 @@
 package panic;
 
+import java.awt.Color;
+
+import javax.swing.UIManager;
+
 
 
 public class Main {
@@ -15,7 +19,7 @@ public class Main {
 		
 		//Create the only instance of the PanicController
 		PanicController pc = PanicController.getInstance();
-		
+		UIManager.put("nimbusBase", new Color(67, 23, 23));
 		//This needs run after the PanicController's constructor, because the PanicController
 		//needs to be fully initiated before this is run.
 		pc.start();

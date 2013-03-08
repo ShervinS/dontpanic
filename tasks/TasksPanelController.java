@@ -42,7 +42,7 @@ public class TasksPanelController {
 		tableModel = new TaskTableModel(h);
 		JTable table = new JTable(tableModel);
 		table.getSelectionModel().addListSelectionListener(new TaskSelectionAction(table, tableModel));
-		table.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+			table.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
 		pane = new JScrollPane(table, JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED, JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
 		
 		quickAdd = new JTextField(I18.getInstance().properties.getString("quickAdd"));

@@ -1,19 +1,35 @@
 package categories;
 
+import java.awt.Color;
+import java.awt.Component;
 import java.awt.LayoutManager;
 
+import javax.swing.JLabel;
 import javax.swing.JPanel;
+import javax.swing.JTable;
+import javax.swing.table.TableCellRenderer;
 
 
-public class CategoryView extends JPanel {
+public class CategoryView extends JLabel
+implements TableCellRenderer {
 
-	private static final long serialVersionUID = 1L;
-	public CategoryView(LayoutManager lm) {
-		super(lm);
-		// TODO Auto-generated constructor stub
+	public CategoryView(boolean isBordered) {
+		//this.isBordered = isBordered;
+		setOpaque(true); //MUST do this for background to show up.
 	}
-	public CategoryView() {
-		super();
-		// TODO Auto-generated constructor stub
+
+	public Component getTableCellRendererComponent(
+			JTable table, Object color,
+			boolean isSelected, boolean hasFocus,
+			int row, int column) {
+		Color newColor = (Color)color;
+		setBackground(newColor);
+
+		if (isSelected) {
+
+
+			return this;
+		}
+		return this;
 	}
 }
