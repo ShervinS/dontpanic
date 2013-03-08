@@ -3,6 +3,8 @@ package panic;
 import java.awt.Dimension;
 import java.io.File;
 import java.io.FileInputStream;
+import java.io.InputStream;
+import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Properties;
@@ -15,6 +17,8 @@ import javax.swing.JMenu;
 import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
 import javax.swing.SwingUtilities;
+import javax.swing.UIManager;
+import javax.swing.plaf.synth.SynthLookAndFeel;
 
 import panic.TodayTasks.ShowTodayAction;
 import panic.actions.AboutAction;

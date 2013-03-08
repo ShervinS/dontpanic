@@ -47,7 +47,7 @@ public class TasksPanelController {
 		
 		quickAdd = new JTextField(I18.getInstance().properties.getString("quickAdd"));
 		quickAdd.setEditable(true);
-		quickAdd.setForeground(Color.GRAY);
+		//quickAdd.setForeground(Color.GRAY);
 		addButton = new JButton(I18.getInstance().properties.getString("addTask"), new ImageIcon(this.getClass().getResource("/resources/addIcon.png")));
 		showToday = new JButton("Show Tasks For Today");
 		
@@ -97,7 +97,7 @@ public class TasksPanelController {
 			Object[] newRow = new Object[4];
 			newRow[0] = task;
 			newRow[1] = task.getDueDate();
-			newRow[2] = task.getPriority();
+			newRow[2] = task.getPriorityString();
 			newRow[3] = task.isCheck() ? "Done" : "Not Done";
 			newData.add(newRow);
 		}
