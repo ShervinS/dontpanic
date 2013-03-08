@@ -20,11 +20,6 @@ public class Main {
 		// Initialization of internalization
 		I18.getInstance().setLocale("swe");
 		
-		// Set menu items in OSX
-		System.setProperty("com.apple.mrj.application.apple.menu.about.name", "!Panic");
-		System.setProperty("apple.laf.useScreenMenuBar", "true");
-		System.setProperty("apple.eawt.quitStrategy","CLOSE_ALL_WINDOWS");
-		
 		// Load application color scheme from XML
 		//Color c = Color.decode("#ffdc23");
 		//UIManager.put("control", c);
@@ -63,6 +58,11 @@ public class Main {
 			      System.err.println("Unable to change look and feel");
 			      System.exit(-3);
 			    }*/
+		
+		// Set menu items in OSX
+				System.setProperty("com.apple.mrj.application.apple.menu.about.name", "!Panic");
+				System.setProperty("apple.laf.useScreenMenuBar", "true");
+				System.setProperty("apple.eawt.quitStrategy","CLOSE_ALL_WINDOWS");
 		
 		//Create the only instance of the PanicController
 		PanicController pc = PanicController.getInstance();
