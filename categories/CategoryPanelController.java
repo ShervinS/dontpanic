@@ -170,4 +170,7 @@ public class CategoryPanelController {
 		for (Category cat : this.categories)
 		    System.out.println(cat.getName());
 	}
+	public void updateLanguage(){
+		addButton.setText(I18.getInstance().properties.getString("addCategory"));
+	}
 }

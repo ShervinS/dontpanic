@@ -163,6 +163,7 @@ public class PanicController {
 	public void updateLanguage(){
 		rightPanelController.updateLanguage();
 		midPanelController.updateLanguage();
+		leftPanelController.updateLanguage();
 		file.setText(I18.getInstance().properties.getString("file"));
 		edit.setText(I18.getInstance().properties.getString("edit"));
 		help.setText(I18.getInstance().properties.getString("help"));

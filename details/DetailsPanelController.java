@@ -122,7 +122,7 @@ public class DetailsPanelController implements ActionListener {
 		//deleteButton.setBackground(Color.red);
 		
 		//Initialization of the done-button
-		doneButton = new JButton("Klar", new ImageIcon(this.getClass().getResource("/resources/okIcon.png")));
+		doneButton = new JButton(I18.getInstance().properties.getString("done"), new ImageIcon(this.getClass().getResource("/resources/okIcon.png")));
 		//doneButton.setForeground(Color.black);
 		//doneButton.setBackground(Color.green);
 		
@@ -300,6 +300,8 @@ public class DetailsPanelController implements ActionListener {
 		priorityLabel.setText(I18.getInstance().properties.getString("priority"));
 		categoriesLabel.setText(I18.getInstance().properties.getString("categories"));
 		deleteButton.setText(I18.getInstance().properties.getString("delete"));
+		doneButton.setText(I18.getInstance().properties.getString("done"));
+		dateLabel.setText(I18.getInstance().properties.getString("date"));
 		s[0] = I18.getInstance().properties.getString("low");
 		s[1] = I18.getInstance().properties.getString("medium");
 		s[2] = I18.getInstance().properties.getString("high");
