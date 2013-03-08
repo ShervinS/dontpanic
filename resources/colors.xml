@@ -9,13 +9,13 @@
 		<value>#252525</value></color>
 	<color>
 		<key>nimbusBase</key>
-		<value>#4eca3e</value></color>
+		<value>#172743</value></color>
 	<color>
 		<key>control</key>
 		<value>#FFFFFF</value></color>
 	<color>
 		<key>nimbusFocus</key>
-		<value>#7cff71</value></color>
+		<value>#4d86ee</value></color>
 	<color>
 		<key>Table[Enabled+Selected].textForeground</key>
 		<value>#252525</value></color>
