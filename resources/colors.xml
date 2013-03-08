@@ -1,0 +1,22 @@
+<colors>
+	<color><key>nimbusSelectionBackground</key>
+		<value>#949da1</value></color>
+	<color>
+		<key>nimbusSelectedText</key>
+		<value>#000000</value></color>
+	<color>
+		<key>text</key>
+		<value>#252525</value></color>
+	<color>
+		<key>nimbusBase</key>
+		<value>#4eca3e</value></color>
+	<color>
+		<key>control</key>
+		<value>#FFFFFF</value></color>
+	<color>
+		<key>nimbusFocus</key>
+		<value>#7cff71</value></color>
+	<color>
+		<key>Table[Enabled+Selected].textForeground</key>
+		<value>#252525</value></color>
+</colors>

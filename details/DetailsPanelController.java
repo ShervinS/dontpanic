@@ -89,17 +89,17 @@ public class DetailsPanelController implements ActionListener {
 		
 		//Initialization of title and its label
 		titleLabel = new JLabel(I18.getInstance().properties.getString("title"));
-		titleLabel.setForeground(Color.BLACK);
+		//titleLabel.setForeground(Color.BLACK);
 		title = new JTextField();
 		
 		//Initialization of description and its label
 		descriptionLabel = new JLabel(I18.getInstance().properties.getString("description"));
-		descriptionLabel.setForeground(Color.BLACK);
+		//descriptionLabel.setForeground(Color.BLACK);
 		description = new JTextArea();
 		
 		//Initialization of priority and its label
 		priorityLabel = new JLabel(I18.getInstance().properties.getString("priority"));
-		priorityLabel.setForeground(Color.BLACK);
+		//priorityLabel.setForeground(Color.BLACK);
 		s = new String[3];
 		s[0] = I18.getInstance().properties.getString("low");
 		s[1] = I18.getInstance().properties.getString("medium");
@@ -108,23 +108,23 @@ public class DetailsPanelController implements ActionListener {
 		
 		//Initialization of date and its label
 		dateLabel = new JLabel(I18.getInstance().properties.getString("date"));
-		dateLabel.setForeground(Color.BLACK);
+		//dateLabel.setForeground(Color.BLACK);
 		date = new JDateChooser();
 		
 		//Initialization of categories and its label
 		categoriesLabel = new JLabel(I18.getInstance().properties.getString("categories"));
-		categoriesLabel.setForeground(Color.BLACK);
+		//categoriesLabel.setForeground(Color.BLACK);
 		categories = new JComboBox();	
 		
 		//Initialization of the delete button
 		deleteButton = new JButton(I18.getInstance().properties.getString("delete"), new ImageIcon(this.getClass().getResource("/resources/xIcon.png")));
-		deleteButton.setForeground(Color.black);
-		deleteButton.setBackground(Color.red);
+		//deleteButton.setForeground(Color.black);
+		//deleteButton.setBackground(Color.red);
 		
 		//Initialization of the done-button
 		doneButton = new JButton("Klar", new ImageIcon(this.getClass().getResource("/resources/okIcon.png")));
-		doneButton.setForeground(Color.black);
-		doneButton.setBackground(Color.green);
+		//doneButton.setForeground(Color.black);
+		//doneButton.setBackground(Color.green);
 		
 		//Set parent controller
 		this.pc = PanicController.getInstance();

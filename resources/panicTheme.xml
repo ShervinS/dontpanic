@@ -1,19 +1,79 @@
 <synth>
-	<style id="basicStyle">
-		<font name="Verdana" size="16"/>
-    	<state>
-			<color value="WHITE" type="BACKGROUND"/>
-			<color value="BLACK" type="FOREGROUND"/>
-		</state>
-	</style>
-	<bind style="basicStyle" type="region" key=".*"/>
-	
-	<style id="buttonStyle">
-		<font name="Verdana" size="10"/>
-		<state>
-			<color value="WHITE" type="BACKGROUND"/>
-			<color value="BLACK" type="FOREGROUND"/>
-		</state>	
-	</style>
-	<bind style="buttonStyle" type="region" key="button"/>
+	<style id="backingStyle">
+    <!-- Make all the regions opaque-->
+    <opaque value="TRUE"/>
+    <font name="Dialog" size="12"/>
+    <state>
+      <color value="#EEEEEE" type="BACKGROUND"/>
+      <color value="#252525" type="FOREGROUND"/>
+    </state>
+  </style>
+  <bind style="backingStyle" type="region" key=".*"/>
+  
+  <style id="menuBar">
+  	<state>
+  		<color value="#FFFFFF" type="BACKGROUND"/>
+      	<color value="#252525" type="FOREGROUND"/>
+  	</state>
+  </style>
+  <bind style="menuBar" type="region" key="MenuBar"/>
+  
+  
+  <style id="button">
+    <!-- Shift the text one pixel when pressed -->
+    <property key="Button.textShiftOffset" type="integer" value="1"/>
+    <!-- Set size of buttons -->
+    <insets top="5" left="10" bottom="5" right="10"/>
+    
+    <state>
+      <imagePainter method="buttonBackground" path="/resources/buttonBase.png"
+                           sourceInsets="10 10 10 10" />
+      <font name="Dialog" size="12"/>
+      <color type="TEXT_FOREGROUND" value="#252525"/>
+    </state>
+    
+    <state value="PRESSED"> 
+      <imagePainter method="buttonBackground"
+          path="/resources/buttonBase_press.png"
+                   sourceInsets="10 10 10 10" />
+    </state>
+    
+    <state value="MOUSE_OVER">    
+      <imagePainter method="buttonBackground"
+          path="/resources/buttonBase_hover.png"
+                 sourceInsets="10 10 10 10" />
+    </state>
+    
+  </style>
+  <bind style="button" type="region" key="Button"/>
+  
+  
+  <style id="textfield">
+    <insets top="4" left="6" bottom="4" right="6"/>
+    <state>
+       <font name="Verdana" size="12"/>
+       <color value="#FFFFFF" type="BACKGROUND"/>
+       <color value="#FFFFFF" type="TEXT_BACKGROUND"/>
+       <color value="#252525" type="TEXT_FOREGROUND"/>
+    </state>
+    <imagePainter method="textFieldBorder" path="/resources/textBG.png"
+                  sourceInsets="4 6 4 6" paintCenter="false"/>
+  </style>
+  <bind style="textfield" type="region" key="TextField"/>
+  
+  
+  <style id="textarea">
+    <insets top="4" left="6" bottom="4" right="6"/>
+    <state>
+       <font name="Verdana" size="12"/>
+       <color value="#FFFFFF" type="BACKGROUND"/>
+       <color value="#FFFFFF" type="TEXT_BACKGROUND"/>
+       <color value="#252525" type="TEXT_FOREGROUND"/>
+    </state>
+    <imagePainter method="textFieldBorder" path="/resources/textBG.png"
+                  sourceInsets="4 6 4 6" paintCenter="false"/>
+  </style>
+  <bind style="textarea" type="region" key="TextArea"/>
+  
+  
 </synth>

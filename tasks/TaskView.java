@@ -38,13 +38,13 @@ public class TaskView extends JPanel {
 		titleLabel = new JLabel(t.getTitle());
 		dateLabel = new JLabel(t.getDueDate());
 		String priorityString = "";
-		for(int i = 0; i < t.getPriority(); i++) {
+		/*for(int i = 0; i < t.getPriority(); i++) {
 			priorityString += "!";
-		}
+		}*/
 		prioLabel = new JLabel(priorityString);
 		prioLabel.setFont(new Font("Verdana", 40, 40));
-		prioLabel.setForeground(Color.RED);
-		titleLabel.setForeground(Color.BLACK);
+		//prioLabel.setForeground(Color.RED);
+		//titleLabel.setForeground(Color.BLACK);
 
 		/*categoryPanel.setBackground(Color.RED);
 		c.fill = GridBagConstraints.VERTICAL;
@@ -53,7 +53,7 @@ public class TaskView extends JPanel {
 		c.weightx = 0.0;
 		c.weighty = 1;*/
 
-		categoryPanel.setBackground(Color.red);
+		//categoryPanel.setBackground(Color.red);
 		c.fill = GridBagConstraints.VERTICAL;
 		c.ipadx = 20;
 		c.ipady = 10;      //make this component tall
@@ -70,7 +70,7 @@ public class TaskView extends JPanel {
 		c.gridwidth = 1;
 		c.gridy = 0;
 		c.gridx = GridBagConstraints.RELATIVE;
-		doneCheck.setBackground(Color.DARK_GRAY);
+		//doneCheck.setBackground(Color.DARK_GRAY);
 		//doneCheck.addActionListener();
 		add(doneCheck, c);
 
@@ -125,12 +125,12 @@ public class TaskView extends JPanel {
 		super.paint(g);
 		titleLabel.setText(t.getTitle());
 		String priorityString = "";
-		for(int i = 0; i < t.getPriority(); i++) {
+		/*for(int i = 0; i < t.getPriority(); i++) {
 			priorityString += "!";
-		}
+		}*/
 		prioLabel.setText(priorityString);
-		prioLabel.setForeground(Color.RED);
-		titleLabel.setForeground(Color.BLACK);
+		//prioLabel.setForeground(Color.RED);
+		//titleLabel.setForeground(Color.BLACK);
 		revalidate();
 		repaint();
 	}
