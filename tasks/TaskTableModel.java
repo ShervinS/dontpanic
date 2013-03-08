@@ -36,6 +36,19 @@ public class TaskTableModel extends AbstractTableModel {
 		return data.size();
 	}
 	
+	public Class getColumnClass(int column) {
+		switch (column) {
+			case 0:
+			case 1:
+			case 2:
+			case 3:
+				return String.class;
+			default:
+				//Should be Boolean later
+				return String.class;
+		}
+	}
+	
 	public void setHeader(String[] h) {
 		h = header;
 	}

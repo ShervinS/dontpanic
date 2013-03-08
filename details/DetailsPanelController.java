@@ -1,8 +1,5 @@
 package details;
 
-import java.awt.Dimension;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.util.ArrayList;
 import java.util.Calendar;
 
@@ -30,9 +27,10 @@ import details.actions.DateAction;
 import details.actions.DeleteAction;
 import details.actions.DescriptionAction;
 import details.actions.DoneAction;
-//import details.actions.MarkAsDoneAction;
+import details.actions.MarkAsDoneAction;
 import details.actions.PriorityAction;
 import details.actions.TitleAction;
+//import details.actions.MarkAsDoneAction;
 
 /**
  * The RightPanelController controls the right part of the !Panic ToDo-app
@@ -41,7 +39,7 @@ import details.actions.TitleAction;
  * @author joseph
  *
  */
-public class DetailsPanelController implements ActionListener {
+public class DetailsPanelController  {
 	
 	private String[] categoryStringArray;
 	
@@ -77,11 +75,8 @@ public class DetailsPanelController implements ActionListener {
 	private JButton markDoneButton;
 	
 	/**
-	 * Constructor for RightPanelController
+	 * Constructor for the DetailsPanelController
 	 * Will initialize all the views.
-	 * However, enable(PanicController c) needs to 
-	 * be called before the views get their actions 
-	 * and get painted.
 	 */
 	public DetailsPanelController() {
 		//Get language
@@ -92,17 +87,14 @@ public class DetailsPanelController implements ActionListener {
 		
 		//Initialization of title and its label
 		titleLabel = new JLabel(I18.getInstance().properties.getString("title"));
-		//titleLabel.setForeground(Color.BLACK);
 		title = new JTextField();
 		
 		//Initialization of description and its label
 		descriptionLabel = new JLabel(I18.getInstance().properties.getString("description"));
-		//descriptionLabel.setForeground(Color.BLACK);
 		description = new JTextArea();
 		
 		//Initialization of priority and its label
 		priorityLabel = new JLabel(I18.getInstance().properties.getString("priority"));
-		//priorityLabel.setForeground(Color.BLACK);
 		s = new String[3];
 		s[0] = I18.getInstance().properties.getString("low");
 		s[1] = I18.getInstance().properties.getString("medium");
@@ -112,18 +104,14 @@ public class DetailsPanelController implements ActionListener {
 		
 		//Initialization of date and its label
 		dateLabel = new JLabel(I18.getInstance().properties.getString("date"));
-		//dateLabel.setForeground(Color.BLACK);
 		date = new JDateChooser();
 		
 		//Initialization of categories and its label
 		categoriesLabel = new JLabel(I18.getInstance().properties.getString("categories"));
-		//categoriesLabel.setForeground(Color.BLACK);
 		categories = new JComboBox();	
 		
 		//Initialization of the delete button
 		deleteButton = new JButton(I18.getInstance().properties.getString("delete"), new ImageIcon(this.getClass().getResource("/resources/xIcon.png")));
-		//deleteButton.setForeground(Color.black);
-		//deleteButton.setBackground(Color.red);
 		
 		//Initialization of the done-button
 		doneButton = new JButton(I18.getInstance().properties.getString("done"), new ImageIcon(this.getClass().getResource("/resources/okIcon.png")));
@@ -147,7 +135,7 @@ public class DetailsPanelController implements ActionListener {
 		date.addPropertyChangeListener(new DateAction(date));
 		deleteButton.addActionListener(new DeleteAction());
 		doneButton.addActionListener(new DoneAction());
-		//markDoneButton.addActionListener(new MarkAsDoneAction(markDoneButton));
+		markDoneButton.addActionListener(new MarkAsDoneAction(markDoneButton));
 		
 		//Add every view component to the panel
 		panel.gridAdd(5, titleLabel);
@@ -168,6 +156,10 @@ public class DetailsPanelController implements ActionListener {
 		panel.gridAdd(10, deleteButton);
 	}
 	
+	/**
+	 * 
+	 * @return The only instance of this class
+	 */
 	public static DetailsPanelController getInstance() {
 		 if (instance == null) {
 			 synchronized (DetailsPanelController.class){
@@ -208,8 +200,15 @@ public class DetailsPanelController implements ActionListener {
 	 * @param b Slides out if True, slides in if False
 	 */
 	public void setRightPanel(boolean b) {
-		if (!b)
+		if (!b) {
+			//If the panel is slid in, no task should be selected
 			currentTask = null;
+		}
+		else {
+			//If panel is slid out, get all categories to choose from
+			DefaultComboBoxModel newModel = new DefaultComboBoxModel(PanicController.getInstance().getCategories().toArray());
+			categories.setModel(newModel);
+		}
 		panel.showPanel(b);
 	}
 	
@@ -246,8 +245,6 @@ public class DetailsPanelController implements ActionListener {
 		title.setText(t.getTitle());
 		description.setText(t.getDescription());
 		priority.setSelectedIndex(t.getPriority()-1);
-		DefaultComboBoxModel newModel = new DefaultComboBoxModel(PanicController.getInstance().getCategories().toArray());
-		categories.setModel(newModel);
 		String dateString = t.getDueDate();
 		markDoneButton.setText(t.isCheck() ? I18.getInstance().properties.getString("markUnDone") : I18.getInstance().properties.getString("markDone"));
 		if (dateString.length() < 8) {
@@ -283,15 +280,9 @@ public class DetailsPanelController implements ActionListener {
 	 */
 	public void deleteTask(Task t) {
 		pc.deleteTask(t);
-		panel.setPreferredSize(new Dimension(0, 0));
 		panel.setOpen(false);
 		panel.revalidate();
 		panel.repaint();
-	}
-	
-	public void actionPerformed(ActionEvent e) {
-		setRightPanel(true);
-		t.stop();
 	}
 	
 	/**
