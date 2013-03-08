@@ -13,6 +13,7 @@ import javax.swing.JTextField;
 import javax.swing.ListSelectionModel;
 import javax.swing.table.TableCellRenderer;
 
+import categories.actions.AddCategoryAction;
 import categories.actions.SelectCategoryAction;
 
 import panic.I18;
@@ -33,13 +34,13 @@ public class CategoryPanelController {
 	private JTextField addCategoryField;
 	private CategoriesModel categoriesModel;
 	private static CategoryPanelController instance;
-	
+
 	public CategoryPanelController() {
 		I18.getInstance().setLocale("swe");
-		
+
 		//Initialize the views
 		panel = new CategoryPanel();
-		
+
 		//Create the categories table
 		this.categoriesModel = new CategoriesModel();
 		this.categoriesTable = new JTable(categoriesModel)
@@ -53,7 +54,7 @@ public class CategoryPanelController {
 				//  Color row based on a cell value
 				c.setBackground(Color.BLACK);
 				c.setBackground(category.getColor());
-				
+
 				return c;
 			}
 		};
@@ -68,55 +69,55 @@ public class CategoryPanelController {
 		this.categoriesTable.setTableHeader(null);
 	    this.categoriesTable.setColumnSelectionAllowed(false);
 		this.categoriesTable.getSelectionModel().addListSelectionListener(new SelectCategoryAction(this.categoriesTable));
-	    
+
 		//Set column width
 		this.categoriesTable.getColumnModel().getColumn(0).setPreferredWidth(240);
 		//this.categoriesTable.setDefaultRenderer(Object.class, )
-		
+
 		//Crate scrollpane with the categoriestable inside
 		this.scrollPane = new JScrollPane(categoriesTable, JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED, JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
 		this.scrollPane.setBackground(new Color(88, 91, 95));
-		
+
 		//This sets the background color for the table
 		this.scrollPane.getViewport().setBackground(new Color(88,91,95));
 
 		addButton = new JButton(new ImageIcon(this.getClass().getResource("/resources/addIcon.png")));
-		
+
 		//Set parent controller
 		this.pc = PanicController.getInstance();
-		
+
 		this.addCategoryField = new JTextField(I18.getInstance().properties.getString("addCategory"));
 		this.addCategoryField.setEditable(true);
-		
+
 		//Add actions and listeners
-	//	addButton.addActionListener(new AddCategoryAction(addCategory));
-		
+		addButton.addActionListener(new AddCategoryAction(pc,this));
+
 		//Give everything to the view
 		panel.addCategoryTextField(addCategoryField);
 		panel.addNewCategoryButton(addButton);	
-	
+
 		panel.addCategoriesScrollView(this.scrollPane);
-		
+
 		ClockView clockView = new ClockView();
 		panel.addClockView(clockView);
-		
+
 		updateGUI();
 	}
-	
-	
-	
+
+
+
 	public CategoryPanel getView() {
 		return panel;
 	}
-	
-	
+
+
 	public void updateGUI(){
 		this.categories = pc.getCategories();
 		this.categoriesModel.setCategories(pc.getCategories());
 		this.categoriesModel.fireTableDataChanged();
 		//generateDefaultCategories();
 	}
-	
+
 	public void generateDefaultCategories() {
 			Category category1 = new Category("School", new Color(10,100,150));
 			Category category2 = new Category("Work", new Color(100,100,150));
@@ -130,7 +131,7 @@ public class CategoryPanelController {
 			pc.addCategory(category4);
 			pc.addCategory(category5);
 	}
-	
+
 	public static CategoryPanelController getInstance() {
 		 if (instance == null) {
 			 synchronized (CategoryPanelController.class){
@@ -141,7 +142,7 @@ public class CategoryPanelController {
 		 }
 		 return instance;
 	}
-	
+
 	public void logCategories() {
 		for (Category cat : this.categories)
 		    System.out.println(cat.getName());
@@ -149,9 +150,13 @@ public class CategoryPanelController {
 	public void updateLanguage(){
 		addButton.setText(I18.getInstance().properties.getString("addCategory"));
 	}
-	
+
 	public void selectCategoryAtIndex(int index) {
 		pc.setCategory(this.categories.get(index));
 	}
 	
+	public String getCategoryFieldText(){
+		return addCategoryField.getText();
+	}
+
 }
