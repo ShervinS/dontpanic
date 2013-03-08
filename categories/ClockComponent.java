@@ -9,36 +9,46 @@ import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
+import java.net.URI;
+import java.net.URISyntaxException;
+import java.text.SimpleDateFormat;
 import java.util.Calendar;
+import java.util.Date;
 
 import javax.imageio.ImageIO;
 import javax.swing.JComponent;
 import javax.swing.Timer;
 
 
+/*
+ * NOTE: This class i defective!
+ * It used to work fine (a little analog clock made up of three rotating images,
+ * but sinces the images were updated it all stopped working. We can't even load the
+ * BufferedImages anymore, and havn't had the time to figue out why.
+ * 
+ * It will be fixed before our very final presentation though.
+ */
+
+
 public class ClockComponent extends JComponent implements ActionListener {
 	
 	Timer time;
 	Calendar cal;
-	
 	BufferedImage pcFaceImg = null;
 	BufferedImage pcHourImg = null;
 	BufferedImage pcMinuteImg = null;
  
     public ClockComponent() {
+    	
     	try {
-	    	pcFaceImg = ImageIO.read(new File("imgClockBase.png"));
-	    	pcHourImg = ImageIO.read(new File("imgClockHour.png"));
-	    	pcMinuteImg = ImageIO.read(new File("imgClockMinute.png"));
-    	} catch (Exception e) {
-    		e.printStackTrace();
-    	}
-    	if (pcFaceImg == null) {
-    		System.out.println("Bilderna Šr null!!!");
-    	}
-    	
-    	cal = Calendar.getInstance();
-    	
+    		pcFaceImg = ImageIO.read(new File("resources/img_ClockBase.png"));
+			pcHourImg = ImageIO.read(new File("resources/img_ClockHour.png"));
+			pcMinuteImg = ImageIO.read(new File("resources/img_ClockMinute.png"));
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+
+    	cal = Calendar.getInstance();	
     	time=new Timer(30000, this);
         time.start();
     }
@@ -53,9 +63,10 @@ public class ClockComponent extends JComponent implements ActionListener {
     	if (hour>=12) {
     		hour -= 12;
     	}
-    	System.out.println(hour);
-    	hour = 6;
-    	minute = 0;
+    	
+    	SimpleDateFormat formatter = new SimpleDateFormat("HH:mm");
+    	Date rightNow = new Date();
+    	//System.out.println(formatter.format(rightNow));
     	
     	g2D.drawImage(pcFaceImg, 0, 0, null);
     	g2D.drawImage(rotate(pcMinuteImg, Math.toRadians(((float)minute/60.0)*360.0)), 0, 0, null);
