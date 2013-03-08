@@ -6,6 +6,7 @@ import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 
 import javax.swing.JButton;
+import javax.swing.JComboBox;
 import javax.swing.JComponent;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
@@ -22,7 +23,7 @@ public class CategoryPanel extends JPanel {
 	public CategoryPanel () {
 		super();
 		//setBackground(new Color(0xdddddd));
-		setPreferredSize(new Dimension(200,0));
+		setPreferredSize(new Dimension(220,0));
 		setBackground(new Color(88, 91, 95));
 		setLayout(new GridBagLayout());
 		c = new GridBagConstraints();
@@ -36,10 +37,16 @@ public class CategoryPanel extends JPanel {
 		add(textfield, c);
 	}
 	
+	public void addColorPicker(JComboBox colorPicker) {
+		c.gridx = 1;
+		c.weightx = 0.1;
+		add(colorPicker,c);
+	}
+	
 	public void addNewCategoryButton(JComponent addButton) {
 		c.fill = GridBagConstraints.HORIZONTAL;
 		c.gridwidth = 1;
-		c.gridx = 1;
+		c.gridx = 2;
 		c.gridy = NEWCATEGORY;
 		
 		c.weighty = 0.0;
@@ -51,7 +58,7 @@ public class CategoryPanel extends JPanel {
 		c.weighty = 1.0;
 		c.gridy = CATEGORIES;
 		c.fill = GridBagConstraints.BOTH;
-		c.gridwidth = 2;
+		c.gridwidth = 3;
 		c.gridx = 0;
 		add(scrollView, c);
 	}
@@ -59,7 +66,7 @@ public class CategoryPanel extends JPanel {
 	public void addClockView(ClockView clockView){
 		c.weighty = 0.1;
 		c.gridy = CLOCKVIEW;
-		c.gridwidth = 2;
+		c.gridwidth = 3;
 		c.gridx = 0;
 		add(clockView, c);
 	}

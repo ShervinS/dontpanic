@@ -2,11 +2,13 @@ package categories;
 
 import java.awt.Color;
 import java.awt.Component;
+import java.awt.Dimension;
 import java.awt.Font;
 import java.util.ArrayList;
 
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
+import javax.swing.JComboBox;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.JTextField;
@@ -47,7 +49,6 @@ public class CategoryPanelController {
 			public Component prepareRenderer(TableCellRenderer renderer, int row, int column)
 			{
 				Component c = super.prepareRenderer(renderer, row, column);
-				System.out.println("Plz: " + dataModel.getValueAt(row, column));
 				CategoriesModel model = (CategoriesModel) dataModel;
 				Category category = model.getCategoryAtIndex(row);
 				//  Color row based on a cell value
@@ -71,9 +72,8 @@ public class CategoryPanelController {
 	    
 		//Set column width
 		this.categoriesTable.getColumnModel().getColumn(0).setPreferredWidth(240);
-		//this.categoriesTable.setDefaultRenderer(Object.class, )
 		
-		//Crate scrollpane with the categoriestable inside
+		//Create scrollpane with the categoriestable inside
 		this.scrollPane = new JScrollPane(categoriesTable, JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED, JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
 		this.scrollPane.setBackground(new Color(88, 91, 95));
 		
@@ -88,16 +88,23 @@ public class CategoryPanelController {
 		this.addCategoryField = new JTextField(I18.getInstance().properties.getString("addCategory"));
 		this.addCategoryField.setEditable(true);
 		
+		ClockView clockView = new ClockView();
+		Color[] colors = {new Color(10,100,200), new Color(100,10,200), new Color(200,100,200), new Color(255,0,0)};
+		JComboBox colorPicker = new JComboBox(colors);
+		ColorComboBoxRenderer renderer = new ColorComboBoxRenderer();
+		renderer.setPreferredSize(new Dimension(20, 13));
+		colorPicker.setRenderer(renderer);
+		colorPicker.setEditable(true);
+		colorPicker.setEditor(new ColorComboBoxEditor(Color.RED));
+		
 		//Add actions and listeners
-	//	addButton.addActionListener(new AddCategoryAction(addCategory));
+		
 		
 		//Give everything to the view
 		panel.addCategoryTextField(addCategoryField);
+		panel.addColorPicker(colorPicker);
 		panel.addNewCategoryButton(addButton);	
-	
 		panel.addCategoriesScrollView(this.scrollPane);
-		
-		ClockView clockView = new ClockView();
 		panel.addClockView(clockView);
 		
 		updateGUI();
