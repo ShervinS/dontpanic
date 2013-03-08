@@ -20,10 +20,14 @@ public class CategoriesAction extends AbstractAction {
 
 	@Override
 	public void actionPerformed(ActionEvent arg0) {
-		String s = (String) categories.getSelectedItem();
+		Category s = (Category) categories.getSelectedItem();
 		for (Category c : PanicController.getInstance().getCategories()) {
-			if (c.getName().equals(c)) {
-				DetailsPanelController.getInstance().getCurrentTask().setCategory(c);
+			if (c.getName().equals(s.getName())) {
+				DetailsPanelController pc = DetailsPanelController.getInstance();
+				if (pc.getCurrentTask() != null) {
+					pc.getCurrentTask().setCategory(c);
+					pc.updateTask(pc.getCurrentTask());
+				}
 				break;
 			}
 		}

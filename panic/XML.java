@@ -3,7 +3,11 @@ package panic;
 import java.awt.Color;
 import java.io.File;
 import java.io.IOException;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
+
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
@@ -12,17 +16,16 @@ import javax.xml.transform.TransformerException;
 import javax.xml.transform.TransformerFactory;
 import javax.xml.transform.dom.DOMSource;
 import javax.xml.transform.stream.StreamResult;
+
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.NamedNodeMap;
-import org.xml.sax.SAXException;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
+import org.xml.sax.SAXException;
+
 import tasks.Task;
 import categories.Category;
-import java.util.Date;
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
 
 /**
 * Class for management of XML
@@ -37,7 +40,8 @@ public class XML {
 	*/	
 	
 	public XML() {
-		if (!new File("./file.xml").isFile()) 
+		if (!new File(System.getProperty("user.home")
+				+ "/.TODO-group9/savedata.xml").isFile()) 
 			makeEmptyXML();
 	}
 
@@ -69,7 +73,11 @@ public class XML {
 			TransformerFactory transformerFactory = TransformerFactory.newInstance();
 			Transformer transformer = transformerFactory.newTransformer();
 			DOMSource source = new DOMSource(doc);
-			StreamResult result = new StreamResult(new File("./file.xml"));
+			File saveFile = new File(System.getProperty("user.home")+ "/.TODO-group9/savedata.xml");
+			if (!saveFile.exists()) {
+				saveFile.getParentFile().mkdirs();
+			}
+			StreamResult result = new StreamResult(saveFile);
 			transformer.transform(source, result);
 
 		} catch (ParserConfigurationException pce) {
@@ -87,7 +95,8 @@ public class XML {
 	public ArrayList<Category> getCategorys() {
 		ArrayList<Category> r = new ArrayList<Category>();
 		try {
-			File fXmlFile = new File("./file.xml");
+			File fXmlFile = new File(System.getProperty("user.home")
+					+ "/.TODO-group9/savedata.xml");
 			DocumentBuilderFactory dbFactory = DocumentBuilderFactory.newInstance();
 			DocumentBuilder dBuilder = dbFactory.newDocumentBuilder();
 			Document doc = dBuilder.parse(fXmlFile);
@@ -126,7 +135,9 @@ public class XML {
 	
 	public void addCategory(Category c){
 		try {
-			String filepath = "./file.xml";
+			String filepath = System.getProperty("user.home")
+					+ "/.TODO-group9/savedata.xml";
+
 			DocumentBuilderFactory docFactory = DocumentBuilderFactory.newInstance();
 			DocumentBuilder docBuilder = docFactory.newDocumentBuilder();
 			Document doc = docBuilder.parse(filepath); //
@@ -194,7 +205,8 @@ public class XML {
 	public void removeCategory(Category t) {
 
 		try {
-			String filepath = "./file.xml";
+			String filepath = System.getProperty("user.home")
+					+ "/.TODO-group9/savedata.xml";
 			DocumentBuilderFactory docFactory = DocumentBuilderFactory.newInstance();
 			DocumentBuilder docBuilder = docFactory.newDocumentBuilder();
 			Document doc = docBuilder.parse(filepath);
@@ -237,7 +249,8 @@ public class XML {
 		ArrayList<Task> r = new ArrayList<Task>();
 		try {
 
-			File fXmlFile = new File("./file.xml");
+			File fXmlFile = new File(System.getProperty("user.home")
+					+ "/.TODO-group9/savedata.xml");
 			DocumentBuilderFactory dbFactory = DocumentBuilderFactory.newInstance();
 			DocumentBuilder dBuilder = dbFactory.newDocumentBuilder();
 			Document doc = dBuilder.parse(fXmlFile);
@@ -282,7 +295,8 @@ public class XML {
 	public void addTask(Task item) {
 
 		try {
-			String filepath = "./file.xml";
+			String filepath = System.getProperty("user.home")
+					+ "/.TODO-group9/savedata.xml";
 			DocumentBuilderFactory docFactory = DocumentBuilderFactory.newInstance();
 			DocumentBuilder docBuilder = docFactory.newDocumentBuilder();
 			Document doc = docBuilder.parse(filepath); //
@@ -397,7 +411,8 @@ public class XML {
 	public void removeTask(Task t) {
 
 		try {
-			String filepath = "./file.xml";
+			String filepath = System.getProperty("user.home")
+					+ "/.TODO-group9/savedata.xml";
 			DocumentBuilderFactory docFactory = DocumentBuilderFactory.newInstance();
 			DocumentBuilder docBuilder = docFactory.newDocumentBuilder();
 			Document doc = docBuilder.parse(filepath);

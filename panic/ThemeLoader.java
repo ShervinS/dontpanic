@@ -1,7 +1,7 @@
 package panic;
 
 import java.awt.Color;
-import java.io.File;
+import java.io.InputStream;
 
 import javax.swing.UIManager;
 import javax.xml.parsers.DocumentBuilder;
@@ -26,7 +26,7 @@ public class ThemeLoader {
 	public void loadColors() {
 		try {
 
-			File fXmlFile = new File(this.getClass().getClassLoader().getResource("resources/colors.xml").toString());
+			InputStream fXmlFile = this.getClass().getClassLoader().getResource("resources/colors.xml").openStream();
 			DocumentBuilderFactory dbFactory = DocumentBuilderFactory.newInstance();
 			DocumentBuilder dBuilder = dbFactory.newDocumentBuilder();
 			Document doc = dBuilder.parse(fXmlFile);
@@ -64,7 +64,7 @@ public class ThemeLoader {
 	public Color getColor(String k) {
 		try {
 
-			File fXmlFile = new File(this.getClass().getClassLoader().getResource("resources/colors.xml").toString());
+			InputStream fXmlFile = this.getClass().getClassLoader().getResource("resources/colors.xml").openStream();
 			DocumentBuilderFactory dbFactory = DocumentBuilderFactory.newInstance();
 			DocumentBuilder dBuilder = dbFactory.newDocumentBuilder();
 			Document doc = dBuilder.parse(fXmlFile);
