@@ -129,7 +129,7 @@ public class TasksPanelController {
 		quickAdd.setText(langProp.getString("quickAdd"));
 		addButton.setText(langProp.getString("addTask"));
 		showToday.setText(langProp.getString("showToday"));
-		tableModel.setHeader(h);
+	//	tableModel.setHeader(h);
 	}
 
 }
