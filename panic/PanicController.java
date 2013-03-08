@@ -53,8 +53,9 @@ public class PanicController {
 	
 	public void start() {
 		this.taskManager = TaskManager.getInstance();
-		this.leftPanelController = CategoryPanelController.getInstance();
 		this.midPanelController = TasksPanelController.getInstance();
+		this.leftPanelController = CategoryPanelController.getInstance();
+		
 		this.rightPanelController = DetailsPanelController.getInstance();
 		
 		//We want to show todays tasks at some time in the morning 
@@ -189,13 +190,8 @@ public class PanicController {
 	}
 	
 	public void setCategory(Category c) {
-		ArrayList<Task> tasks = new ArrayList<Task>();
-		for (Task i : taskManager.getTaskList()) {
-			if (i.getCategory().equals(c)) {
-				tasks.add(i);
-			}
-		}
-		midPanelController.updateShownTasks(tasks);
+		midPanelController.setCategory(c);
+		midPanelController.updateShownTasks(taskManager.getTaskList());
 	}
 	
 	public ArrayList<Category> getCategories(){

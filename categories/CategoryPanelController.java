@@ -137,7 +137,7 @@ public class CategoryPanelController {
 			Category category3 = new Category("Activities", new Color(110,200,150));
 			Category category4 = new Category("Workout", new Color(10,130,130));
 			Category category5 = new Category("Fun", new Color(130,10,100));
-			
+			pc.setCategory(category2);
 			pc.addCategory(category1);
 			pc.addCategory(category2);
 			pc.addCategory(category3);

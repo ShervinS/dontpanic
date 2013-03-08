@@ -10,6 +10,7 @@ import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.JTextField;
 import javax.swing.ListSelectionModel;
+import javax.swing.table.TableColumnModel;
 
 import panic.I18;
 import panic.PanicController;
@@ -17,6 +18,7 @@ import panic.TodayTasks.ShowTodayAction;
 import tasks.actions.AddAction;
 import tasks.actions.QuickAddAction;
 import tasks.actions.TaskSelectionAction;
+import categories.Category;
 
 
 public class TasksPanelController {
@@ -28,7 +30,9 @@ public class TasksPanelController {
 	private JButton showToday;
 	private JScrollPane pane; 
 	private TaskTableModel tableModel;
+	private JTable table;
 	private ShowTodayAction showTodayAction;
+	private Category currentCategory;
 	private static TasksPanelController instance;
 	
 	
@@ -45,14 +49,14 @@ public class TasksPanelController {
 					  langProp.getString("category"), 
 					  langProp.getString("done")};
 		tableModel = new TaskTableModel(h);
-		JTable table = new JTable(tableModel);
+		table = new JTable(tableModel);
 		table.getSelectionModel().addListSelectionListener(new TaskSelectionAction(table, tableModel));
 			table.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
 		pane = new JScrollPane(table, JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED, JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
 		
 		quickAdd = new JTextField(I18.getInstance().properties.getString("quickAdd"));
 		quickAdd.setEditable(true);
-		//quickAdd.setForeground(Color.GRAY);
+		
 		addButton = new JButton(I18.getInstance().properties.getString("addTask"), new ImageIcon(this.getClass().getResource("/resources/addIcon.png")));
 		showToday = new JButton(I18.getInstance().properties.getString("showToday"));
 		
@@ -95,17 +99,23 @@ public class TasksPanelController {
 		pc.taskSelected(t);
 	}
 	
+	public void setCategory(Category c) {
+		currentCategory = c;
+	}
+	
 	public void updateShownTasks(ArrayList<Task> tasks) {
 		ArrayList<Object[]> newData = new ArrayList<Object[]>();
 		for (int i = tasks.size()-1; i >= 0;i--) {
 			Task task = tasks.get(i);
-			Object[] newRow = new Object[5];
-			newRow[0] = task;
-			newRow[1] = task.getDueDate();
-			newRow[2] = task.getPriorityString();
-			newRow[3] = task.getCategory().getName();
-			newRow[4] = task.isCheck() ? "Done" : "Not Done";
-			newData.add(newRow);
+			if (currentCategory == null || task.getCategory().getName().equals(currentCategory.getName())) {
+				Object[] newRow = new Object[5];
+				newRow[0] = task;
+				newRow[1] = task.getDueDate();
+				newRow[2] = task.getPriorityString();
+				newRow[3] = task.getCategory().getName();
+				newRow[4] = task.isCheck() ? "Done" : "Not Done";
+				newData.add(newRow);
+			}	
 		}
 		tableModel.changeData(newData);
 		tableModel.fireTableDataChanged();
@@ -129,7 +139,13 @@ public class TasksPanelController {
 		quickAdd.setText(langProp.getString("quickAdd"));
 		addButton.setText(langProp.getString("addTask"));
 		showToday.setText(langProp.getString("showToday"));
+		TableColumnModel tm = table.getTableHeader().getColumnModel();
 		tableModel.setHeader(h);
+		for (int i = 0; i <= 4; i++) {
+			tm.getColumn(i).setHeaderValue(h[i]);
+		}
+		
+		
 	}
 
 }
