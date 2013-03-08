@@ -21,6 +21,7 @@ public class MarkAsDoneAction extends AbstractAction {
 	@Override
 	public void actionPerformed(ActionEvent arg0) {
 		DetailsPanelController pc = DetailsPanelController.getInstance();
+		System.out.println(pc.getCurrentTask());
 		if (pc.getCurrentTask() != null) {
 			pc.getCurrentTask().setCheck(!pc.getCurrentTask().isCheck());
 			pc.updateTask(pc.getCurrentTask());

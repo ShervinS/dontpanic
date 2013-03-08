@@ -20,5 +20,6 @@ public class ClockView extends JPanel {
 		setBackground(new Color(10, 91, 195));
 		setLayout(new GridBagLayout());
 		c = new GridBagConstraints();
+		//this.add(new ClockComponent());
 	}
 }

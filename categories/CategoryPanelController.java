@@ -1,3 +1,4 @@
+
 package categories;
 
 import java.awt.Color;
@@ -21,7 +22,6 @@ import panic.I18;
 import panic.PanicController;
 import tasks.actions.TaskSelectionAction;
 
-
 public class CategoryPanelController {
 
 	private static final String ClockView = null;
@@ -35,13 +35,13 @@ public class CategoryPanelController {
 	private JTextField addCategoryField;
 	private CategoriesModel categoriesModel;
 	private static CategoryPanelController instance;
-	
+
 	public CategoryPanelController() {
 		I18.getInstance().setLocale("swe");
-		
+
 		//Initialize the views
 		panel = new CategoryPanel();
-		
+
 		//Create the categories table
 		this.categoriesModel = new CategoriesModel();
 		this.categoriesTable = new JTable(categoriesModel)
@@ -49,15 +49,17 @@ public class CategoryPanelController {
 			public Component prepareRenderer(TableCellRenderer renderer, int row, int column)
 			{
 				Component c = super.prepareRenderer(renderer, row, column);
+				System.out.println("Plz: " + dataModel.getValueAt(row, column));
 				CategoriesModel model = (CategoriesModel) dataModel;
 				Category category = model.getCategoryAtIndex(row);
 				//  Color row based on a cell value
 				c.setBackground(Color.BLACK);
 				c.setBackground(category.getColor());
-				
+
 				return c;
 			}
-		};
+		};	
+		
 		this.categoriesTable.setOpaque(true);
 		this.categoriesTable.setFont(new Font("Verdana", Font.PLAIN, 14));
 		this.categoriesTable.setRowHeight(ROWHEIGHT);
@@ -69,24 +71,30 @@ public class CategoryPanelController {
 		this.categoriesTable.setTableHeader(null);
 	    this.categoriesTable.setColumnSelectionAllowed(false);
 		this.categoriesTable.getSelectionModel().addListSelectionListener(new SelectCategoryAction(this.categoriesTable));
-	    
+
+		
 		//Set column width
 		this.categoriesTable.getColumnModel().getColumn(0).setPreferredWidth(240);
-		
-		//Create scrollpane with the categoriestable inside
+		//this.categoriesTable.setDefaultRenderer(Object.class, )
+
+		//Crate scrollpane with the categoriestable inside
 		this.scrollPane = new JScrollPane(categoriesTable, JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED, JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
 		this.scrollPane.setBackground(new Color(88, 91, 95));
-		
+
 		//This sets the background color for the table
 		this.scrollPane.getViewport().setBackground(new Color(88,91,95));
 
 		addButton = new JButton(new ImageIcon(this.getClass().getResource("/resources/addIcon.png")));
-		
+
 		//Set parent controller
 		this.pc = PanicController.getInstance();
-		
+
 		this.addCategoryField = new JTextField(I18.getInstance().properties.getString("addCategory"));
 		this.addCategoryField.setEditable(true);
+
+		
+		
+		
 		
 		ClockView clockView = new ClockView();
 		Color[] colors = {new Color(10,100,200), new Color(100,10,200), new Color(200,100,200), new Color(255,0,0)};
@@ -106,22 +114,18 @@ public class CategoryPanelController {
 		panel.addNewCategoryButton(addButton);	
 		panel.addCategoriesScrollView(this.scrollPane);
 		panel.addClockView(clockView);
-		
 		updateGUI();
 	}
-	
-	
-	
+
 	public CategoryPanel getView() {
 		return panel;
 	}
-	
-	
+
+
 	public void updateGUI(){
 		this.categories = pc.getCategories();
 		this.categoriesModel.setCategories(pc.getCategories());
 		this.categoriesModel.fireTableDataChanged();
-		//generateDefaultCategories();
 	}
 	
 	public void generateDefaultCategories() {
@@ -137,7 +141,7 @@ public class CategoryPanelController {
 			pc.addCategory(category4);
 			pc.addCategory(category5);
 	}
-	
+
 	public static CategoryPanelController getInstance() {
 		 if (instance == null) {
 			 synchronized (CategoryPanelController.class){
@@ -148,6 +152,8 @@ public class CategoryPanelController {
 		 }
 		 return instance;
 	}
+
+	
 	
 	public void logCategories() {
 		for (Category cat : this.categories)
@@ -156,9 +162,17 @@ public class CategoryPanelController {
 	public void updateLanguage(){
 		addButton.setText(I18.getInstance().properties.getString("addCategory"));
 	}
-	
+
 	public void selectCategoryAtIndex(int index) {
 		pc.setCategory(this.categories.get(index));
 	}
 	
+	public String getCategoryFieldText(){
+		return addCategoryField.getText();
+	}
+
 }
+
+
+
+

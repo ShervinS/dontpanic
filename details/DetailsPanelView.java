@@ -33,14 +33,21 @@ public class DetailsPanelView extends JPanel implements ActionListener {
 	 */
 	public DetailsPanelView() {
 		super();
+		//y is the position the next component should be added, starts at position 0
 		y = 0;
+		//Set layoutmanager
 		setLayout(new GridBagLayout());
 		c = new GridBagConstraints();
 		c.fill = GridBagConstraints.BOTH;
 		c.weightx = 0.7;
 		c.insets = new Insets(0, 5, 5, 5);
+		
+		//Size and background, height will be 0, because it will automatically follow the 
+		//big frame's height
 		setBackground(new Color(0xededed));
 		setPreferredSize(new Dimension(0, 600));
+		
+		//The timer used for animations
 		t = new Timer(1, this);
 	}
 	
@@ -55,39 +62,43 @@ public class DetailsPanelView extends JPanel implements ActionListener {
 	public void gridAdd(int pad, JComponent comp) {
 		c.insets = new Insets(pad, 5, 0, 5);
 		c.gridy = y;
+		//Add this to position y, then increase y
 		y += 1;
 		this.add(comp, c);
 	}
 	
 	/**
-	 * Will pad the RightPanelView to move every other component to the top
-	 * @param x The position horizontally in the grid where the padding should be,
-	 * 			should be the last.
-	 * @param y The position vertically in the gird where the padding should be,
-	 * 			should be the last.
+	 * Will pad this view to move every component over it
+	 * to the top, and every component below it to the bottom
 	 */
 	public void pad() {
+		//We only allow one filler, if one is already there, remove it first
 		if (filler != null) {
 			remove(filler);
 		}
 		c.gridy = y;
+		//Add this to position y, then increase y
 		y += 1;
-		GridBagConstraints fill = (GridBagConstraints) c.clone();
-		fill.weighty = 1;
+		c.weighty = 1;
 		filler = new JPanel();
-		filler.setBackground(this.getBackground());
-		add(filler, fill);
+		//Let filler be the invisible
+		filler.setOpaque(false);
+		add(filler, c);
+		c.weighty = 0;
 	}
 	
 	/**
 	 * Will animate this panel to show, or close
 	 * @param b Show if b is true, close if b is false
 	 */
-	public void showPanel(Boolean b) {
+	public synchronized void showPanel(Boolean b) {
 		show = b;
+		//Stop the animating timer before staring a new one
+		t.stop();
+		//Get the current state of the panel
 		currentHeight = this.getHeight();
 		currentWidth = this.getWidth();
-		t.stop();
+		//Start the new animation
 		t.start();
 	}
 
@@ -97,20 +108,18 @@ public class DetailsPanelView extends JPanel implements ActionListener {
 	 * @param e Event being executed
 	 */
 	public void actionPerformed(ActionEvent e) {
+		//If the animation is below 15 or above 185, it is done, and we will
+		//set the width to its max or min value
 		if ((currentWidth < 15 && !show) || (currentWidth > 185 && show)) {
 			currentWidth = show ? 200 : 0;
 			setPreferredSize(new Dimension(currentWidth, currentHeight));
 			revalidate();
 			repaint();
+			//Stop the animation
 			t.stop();
 		}
 		else {
-			if (show) {
-				currentWidth += 15;
-			}
-			else {
-				currentWidth -= 15;
-			}
+			currentWidth += show ? 15 : -15;
 			setPreferredSize(new Dimension(currentWidth, currentHeight));
 			revalidate();
 			repaint();
@@ -118,11 +127,20 @@ public class DetailsPanelView extends JPanel implements ActionListener {
 	}
 	
 	
+	/**
+	 * 
+	 * @return If this panel is showing at the moment
+	 */
 	public boolean isOpen() {
 		return show;
 	}
 	
+	/**
+	 * Open or closes the panel without animation
+	 * @param b True for open, False for close
+	 */
 	public void setOpen(boolean b)  {
 		show = b;
+		this.setPreferredSize(new Dimension(show ? 200 : 0, currentHeight));
 	}
 }

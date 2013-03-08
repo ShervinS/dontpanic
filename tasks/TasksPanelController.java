@@ -23,8 +23,8 @@ import categories.Category;
 
 public class TasksPanelController {
 	
-	TasksPanelView panel;
-	PanicController pc;
+	private TasksPanelView panel;
+	private PanicController pc;
 	private JTextField quickAdd; 
 	private JButton addButton;
 	private JButton showToday;
@@ -42,6 +42,8 @@ public class TasksPanelController {
 		//Initialize the views
 		panel = new TasksPanelView();
 		
+		
+		//The table and its model/renderer
 		ResourceBundle langProp = I18.getInstance().properties;
 		String[] h = {langProp.getString("title"), 
 					  langProp.getString("duedate"), 
@@ -50,9 +52,13 @@ public class TasksPanelController {
 					  langProp.getString("done")};
 		tableModel = new TaskTableModel(h);
 		table = new JTable(tableModel);
+		TaskTableRenderer renderer = new TaskTableRenderer();
+		//table.setDefaultRenderer(String.class, renderer);
+		//table.setDefaultRenderer(Boolean.class, renderer);
 		table.getSelectionModel().addListSelectionListener(new TaskSelectionAction(table, tableModel));
 			table.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
 		pane = new JScrollPane(table, JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED, JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
+		
 		
 		quickAdd = new JTextField(I18.getInstance().properties.getString("quickAdd"));
 		quickAdd.setEditable(true);
@@ -117,7 +123,7 @@ public class TasksPanelController {
 				newRow[1] = task.getDueDate();
 				newRow[2] = task.getPriorityString();
 				newRow[3] = task.getCategory().getName();
-				newRow[4] = task.isCheck() ? "Done" : "Not Done";
+				newRow[4] = task.isCheck();
 				newData.add(newRow);
 			}	
 		}
