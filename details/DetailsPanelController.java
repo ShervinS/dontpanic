@@ -30,7 +30,7 @@ import details.actions.DateAction;
 import details.actions.DeleteAction;
 import details.actions.DescriptionAction;
 import details.actions.DoneAction;
-import details.actions.MarkAsDoneAction;
+//import details.actions.MarkAsDoneAction;
 import details.actions.PriorityAction;
 import details.actions.TitleAction;
 
@@ -147,7 +147,7 @@ public class DetailsPanelController implements ActionListener {
 		date.addPropertyChangeListener(new DateAction(date));
 		deleteButton.addActionListener(new DeleteAction());
 		doneButton.addActionListener(new DoneAction());
-		markDoneButton.addActionListener(new MarkAsDoneAction(markDoneButton));
+		//markDoneButton.addActionListener(new MarkAsDoneAction(markDoneButton));
 		
 		//Add every view component to the panel
 		panel.gridAdd(5, titleLabel);

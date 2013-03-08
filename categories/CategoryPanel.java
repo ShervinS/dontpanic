@@ -9,6 +9,7 @@ import javax.swing.JButton;
 import javax.swing.JComponent;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
+import javax.swing.JTextField;
 
 public class CategoryPanel extends JPanel {
 	private static final int NEWCATEGORY = 0;
@@ -27,36 +28,39 @@ public class CategoryPanel extends JPanel {
 		c = new GridBagConstraints();
 	}
 	
+	public void addCategoryTextField(JTextField textfield) {
+		c.gridx = 0;
+		c.fill = GridBagConstraints.BOTH;
+		c.weightx = 0.9;
+		c.gridwidth = 1;
+		add(textfield, c);
+	}
+	
 	public void addNewCategoryButton(JComponent addButton) {
 		c.fill = GridBagConstraints.HORIZONTAL;
 		c.gridwidth = 1;
-		c.gridx = 0;
+		c.gridx = 1;
 		c.gridy = NEWCATEGORY;
 		
 		c.weighty = 0.0;
 		c.weightx = 0.1;
 		add(addButton, c);
-		
-		//add(pane, c);
-		
-	//	pane.revalidate();
-		//pane.repaint();
 	}
 	
 	public void addCategoriesScrollView(JScrollPane scrollView) {
 		c.weighty = 1.0;
 		c.gridy = CATEGORIES;
 		c.fill = GridBagConstraints.BOTH;
-
-
+		c.gridwidth = 2;
+		c.gridx = 0;
 		add(scrollView, c);
-		//pane.revalidate();
-	//	pane.repaint();
 	}
 	
 	public void addClockView(ClockView clockView){
 		c.weighty = 0.1;
 		c.gridy = CLOCKVIEW;
+		c.gridwidth = 2;
+		c.gridx = 0;
 		add(clockView, c);
 	}
 }

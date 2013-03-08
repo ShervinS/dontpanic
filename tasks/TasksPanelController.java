@@ -144,8 +144,7 @@ public class TasksPanelController {
 		for (int i = 0; i <= 4; i++) {
 			tm.getColumn(i).setHeaderValue(h[i]);
 		}
-		
-		
+
 	}
 
 }
