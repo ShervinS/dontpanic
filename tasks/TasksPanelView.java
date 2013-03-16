@@ -9,16 +9,32 @@ import javax.swing.JComponent;
 import javax.swing.JPanel;
 
 
+/**
+ * The view for the displaying all tasks
+ * in the !Panic ToDo-application
+ * @author joseph
+ *
+ */
 public class TasksPanelView extends JPanel {
 	
 	private static final long serialVersionUID = 1L;
 	private GridBagConstraints c;
 	
+	/**
+	 * Constructor
+	 */
 	public TasksPanelView() {
 		setLayout(new GridBagLayout());
 		c = new GridBagConstraints();
 	}
 	
+	/**
+	 * Adds the components to this view
+	 * @param quickAdd Component to act as the textfield for quick adding a task
+	 * @param addButton Component to act as the button for adding a new task
+	 * @param pane Component to act as the displayer for tasks
+	 * @param showToday Component to act as the button which shows today's tasks
+	 */
 	public void addToView(JComponent quickAdd, JComponent addButton, JComponent pane, JButton showToday) {
 		c.fill = GridBagConstraints.BOTH;
 		c.gridwidth = 1;
