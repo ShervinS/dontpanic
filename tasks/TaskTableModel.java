@@ -4,6 +4,11 @@ import java.util.ArrayList;
 
 import javax.swing.table.AbstractTableModel;
 
+/**
+ * Custom model for showing tasks
+ * @author joseph
+ *
+ */
 public class TaskTableModel extends AbstractTableModel {
 
 	private static final long serialVersionUID = 1L;
@@ -11,6 +16,10 @@ public class TaskTableModel extends AbstractTableModel {
 	private ArrayList<Object[]> data;
 	
 	
+	/**
+	 * Constructor
+	 * @param header The header for the table
+	 */
 	public TaskTableModel(String[] header) {
 		this.header = header;
 		data = new ArrayList<Object[]>();
@@ -19,43 +28,41 @@ public class TaskTableModel extends AbstractTableModel {
 	
 	@Override
 	public int getColumnCount() {
-		// TODO Auto-generated method stub
 		return header.length;
 	}
 	
+	/**
+	 * @param i The index of the header to return
+	 * @return The name of the header as position i
+	 */
 	public String getColumnName(int i) {
 		return header[i];
 	}
 	
+	/**
+	 * Changes the current data of this table to
+	 * newData
+	 * @param newData The new data of this table
+	 */
 	public void changeData(ArrayList<Object[]> newData) {
 		data = newData;
 	}
+	
 	@Override
 	public int getRowCount() {
-		// TODO Auto-generated method stub
 		return data.size();
 	}
 	
-	public Class getColumnClass(int column) {
-		switch (column) {
-			case 0:
-			case 1:
-			case 2:
-			case 3:
-				return String.class;
-			default:
-				//Should be Boolean later
-				return String.class;
-		}
-	}
-	
+	/**
+	 * Sets a new header for this table
+	 * @param h The new header
+	 */
 	public void setHeader(String[] h) {
 		h = header;
 	}
 
 	@Override
 	public Object getValueAt(int x, int y) {
-		// TODO Auto-generated method stub
 		if (x <= data.size() && x >= 0 && y >= 0 && y <= header.length)
 			return data.get(x)[y];
 		return null;

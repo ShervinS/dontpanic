@@ -1,17 +1,24 @@
 package details.actions;
 
-import javax.swing.JList;
 import javax.swing.JTextField;
 import javax.swing.event.DocumentEvent;
 import javax.swing.event.DocumentListener;
 
 import details.DetailsPanelController;
 
+/**
+ * Action for use with a title field for a Task
+ * @author joseph
+ *
+ */
 public class TitleAction implements DocumentListener {
 
 	private JTextField title;
-	private JList priority;
 	
+	/**
+	 * Constructor
+	 * @param title JTextField to get the current title from
+	 */
 	public TitleAction(JTextField title) {
 		this.title = title;
 	}

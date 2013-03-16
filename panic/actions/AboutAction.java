@@ -6,6 +6,11 @@ import javax.swing.AbstractAction;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 
+/**
+ * Action to show the "About" window
+ * @author joseph
+ *
+ */
 public class AboutAction extends AbstractAction {
 
 	private static final long serialVersionUID = 1L;

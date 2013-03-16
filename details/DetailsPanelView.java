@@ -12,35 +12,34 @@ import javax.swing.JComponent;
 import javax.swing.JPanel;
 import javax.swing.Timer;
 
+
+/**
+ * The view for the detailed window in the !Panic ToDo-application
+ * @author joseph
+ *
+ */
 public class DetailsPanelView extends JPanel implements ActionListener {
 	
 	private static final long serialVersionUID = 1L;
 	
-	public GridBagConstraints c;
-	
 	private JPanel filler;
 	private boolean show;
 	private Timer t;
-	private int y;
 	
 	private int currentWidth;
 	private int currentHeight;
 	
+	
 	/**
 	 * Constructor for this view. Will create an empty 
 	 * RightPanelView
-	 * @param p The controller for this panel
 	 */
 	public DetailsPanelView() {
 		super();
-		//y is the position the next component should be added, starts at position 0
-		y = 0;
+		
 		//Set layoutmanager
 		setLayout(new GridBagLayout());
-		c = new GridBagConstraints();
-		c.fill = GridBagConstraints.BOTH;
-		c.weightx = 0.7;
-		c.insets = new Insets(0, 5, 5, 5);
+		
 		
 		//Size and background, height will be 0, because it will automatically follow the 
 		//big frame's height
@@ -54,36 +53,30 @@ public class DetailsPanelView extends JPanel implements ActionListener {
 	
 	/**
 	 * Adds an element to this component
-	 * @param x Where in the grid horizontally the component should be added 
-	 * @param y Where in the grid vertically the component should be added
-	 * @param pad How much padding should be done before the component
+	 * @param pad How much padding should be done before the component comp
+	 * @param c The constraints to use for the component comp
 	 * @param comp The component to add
 	 */
-	public void gridAdd(int pad, JComponent comp) {
+	public void add(int pad, GridBagConstraints c, JComponent comp) {
 		c.insets = new Insets(pad, 5, 0, 5);
-		c.gridy = y;
-		//Add this to position y, then increase y
-		y += 1;
 		this.add(comp, c);
+		c.gridy += 1;
 	}
 	
 	/**
 	 * Will pad this view to move every component over it
 	 * to the top, and every component below it to the bottom
 	 */
-	public void pad() {
+	public void pad(GridBagConstraints c) {		
 		//We only allow one filler, if one is already there, remove it first
 		if (filler != null) {
-			remove(filler);
+			this.remove(filler);
 		}
-		c.gridy = y;
-		//Add this to position y, then increase y
-		y += 1;
-		c.weighty = 1;
 		filler = new JPanel();
-		//Let filler be the invisible
+		//Let filler be invisible
 		filler.setOpaque(false);
-		add(filler, c);
+		c.weighty = 1;
+		add(0, c, filler);
 		c.weighty = 0;
 	}
 	
@@ -95,7 +88,7 @@ public class DetailsPanelView extends JPanel implements ActionListener {
 		show = b;
 		//Stop the animating timer before staring a new one
 		t.stop();
-		//Get the current state of the panel
+		//Update the current state of the panel
 		currentHeight = this.getHeight();
 		currentWidth = this.getWidth();
 		//Start the new animation

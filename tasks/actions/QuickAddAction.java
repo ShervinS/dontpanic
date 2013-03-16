@@ -6,10 +6,19 @@ import java.awt.event.FocusListener;
 
 import javax.swing.JTextField;
 
+/**
+ * Action for the quickadd-textfield
+ * @author joseph
+ *
+ */
 public class QuickAddAction implements FocusListener {
 	
 	private JTextField quickAdd;
 	
+	/**
+	 * Constructor
+	 * @param quickAdd The textfield to edit
+	 */
 	public QuickAddAction(JTextField quickAdd) {
 		this.quickAdd = quickAdd;
 	}

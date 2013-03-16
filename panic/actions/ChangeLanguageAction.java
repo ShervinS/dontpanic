@@ -7,6 +7,11 @@ import javax.swing.AbstractAction;
 import panic.I18;
 import panic.PanicController;
 
+/**
+ * Action to change the language throughout the application
+ * @author joseph
+ *
+ */
 public class ChangeLanguageAction extends AbstractAction {
 
 	private static final long serialVersionUID = 1L;

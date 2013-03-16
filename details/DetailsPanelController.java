@@ -1,5 +1,7 @@
 package details;
 
+import java.awt.GridBagConstraints;
+import java.awt.Insets;
 import java.util.ArrayList;
 import java.util.Calendar;
 
@@ -13,7 +15,6 @@ import javax.swing.JList;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
 import javax.swing.ListSelectionModel;
-import javax.swing.Timer;
 
 import panic.I18;
 import panic.PanicController;
@@ -36,6 +37,7 @@ import details.actions.TitleAction;
  * The RightPanelController controls the right part of the !Panic ToDo-app
  * In this part you can add more details to your task.
  * A window will slide in and out when it's needed.
+ * This class implements the Singleton pattern
  * @author joseph
  *
  */
@@ -61,8 +63,6 @@ public class DetailsPanelController  {
 	
 	private JLabel categoriesLabel;
 	private JComboBox categories;
-	
-	private Timer t;
 	
 	private String[] s;
 	
@@ -121,11 +121,12 @@ public class DetailsPanelController  {
 		
 		//Set parent controller
 		this.pc = PanicController.getInstance();
-		
-		categoryStringArray = fixCategoryNameFormat( pc.getCategories());
+		categoryStringArray = new String[1];
+		categoryStringArray = fixCategoryNameFormat( pc.getCategories()).toArray(categoryStringArray);
 		for(String name:categoryStringArray){
 			categories.addItem(name);
 		}
+		categories.addItem("");
 		
 		//Add actions to all the components
 		title.getDocument().addDocumentListener(new TitleAction(title));
@@ -137,23 +138,30 @@ public class DetailsPanelController  {
 		doneButton.addActionListener(new DoneAction());
 		markDoneButton.addActionListener(new MarkAsDoneAction(markDoneButton));
 		
+		
+		//Create some constraints for adding to the view
+		GridBagConstraints c = new GridBagConstraints();
+		c.fill = GridBagConstraints.BOTH;
+		c.weightx = 0.7;
+		c.insets = new Insets(0, 5, 5, 5);
+		c.gridy = 0;
 		//Add every view component to the panel
-		panel.gridAdd(5, titleLabel);
-		panel.gridAdd(5, title);
-		panel.gridAdd(10, descriptionLabel);
-		panel.c.weighty = 0.5;
-		panel.gridAdd(5, description);
-		panel.c.weighty = 0;
-		panel.gridAdd(10, dateLabel);
-		panel.gridAdd(5, (JComponent) date);
-		panel.gridAdd(10, categoriesLabel);
-		panel.gridAdd(5, categories);
-		panel.gridAdd(10, priorityLabel);
-		panel.gridAdd(5, priority);
-		panel.gridAdd(10, markDoneButton);
-		panel.pad();
-		panel.gridAdd(10, doneButton);
-		panel.gridAdd(10, deleteButton);
+		panel.add(5, c, titleLabel);
+		panel.add(5, c, title);
+		panel.add(10, c, descriptionLabel);
+		c.weighty = 0.5;
+		panel.add(5, c, description);
+		c.weighty = 0;
+		panel.add(10, c, dateLabel);
+		panel.add(5, c, (JComponent) date);
+		panel.add(10, c, categoriesLabel);
+		panel.add(5, c, categories);
+		panel.add(10, c, priorityLabel);
+		panel.add(5, c, priority);
+		panel.add(10, c, markDoneButton);
+		panel.pad(c);
+		panel.add(10, c, doneButton);
+		panel.add(10, c, deleteButton);
 	}
 	
 	/**
@@ -176,14 +184,12 @@ public class DetailsPanelController  {
 	 * @param cats The array of Category
 	 * @return The array of String
 	 */
-	private String[] fixCategoryNameFormat(ArrayList<Category> cats){
+	private ArrayList<String> fixCategoryNameFormat(ArrayList<Category> cats){
 		ArrayList<String> names = new ArrayList<String>();
 		for(Category cat : cats){
 			names.add(cat.getName());
 		}
-		String[] catNameArray = new String[names.size()];
-		System.out.println(names.size()+"");
-		return names.toArray(catNameArray);
+		return names;
 	}
 	
 	/**
@@ -203,11 +209,6 @@ public class DetailsPanelController  {
 		if (!b) {
 			//If the panel is slid in, no task should be selected
 			currentTask = null;
-		}
-		else {
-			//If panel is slid out, get all categories to choose from
-			DefaultComboBoxModel newModel = new DefaultComboBoxModel(PanicController.getInstance().getCategories().toArray());
-			categories.setModel(newModel);
 		}
 		panel.showPanel(b);
 	}
@@ -242,11 +243,18 @@ public class DetailsPanelController  {
 		currentTask = null;
 		
 		//Use the Task t information to show on the right panel
+		
+		//Get title from the Task
 		title.setText(t.getTitle());
+		
+		//Get description from the Task
 		description.setText(t.getDescription());
+		
+		//Select the correct priority (-1 because indexing starts from 0)
 		priority.setSelectedIndex(t.getPriority()-1);
+		
+		//Get the date, and display it correctly
 		String dateString = t.getDueDate();
-		markDoneButton.setText(t.isCheck() ? I18.getInstance().properties.getString("markUnDone") : I18.getInstance().properties.getString("markDone"));
 		if (dateString.length() < 8) {
 			date.setCalendar(null);
 		}
@@ -258,6 +266,27 @@ public class DetailsPanelController  {
 			c.set(year, month-1, day);
 			date.setDate(c.getTime());
 		}
+		
+		//Get "done"-state
+		markDoneButton.setText(t.isCheck() ? I18.getInstance().properties.getString("markUnDone") : I18.getInstance().properties.getString("markDone"));
+		
+		//Fix categories to choose from
+		ArrayList<String> cats = fixCategoryNameFormat(PanicController.getInstance().getCategories());
+		cats.add(0, "");
+		String[] catStrings = new String[1];
+		catStrings = cats.toArray(catStrings);
+		DefaultComboBoxModel newModel = new DefaultComboBoxModel(catStrings);
+		categories.setModel(newModel);
+		
+		//And choose the correct category 
+		int i;
+		for (i = 0; i < categories.getItemCount(); i++) {
+			String s = (String) categories.getItemAt(i);
+			if (t.getCategory().getName().equals(s)) {
+				break;
+			}
+		}
+		categories.setSelectedIndex(i);
 		
 		//Lastly, make the currentTask t and show the right panel
 		currentTask = t;

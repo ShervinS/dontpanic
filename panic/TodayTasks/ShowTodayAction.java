@@ -17,8 +17,14 @@ import tasks.Task;
 import tasks.TaskManager;
 
 
+/**
+ * An action to show which tasks are for today and overdue.
+ * @author joseph
+ *
+ */
 public class ShowTodayAction extends AbstractAction implements Runnable {
 
+	JFrame today;
 	
 	private TasksTodayRenderer renderer;
 	private JList tasks;
@@ -49,6 +55,7 @@ public class ShowTodayAction extends AbstractAction implements Runnable {
 		String month = String.valueOf(Calendar.getInstance().get(Calendar.MONTH)+1);
 		String year = String.valueOf(Calendar.getInstance().get(Calendar.YEAR));
 		ArrayList<Task> today = new ArrayList<Task>();
+		//We need to check so that the format of the strings are correct.
 		if (day.length() < 2) {
 			day = "0" + day;
 		}
@@ -56,7 +63,10 @@ public class ShowTodayAction extends AbstractAction implements Runnable {
 			month = "0" + month;
 		}
 		for (Task i : taskList) {
-			if (i.getDueDate().equalsIgnoreCase(year+month+day) && !i.isCheck()) {
+			//If the tasks duedate is the same, or smaller (overdue) it needs to be shown.
+			if (!i.getDueDate().equals("") &&
+				i.getDueDate().compareTo(year+month+day) <= 0 && 
+				!i.isCheck()) {
 				today.add(i);
 			}
 		}
@@ -64,6 +74,9 @@ public class ShowTodayAction extends AbstractAction implements Runnable {
 	}
 	
 	
+	/**
+	 * Update the shown tasks
+	 */
 	public void update() {
 		DefaultListModel model = new DefaultListModel();
 		for (Task i : getTodayTasks(TaskManager.getInstance().getTaskList())) {
@@ -73,27 +86,49 @@ public class ShowTodayAction extends AbstractAction implements Runnable {
 	}
 	
 	
+	
 	private void initUi() {
-		
+		//Get today and overdues tasks
 		ArrayList<Task> todaysTasks = getTodayTasks(TaskManager.getInstance().getTaskList());
+		//If there are no tasks for today show an error
 		if (todaysTasks.size() == 0) {
 			JOptionPane.showMessageDialog(PanicController.getInstance().getFrame(), "No Tasks Today");
 		}
 		else {
-			JFrame today = new JFrame();
-			JPanel panel = new JPanel();
+			//If there already is a frame showing, remove it and show a new one
+			if (today == null) {
+				today = new JFrame();
+			}
+			else {
+				today.dispose();
+				today = new JFrame();
+			}
 			today.setTitle("Today's Tasks");
+			
+			//Create a panel to use as contentpane
+			JPanel panel = new JPanel();
+			
+			//Create a view for the tasks
 			tasks = new JList(todaysTasks.toArray());
 			renderer = new TasksTodayRenderer();
 			tasks.setCellRenderer(renderer);
 			tasks.addMouseListener(new TodayTasksMouseAdapter());
+			//Add it to the contentpane
 			panel.add(tasks);
+			
+			//Get the mainframe for positioning calculations
 			JFrame mainFrame = PanicController.getInstance().getFrame();
+			
+			//Set the contentpane to the JPanel
 			today.setContentPane(panel);
 			today.pack();
+			
+			//Use the mainFrame to calculate position to appear in the middle
 			today.setLocation(mainFrame.getLocation().x + mainFrame.getWidth()/2 - today.getWidth()/2, 
 					  mainFrame.getLocation().y + mainFrame.getHeight()/2 - today.getHeight()/2);
 			today.setVisible(true);
+			//Lastly, make sure you get focus
+			today.requestFocus();
 		}
 		
 	}

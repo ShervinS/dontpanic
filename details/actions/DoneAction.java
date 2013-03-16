@@ -6,6 +6,12 @@ import javax.swing.AbstractAction;
 
 import details.DetailsPanelController;
 
+/**
+ * An action for use with the detailed RightPanel.
+ * The action will close the RightPanel.
+ * @author joseph
+ *
+ */
 public class DoneAction extends AbstractAction {
 
 	private static final long serialVersionUID = 1L;

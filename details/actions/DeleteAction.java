@@ -6,6 +6,11 @@ import javax.swing.AbstractAction;
 
 import details.DetailsPanelController;
 
+/**
+ * Action for use with a delete Task button
+ * @author joseph
+ *
+ */
 public class DeleteAction extends AbstractAction {
 
 	private static final long serialVersionUID = 1L;

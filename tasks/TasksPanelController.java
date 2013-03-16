@@ -20,7 +20,12 @@ import tasks.actions.QuickAddAction;
 import tasks.actions.TaskSelectionAction;
 import categories.Category;
 
-
+/**
+ * The controller for the views that
+ * represent the tasks in the !Panic ToDo-appliction
+ * @author joseph
+ *
+ */
 public class TasksPanelController {
 	
 	private TasksPanelView panel;
@@ -36,7 +41,8 @@ public class TasksPanelController {
 	private static TasksPanelController instance;
 	
 	
-	public TasksPanelController() {
+
+	private TasksPanelController() {
 		I18.getInstance().setLocale("swe");
 		
 		//Initialize the views
@@ -78,6 +84,10 @@ public class TasksPanelController {
 		panel.addToView(quickAdd, addButton, pane, showToday);
 	}
 	
+	/**
+	 * 
+	 * @return The only instance of this controller
+	 */
 	public static TasksPanelController getInstance() {
 		 if (instance == null) {
 			 synchronized (TasksPanelController.class){
@@ -89,34 +99,59 @@ public class TasksPanelController {
 		 return instance;
 	}
 
+	/**
+	 * 
+	 * @return The main view this controller controls
+	 */
 	public TasksPanelView getView() {
 		return panel;
 	}
 	
+	/**
+	 * Updates the Today's Tasks popup
+	 */
 	public void updateTodayView() {
 		showTodayAction.update();
 		updateShownTasks(TaskManager.getInstance().getTaskList());
 		tableModel.fireTableDataChanged();
 	}
 	
-	
+	/**
+	 * Adds a Task 
+	 * @param t The Task added
+	 */
 	public void addTask(Task t) {
 		pc.newTask(t);
 		pc.taskSelected(t);
 	}
 	
+	/**
+	 * Sets the current category chosen
+	 * @param c The Category
+	 */
 	public void setCategory(Category c) {
 		currentCategory = c;
 	}
 	
+	/**
+	 * 
+	 * @return The current category selected
+	 */
 	public Category getCategory() {
 		return currentCategory;
 	}
 	
+	/**
+	 * Updates the shown Tasks in the view
+	 * @param tasks The tasks that should be filtered
+	 */
 	public void updateShownTasks(ArrayList<Task> tasks) {
 		ArrayList<Object[]> newData = new ArrayList<Object[]>();
+		//Add them in reverse, which puts the most recently added Task first in the view
 		for (int i = tasks.size()-1; i >= 0;i--) {
 			Task task = tasks.get(i);
+			//If no category is selected, all tasks should be shown
+			//If a category is selected, the tasks category must match to be added
 			if (currentCategory == null || task.getCategory().getName().equals(currentCategory.getName())) {
 				Object[] newRow = new Object[5];
 				newRow[0] = task;
@@ -131,14 +166,25 @@ public class TasksPanelController {
 		tableModel.fireTableDataChanged();
 	}
 	
+	/**
+	 * Select the Task t for editing in the right panel
+	 * @param t The Task
+	 */
 	public void taskSelected(Task t) {
 		pc.taskSelected(t);
 	}
 	
+	/**
+	 * Add a Task
+	 * @param t The Task added
+	 */
 	public void newTask(Task t) {
 		pc.newTask(t);
 	}
 	
+	/**
+	 * Updates the language throughout the views this controller controls
+	 */
 	public void updateLanguage() {
 		ResourceBundle langProp = I18.getInstance().properties;
 		String[] h = {langProp.getString("title"), 

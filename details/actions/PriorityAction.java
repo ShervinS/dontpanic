@@ -6,11 +6,20 @@ import javax.swing.event.ListSelectionListener;
 
 import details.DetailsPanelController;
 
+/**
+ * Action for used with a priority-choose for a Task
+ * @author joseph
+ *
+ */
 public class PriorityAction implements ListSelectionListener {
 
 	
 	private JList priority;
 	
+	/**
+	 * Constructor
+	 * @param priority JList to get the current priority chosen from
+	 */
 	public PriorityAction(JList priority) {
 		this.priority = priority;
 	}

@@ -27,6 +27,13 @@ import categories.Category;
 import categories.CategoryPanelController;
 import details.DetailsPanelController;
 
+/**
+ * The PanicController controls the main window for the !Panic ToDo-app.
+ * Implemented with the Singleton pattern.
+ * 
+ * @author joseph
+ *
+ */
 public class PanicController {
 
 	private JMenu file;
@@ -51,11 +58,15 @@ public class PanicController {
 		
 	}
 	
+	/**
+	 * First thing that should be called after the PanicController has been
+	 * instantiated.
+	 * Creates the main gui for the application.
+	 */
 	public void start() {
 		this.taskManager = TaskManager.getInstance();
 		this.midPanelController = TasksPanelController.getInstance();
 		this.leftPanelController = CategoryPanelController.getInstance();
-		
 		this.rightPanelController = DetailsPanelController.getInstance();
 		
 		//We want to show todays tasks at some time in the morning 
@@ -87,9 +98,14 @@ public class PanicController {
 		 return instance;
 	}
 	
+	/**
+	 * 
+	 * @return The main frame for the application
+	 */
 	public JFrame getFrame() {
 		return frame;
 	}
+	
 	
 	private void initGui() {
 		//Initialization of frame
@@ -157,6 +173,11 @@ public class PanicController {
 		midPanelController.updateShownTasks(taskManager.getTaskList());
 	}
 	
+	/**
+	 * Called when the language is changed.
+	 * Will set new texts on the views this
+	 * controller holds.
+	 */
 	public void updateLanguage(){
 		rightPanelController.updateLanguage();
 		midPanelController.updateLanguage();
@@ -169,37 +190,71 @@ public class PanicController {
 		language.setText(I18.getInstance().properties.getString("changeLang"));
 	}
 	
+	/**
+	 * Deletes the Task t from the task manager and
+	 * then updates the appropriate view.
+	 * @param t The Task deleted
+	 */
 	public void deleteTask(Task t) {
 		taskManager.removeTask(t);
 		midPanelController.updateShownTasks(taskManager.getTaskList());
 	}
 	
+	/**
+	 * Updates the Task t on the task manager and
+	 * then updates the appropriate view.
+	 * @param t The Task updated
+	 */
 	public void updateTask(Task t) {
 		taskManager.updateTask(t);
 		midPanelController.updateShownTasks(taskManager.getTaskList());
 	}
 	
+	/**
+	 * Adds the Task t to the task manager and
+	 * then updates the appropriate view.
+	 * @param t The Task added
+	 */
 	public void newTask(Task t) {
 		taskManager.addTask(t);
 		System.out.println(taskManager.getTaskList());
 		midPanelController.updateShownTasks(taskManager.getTaskList());
 	}
 
+	/**
+	 * Make the Task t selected, enabling
+	 * the right panel to be used to edit t
+	 * @param t The Task selected
+	 */
 	public void taskSelected(Task t) {
 		rightPanelController.taskSelected(t);
 	}
 	
+	/**
+	 * Set the category c and updates the
+	 * appropriate view to only show Task that
+	 * are set to c
+	 * @param c The category
+	 */
 	public void setCategory(Category c) {
 		midPanelController.setCategory(c);
 		midPanelController.updateShownTasks(taskManager.getTaskList());
 	}
 	
+	/**
+	 * 
+	 * @return All categories in the application
+	 */
 	public ArrayList<Category> getCategories() {
 		return taskManager.getCategoryList();
 	}
 	
-	public void addCategory(Category category) {
+	/**
+	 * Adds the category c to the task manager
+	 * @param c The category added
+	 */
+	public void addCategory(Category c) {
 			System.out.println("PanicController: Adding category");
-			taskManager.addCategory(category);
+			taskManager.addCategory(c);
 	}
 }

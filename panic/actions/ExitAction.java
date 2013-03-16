@@ -10,6 +10,11 @@ import java.util.Properties;
 
 import javax.swing.JFrame;
 
+/**
+ * Action to exit the application
+ * @author joseph
+ *
+ */
 public class ExitAction extends WindowAdapter implements ActionListener {
 
 	private JFrame frame;
@@ -19,6 +24,8 @@ public class ExitAction extends WindowAdapter implements ActionListener {
 	}
 	
 	private void exit() {
+		//Save window position and size in a file
+		//in a hidden folder in the user's home directory
 		try {
 			Properties p = new Properties();
 			p.setProperty("WindowX", String.valueOf(frame.getWidth()));

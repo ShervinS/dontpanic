@@ -12,6 +12,12 @@ import categories.CategoryPanel;
 import categories.CategoryView;
 import details.DetailsPanelView;
 
+/**
+ * The MainPanel which has all three views of
+ * the !Panic ToDo-app
+ * @author 
+ *
+ */
 public class MainPanel extends JPanel {
 
 	private static final long serialVersionUID = 1L;
