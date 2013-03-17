@@ -122,7 +122,6 @@ public class TasksPanelController {
 	 */
 	public void addTask(Task t) {
 		pc.newTask(t);
-		pc.taskSelected(t);
 	}
 	
 	/**
