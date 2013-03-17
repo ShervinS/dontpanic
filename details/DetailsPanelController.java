@@ -31,7 +31,6 @@ import details.actions.DoneAction;
 import details.actions.MarkAsDoneAction;
 import details.actions.PriorityAction;
 import details.actions.TitleAction;
-//import details.actions.MarkAsDoneAction;
 
 /**
  * The RightPanelController controls the right part of the !Panic ToDo-app

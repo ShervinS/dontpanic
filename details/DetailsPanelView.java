@@ -14,7 +14,8 @@ import javax.swing.Timer;
 
 
 /**
- * The view for the detailed window in the !Panic ToDo-application
+ * The view for the window with detailed information
+ * in the !Panic ToDo-application
  * @author joseph
  *
  */
@@ -31,8 +32,8 @@ public class DetailsPanelView extends JPanel implements ActionListener {
 	
 	
 	/**
-	 * Constructor for this view. Will create an empty 
-	 * RightPanelView
+	 * Constructor for this view. 
+	 * Will create an empty DetailsPanelView
 	 */
 	public DetailsPanelView() {
 		super();
@@ -52,7 +53,7 @@ public class DetailsPanelView extends JPanel implements ActionListener {
 	
 	
 	/**
-	 * Adds an element to this component
+	 * Adds an element below the last added element
 	 * @param pad How much padding should be done before the component comp
 	 * @param c The constraints to use for the component comp
 	 * @param comp The component to add
@@ -64,8 +65,8 @@ public class DetailsPanelView extends JPanel implements ActionListener {
 	}
 	
 	/**
-	 * Will pad this view to move every component over it
-	 * to the top, and every component below it to the bottom
+	 * Will pad this view to move every component added before it
+	 * to the top, and every component added after it to the bottom
 	 */
 	public void pad(GridBagConstraints c) {		
 		//We only allow one filler, if one is already there, remove it first
@@ -81,8 +82,8 @@ public class DetailsPanelView extends JPanel implements ActionListener {
 	}
 	
 	/**
-	 * Will animate this panel to show, or close
-	 * @param b Show if b is true, close if b is false
+	 * Will animate this panel to slide out, or slide in
+	 * @param b Slide out if b is true, slide in if b is false
 	 */
 	public synchronized void showPanel(Boolean b) {
 		show = b;
@@ -96,13 +97,12 @@ public class DetailsPanelView extends JPanel implements ActionListener {
 	}
 
 	@Override
-	/**
-	 * Shrinks or enlarges this panel by 15 pixels
-	 * @param e Event being executed
+	/*
+	 * Shrinks or enlarges this panel's width by 15 pixels
 	 */
 	public void actionPerformed(ActionEvent e) {
-		//If the animation is below 15 or above 185, it is done, and we will
-		//set the width to its max or min value
+		//If this panel's width is below 15 or above 185, the animation is done, and the
+		//width will be set to its max or min value
 		if ((currentWidth < 15 && !show) || (currentWidth > 185 && show)) {
 			currentWidth = show ? 200 : 0;
 			setPreferredSize(new Dimension(currentWidth, currentHeight));
@@ -111,6 +111,8 @@ public class DetailsPanelView extends JPanel implements ActionListener {
 			//Stop the animation
 			t.stop();
 		}
+		//If the panel's width is in between 15 and 185, its width will be enlarged
+		//or shrunk
 		else {
 			currentWidth += show ? 15 : -15;
 			setPreferredSize(new Dimension(currentWidth, currentHeight));
@@ -122,7 +124,7 @@ public class DetailsPanelView extends JPanel implements ActionListener {
 	
 	/**
 	 * 
-	 * @return If this panel is showing at the moment
+	 * @return If this panel is slid out
 	 */
 	public boolean isOpen() {
 		return show;
