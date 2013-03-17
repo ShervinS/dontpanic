@@ -23,8 +23,13 @@ public class DetailsPanelView extends JPanel implements ActionListener {
 	
 	private static final long serialVersionUID = 1L;
 	
+	
+	//A JPanel used to pad components from each other 
 	private JPanel filler;
+	
 	private boolean show;
+	
+	//Timer used for animations
 	private Timer t;
 	
 	private int currentWidth;
@@ -65,8 +70,8 @@ public class DetailsPanelView extends JPanel implements ActionListener {
 	}
 	
 	/**
-	 * Will pad this view to move every component added before it
-	 * to the top, and every component added after it to the bottom
+	 * Will pad this panel by moving every component added before the call
+	 * to this function to the top, and every component added after it to the bottom
 	 */
 	public void pad(GridBagConstraints c) {		
 		//We only allow one filler, if one is already there, remove it first
@@ -98,7 +103,7 @@ public class DetailsPanelView extends JPanel implements ActionListener {
 
 	@Override
 	/*
-	 * Shrinks or enlarges this panel's width by 15 pixels
+	 * Shrinks or enlarges this panel
 	 */
 	public void actionPerformed(ActionEvent e) {
 		//If this panel's width is below 15 or above 185, the animation is done, and the
