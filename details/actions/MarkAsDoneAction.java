@@ -1,16 +1,20 @@
 package details.actions;
 
 import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
-import javax.swing.AbstractAction;
 import javax.swing.JButton;
 
 import panic.I18;
 import details.DetailsPanelController;
 
-public class MarkAsDoneAction extends AbstractAction {
-
-	private static final long serialVersionUID = 1L;
+/**
+ * Action for use with the detailed view.
+ * Will mark the currently selected Task as done.
+ * @author joseph
+ *
+ */
+public class MarkAsDoneAction implements ActionListener {
 
 	private JButton button;
 	

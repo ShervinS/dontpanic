@@ -1,8 +1,7 @@
 package details.actions;
 
 import java.awt.event.ActionEvent;
-
-import javax.swing.AbstractAction;
+import java.awt.event.ActionListener;
 
 import details.DetailsPanelController;
 
@@ -11,9 +10,7 @@ import details.DetailsPanelController;
  * @author joseph
  *
  */
-public class DeleteAction extends AbstractAction {
-
-	private static final long serialVersionUID = 1L;
+public class DeleteAction implements ActionListener {
 
 	@Override
 	public void actionPerformed(ActionEvent arg0) {

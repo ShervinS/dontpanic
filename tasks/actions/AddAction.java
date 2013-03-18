@@ -2,8 +2,8 @@ package tasks.actions;
 
 import java.awt.Color;
 import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
-import javax.swing.AbstractAction;
 import javax.swing.JTextField;
 
 import tasks.Task;
@@ -14,10 +14,9 @@ import tasks.TasksPanelController;
  * @author joseph
  *
  */
-public class AddAction extends AbstractAction {
+public class AddAction implements ActionListener {
 
 
-	private static final long serialVersionUID = 1L;
 	private JTextField quickAdd;
 	
 	/**

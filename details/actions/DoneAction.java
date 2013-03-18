@@ -1,18 +1,17 @@
 package details.actions;
 
 import java.awt.event.ActionEvent;
-
-import javax.swing.AbstractAction;
+import java.awt.event.ActionListener;
 
 import details.DetailsPanelController;
 
 /**
- * An action for use with the detailed RightPanel.
- * The action will close the RightPanel.
+ * An action for use with the detailed view.
+ * The action will close the the detailed view.
  * @author joseph
  *
  */
-public class DoneAction extends AbstractAction {
+public class DoneAction implements ActionListener {
 
 	private static final long serialVersionUID = 1L;
 

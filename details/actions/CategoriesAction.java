@@ -2,8 +2,8 @@ package details.actions;
 
 import java.awt.Color;
 import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
-import javax.swing.AbstractAction;
 import javax.swing.JComboBox;
 
 import panic.PanicController;
@@ -13,9 +13,8 @@ import details.DetailsPanelController;
 /**
  * Action for use with a categorychanger for a Task
  */
-public class CategoriesAction extends AbstractAction {
+public class CategoriesAction implements ActionListener {
 
-	private static final long serialVersionUID = 1L;
 	private JComboBox categories;
 	
 	/**

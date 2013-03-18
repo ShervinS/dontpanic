@@ -11,16 +11,13 @@ import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
-import javax.swing.JTextField;
 import javax.swing.ListSelectionModel;
 import javax.swing.table.TableCellRenderer;
 
-import categories.actions.AddCategoryAction;
-import categories.actions.SelectCategoryAction;
-
 import panic.I18;
 import panic.PanicController;
-import tasks.actions.TaskSelectionAction;
+import categories.actions.AddCategoryAction;
+import categories.actions.SelectCategoryAction;
 
 /**
  * The controller for the category part of the gui, contains the communication
@@ -96,14 +93,8 @@ public class CategoryPanelController {
 
 		//Set parent controller
 		this.pc = PanicController.getInstance();
-<<<<<<< HEAD
 
 		this.addCategoryField = new TextFieldWithPlaceholder(I18.getInstance().properties.getString("categoryPlaceHolder"));
-=======
-
-		
-		this.addCategoryField = new TextFieldWithPlaceholder();
->>>>>>> 9fe571e8c297a09b6b4145b7109eb839720f9670
 
 		ClockView clockView = new ClockView();
 		Color[] colors = {new Color(10,100,200), new Color(100,10,200), new Color(200,100,200), new Color(255,0,0)};

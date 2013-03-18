@@ -1,8 +1,8 @@
 package panic.actions;
 
 import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
-import javax.swing.AbstractAction;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 
@@ -11,9 +11,8 @@ import javax.swing.JOptionPane;
  * @author joseph
  *
  */
-public class AboutAction extends AbstractAction {
+public class AboutAction implements ActionListener {
 
-	private static final long serialVersionUID = 1L;
 	private JFrame frame;
 	
 	public AboutAction(JFrame frame) {
