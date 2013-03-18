@@ -1,5 +1,8 @@
 package categories;
-
+/**
+ * The panel component for the category part of the gui, 
+ * contains the swing components.
+ */
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.GridBagConstraints;

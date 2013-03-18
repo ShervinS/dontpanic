@@ -2,7 +2,15 @@ package panic;
 
 import java.util.Locale;
 import java.util.ResourceBundle;
-
+/**
+ * Class for helping with the language internationalization,
+ * you get the word in the language of the current locale by calling
+ * I18.getInstance.properties("*keyword*") where *keyword* is the keyword used
+ * in the recorce bundle 
+ * 
+ * @author Johannes Henriksson
+ *
+ */
 public class I18 {
     private static I18 instance = null;
     public ResourceBundle properties;

@@ -1,4 +1,3 @@
-
 package categories;
 
 import java.awt.Color;
@@ -24,6 +23,13 @@ import panic.I18;
 import panic.PanicController;
 import tasks.actions.TaskSelectionAction;
 
+/**
+ * The controller for the category part of the gui, contains the communication
+ * with the other controllers and the model.
+ * 
+ * @author Erik
+ *
+ */
 public class CategoryPanelController {
 
 	private static final String ClockView = null;
@@ -91,8 +97,7 @@ public class CategoryPanelController {
 		//Set parent controller
 		this.pc = PanicController.getInstance();
 
-		/*this.addCategoryField = new JTextField(I18.getInstance().properties.getString("addCategory"));
-		this.addCategoryField.setEditable(true);*/
+		
 		this.addCategoryField = new TextFieldWithPlaceholder();
 
 		ClockView clockView = new ClockView();
@@ -139,7 +144,6 @@ public class CategoryPanelController {
 	}
 
 	public void updateLanguage(){
-		//addButton.setText(I18.getInstance().properties.getString("addCategory"));
 	}
 
 	public void selectCategoryAtIndex(int index) {

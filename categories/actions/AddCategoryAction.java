@@ -1,4 +1,8 @@
 package categories.actions;
+/**
+ * Runs when the add category button is pressed, adds a new category.
+ * 
+ */
 
 import java.awt.Color;
 import java.awt.event.ActionEvent;
@@ -22,7 +26,7 @@ import tasks.TasksPanelController;
 
 public class AddCategoryAction extends AbstractAction {
 
-	private AddCategoryFrame addCategoryFrame;
+	
 	private static final long serialVersionUID = 1L;
 	private JTextField textField;
 	private JComboBox colorPicker;
@@ -34,7 +38,6 @@ public class AddCategoryAction extends AbstractAction {
 		this.cpc = cpc;
 		this.colorPicker = colorPicker;
 		this.textField = textField;
-		addCategoryFrame = new AddCategoryFrame(I18.getInstance().properties.getString("colorPickerFrameTitle"),this);
 	}
 	
 	
@@ -44,7 +47,6 @@ public class AddCategoryAction extends AbstractAction {
 	}
 	
 	public void updateLanguage(){
-		addCategoryFrame.updateLanguage();
 	}
 	
 	public void addCategory(Color color, String name){
