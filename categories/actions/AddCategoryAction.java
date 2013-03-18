@@ -40,6 +40,7 @@ public class AddCategoryAction extends AbstractAction {
 	
 	public void actionPerformed(ActionEvent arg0) {
 		this.addCategory((Color)this.colorPicker.getSelectedItem(),this.textField.getText());
+		this.textField.setText("");
 		this.cpc.updateGUI();
 	}
 	

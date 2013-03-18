@@ -21,7 +21,6 @@ class ColorComboBoxEditor implements ComboBoxEditor {
   public ColorComboBoxEditor(Color initialColor) {
     editor = new JButton("");
     editor.setBackground(initialColor);
-    
     }
     
 

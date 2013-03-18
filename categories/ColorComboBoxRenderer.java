@@ -45,7 +45,10 @@ implements ListCellRenderer {
 	    		Color color = (Color) value;
 	    		setBackground(color);
 	        }
-		setText("d" + index);
+		 if	(cellHasFocus) {
+			 
+		 }
+		setText(" ");
 		
 		//Set the icon and text.  If icon was null, say so.
 		/*String pet = petStrings[selectedIndex];
@@ -60,7 +63,6 @@ implements ListCellRenderer {
 		return this;
 	}
 	  public void setItem(Object newValue) {
-		  System.out.println("FNISSSAAA");
 		    if (newValue instanceof Color) {
 		      Color color = (Color) newValue;
 		   //   editor.setBackground(color);

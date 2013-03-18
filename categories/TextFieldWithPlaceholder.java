@@ -1,15 +1,18 @@
-package categories.actions;
+package categories;
 
 import java.awt.Color;
 import java.awt.Font;
 import java.awt.Graphics2D;
 
 import javax.swing.FocusManager;
+import javax.swing.JButton;
 import javax.swing.JTextField;
 
 //syntax isn't exactly right
 public class TextFieldWithPlaceholder extends JTextField{
 
+	private String placeHolderString;
+	
   @Override
   protected void paintComponent(java.awt.Graphics g) {
       super.paintComponent(g);
@@ -19,8 +22,17 @@ public class TextFieldWithPlaceholder extends JTextField{
           g2.setBackground(Color.lightGray);
           g2.setFont(getFont().deriveFont(Font.ITALIC));
           g2.setColor(Color.gray);
-          g2.drawString("Category name", 6, 18); //figure out x, y from font's FontMetrics and size of component.
+          g2.drawString(this.placeHolderString, 6, 18); //figure out x, y from font's FontMetrics and size of component.
           g2.dispose();
       }
     }
+  
+  public TextFieldWithPlaceholder(String placeHolderString) {
+	    this.placeHolderString = placeHolderString;
+	    }
+  
+  public void changePlaceholderTextTo(String placeHolderText){
+	  this.placeHolderString = placeHolderText;
+	  this.repaint();
+  }
 }

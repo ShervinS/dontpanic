@@ -12,6 +12,7 @@ import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.SwingUtilities;
 
+import panic.I18;
 import panic.PanicController;
 import tasks.Task;
 import tasks.TaskManager;
@@ -92,7 +93,7 @@ public class ShowTodayAction extends AbstractAction implements Runnable {
 		ArrayList<Task> todaysTasks = getTodayTasks(TaskManager.getInstance().getTaskList());
 		//If there are no tasks for today show an error
 		if (todaysTasks.size() == 0) {
-			JOptionPane.showMessageDialog(PanicController.getInstance().getFrame(), "No Tasks Today");
+			JOptionPane.showMessageDialog(PanicController.getInstance().getFrame(), I18.getInstance().properties.getString("noTasksToday"), I18.getInstance().properties.getString("noTasksTodayTitle"), JOptionPane.INFORMATION_MESSAGE);
 		}
 		else {
 			//If there already is a frame showing, remove it and show a new one

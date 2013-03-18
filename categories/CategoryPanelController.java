@@ -18,7 +18,6 @@ import javax.swing.table.TableCellRenderer;
 
 import categories.actions.AddCategoryAction;
 import categories.actions.SelectCategoryAction;
-import categories.actions.TextFieldWithPlaceholder;
 
 import panic.I18;
 import panic.PanicController;
@@ -34,7 +33,7 @@ public class CategoryPanelController {
 	private JScrollPane scrollPane;
 	private JButton addButton;
 	private JTable categoriesTable;
-	private JTextField addCategoryField;
+	private TextFieldWithPlaceholder addCategoryField;
 	private CategoriesModel categoriesModel;
 	private static CategoryPanelController instance;
 
@@ -81,19 +80,18 @@ public class CategoryPanelController {
 
 		//Create scrollpane with the categoriestable inside
 		this.scrollPane = new JScrollPane(categoriesTable, JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED, JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
-		this.scrollPane.setBackground(new Color(88, 91, 95));
+		this.scrollPane.setBackground(Color.WHITE);
 
 		//This sets the background color for the table
-		this.scrollPane.getViewport().setBackground(new Color(88,91,95));
+		this.scrollPane.getViewport().setBackground(new Color(0xededed));
+		this.scrollPane.setBorder(null);
 
 		addButton = new JButton(new ImageIcon(this.getClass().getResource("/resources/addIcon.png")));
 
 		//Set parent controller
 		this.pc = PanicController.getInstance();
 
-		/*this.addCategoryField = new JTextField(I18.getInstance().properties.getString("addCategory"));
-		this.addCategoryField.setEditable(true);*/
-		this.addCategoryField = new TextFieldWithPlaceholder();
+		this.addCategoryField = new TextFieldWithPlaceholder(I18.getInstance().properties.getString("categoryPlaceHolder"));
 
 		ClockView clockView = new ClockView();
 		Color[] colors = {new Color(10,100,200), new Color(100,10,200), new Color(200,100,200), new Color(255,0,0)};
@@ -140,6 +138,7 @@ public class CategoryPanelController {
 
 	public void updateLanguage(){
 		//addButton.setText(I18.getInstance().properties.getString("addCategory"));
+		addCategoryField.changePlaceholderTextTo(I18.getInstance().properties.getString("categoryPlaceHolder"));
 	}
 
 	public void selectCategoryAtIndex(int index) {

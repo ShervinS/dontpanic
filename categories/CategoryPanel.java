@@ -23,7 +23,7 @@ public class CategoryPanel extends JPanel {
 	public CategoryPanel () {
 		super();
 		setPreferredSize(new Dimension(PANEL_DEFAULT_WIDTH,0));
-		setBackground(new Color(88, 91, 95));
+		setBackground(Color.WHITE);
 		setLayout(new GridBagLayout());
 		c = new GridBagConstraints();
 	}
