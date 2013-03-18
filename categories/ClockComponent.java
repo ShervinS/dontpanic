@@ -47,6 +47,7 @@ public class ClockComponent extends JComponent implements ActionListener {
 	private int centerX;
 	private int centerY;
 	private int diameter;
+	private int offset;
 	private BufferedImage clockImage;
 	
 	private static final double TWO_PI   = 2.0 * Math.PI;
@@ -54,15 +55,6 @@ public class ClockComponent extends JComponent implements ActionListener {
     public ClockComponent() {
     	
     	setPreferredSize(new Dimension(60,60));
-    	try {
-    		pcFaceImg = ImageIO.read(new File("resources/img_CB.png"));
-    		pcFaceCenterImg = ImageIO.read(new File("resources/img_CBC.png"));
-			//pcHourImg = ImageIO.read(new File("resources/img_CH.png"));
-			//pcMinuteImg = ImageIO.read(new File("resources/img_CM.png"));
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
-
     	cal = Calendar.getInstance();	
     	time=new Timer(1000, this);
     }
@@ -77,28 +69,51 @@ public class ClockComponent extends JComponent implements ActionListener {
     
     @Override
 	public void actionPerformed(ActionEvent arg0) {
+    	cal.setTimeInMillis(System.currentTimeMillis());
 		this.revalidate();
 		this.repaint();
 	}
     
     @Override public void paintComponent(Graphics g) {
-    	
-        cal.setTimeInMillis(System.currentTimeMillis());
-
         Graphics2D g2 = (Graphics2D)g;
+        g2.setColor(new Color(0x252525));
         g2.setRenderingHint(RenderingHints.KEY_ANTIALIASING,
                             RenderingHints.VALUE_ANTIALIAS_ON);
         
         int w = getWidth();
         int h = getHeight();
         diameter = ((w < h) ? w : h);
-        centerX = diameter / 2;
-        centerY = diameter / 2;
+        offset = 4;
+        diameter -= offset*2;
+        centerX = diameter/2;
+        centerY = diameter/2;
         
-        g2.drawImage(pcFaceImg, 7, 7, null);
-        g2.drawImage(pcFaceCenterImg, 7, 7, null);
-        
+        drawFace(g2);
         drawDetails(g2);
+    }
+    
+    private void drawFace(Graphics2D g2) {
+    	g2.setStroke(new BasicStroke(3));
+    	if (diameter < 35) {
+    		g2.setStroke(new BasicStroke(2));
+    	}
+        g2.drawOval(offset, offset, diameter, diameter);
+        g2.fillOval(offset+(diameter/2)-2, offset+(diameter/2)-2, 6, 6);
+        
+        int radius = diameter/2;
+        
+        //... Draw the tick marks around the circumference.
+		g2.setStroke(new BasicStroke(1));
+        for (int sec = 0; sec < 60; sec++) {
+            int tickStart;
+            if (sec%15 == 0) {
+                tickStart = radius - 4;  // Draw long tick mark every 15.
+                drawRadius(g2, sec / 60.0, tickStart , radius);
+            } else if (sec%5 == 0) {
+                tickStart = radius - 1;   // Short tick mark.
+                drawRadius(g2, sec / 60.0, tickStart , radius);
+            }
+        }
     }
     
     private void drawDetails(Graphics2D g2) {
@@ -106,7 +121,7 @@ public class ClockComponent extends JComponent implements ActionListener {
         int minutes = cal.get(Calendar.MINUTE);
         int seconds = cal.get(Calendar.SECOND);
         int millis  = cal.get(Calendar.MILLISECOND);
-        int handMax = diameter/2;    // Second hand extends to outer rim.
+        int handMax = diameter/2;
         
         double fseconds = (seconds + (double)millis/1000) / 60.0;
         SimpleDateFormat formatter = new SimpleDateFormat("HH:mm");
@@ -114,8 +129,11 @@ public class ClockComponent extends JComponent implements ActionListener {
         	formatter = new SimpleDateFormat("HH mm");
         }
     	Date rightNow = new Date();
-    	g2.setColor(new Color(0xEAF2F2));
-        g2.drawString(formatter.format(rightNow), 60, 35);
+        g2.drawString(formatter.format(rightNow), getHeight()+10, (getHeight()/2)+5);
+        formatter = new SimpleDateFormat("EEE d MMM yyyy");
+        g2.drawString(formatter.format(rightNow), getHeight()+65, (getHeight()/2)+5);
+        
+        
         
         //... minute hand
         handMax = diameter/3; 
@@ -128,10 +146,6 @@ public class ClockComponent extends JComponent implements ActionListener {
     }
     
     private void drawRadius(Graphics2D g2, double percent, int minRadius, int maxRadius) {
-		//... percent parameter is the fraction (0.0 - 1.0) of the way
-		//    clockwise from 12.   Because the Graphics2D methods use radians
-		//    counterclockwise from 3, a little conversion is necessary.
-		//    It took a little experimentation to get this right.
 		double radians = (0.5 - percent) * TWO_PI;
 		double sine   = Math.sin(radians);
 		double cosine = Math.cos(radians);
@@ -142,45 +156,7 @@ public class ClockComponent extends JComponent implements ActionListener {
 		int dxmax = centerX + (int)(maxRadius * sine);
 		int dymax = centerY + (int)(maxRadius * cosine);
 		g2.setStroke(new BasicStroke(2));
-		g2.setColor(new Color(0xEAF2F2));
-		g2.drawLine(dxmin, dymin, dxmax, dymax);
+		g2.drawLine(dxmin+offset, dymin+offset, dxmax+offset, dymax+offset);
     }
-    
-    /*		
-    @Override
-    public void paintComponent(Graphics g) {
-    	super.paintComponent(g);  
-    	Graphics2D g2D = (Graphics2D) g;
-    	
-    	int minute = cal.get(Calendar.MINUTE);
-    	int hour = cal.get(Calendar.HOUR_OF_DAY);
-    	if (hour>=12) {
-    		hour -= 12;
-    	}
-    	
-    	SimpleDateFormat formatter = new SimpleDateFormat("HH:mm");
-    	Date rightNow = new Date();
-    	System.out.println(formatter.format(rightNow));
-    	g2D.setRenderingHint(RenderingHints.KEY_ANTIALIASING,
-                RenderingHints.VALUE_ANTIALIAS_OFF);
-    	g2D.drawImage(pcFaceImg, 0, 0, null);
-    	g2D.drawImage(rotate(pcMinuteImg, Math.toRadians(((float)minute/60.0)*360.0)), 0, 0, null);
-    	g2D.drawImage(rotate(pcHourImg, Math.toRadians(((hour*60+minute)/(12.0*60.0))*360.0)), 0, 0, null);
-
-	}
-	
-	private BufferedImage rotate(BufferedImage image, double angle) {
-	    double sin = Math.abs(Math.sin(angle)), cos = Math.abs(Math.cos(angle));
-	    int w = image.getWidth(), h = image.getHeight();
-	    int neww = (int)Math.floor(w*cos+h*sin), newh = (int)Math.floor(h*cos+w*sin);
-	    GraphicsConfiguration gc = getGraphicsConfiguration();
-	    BufferedImage result = gc.createCompatibleImage(neww, newh, Transparency.TRANSLUCENT);
-	    Graphics2D g = result.createGraphics();
-	    g.translate((neww-w)/2, (newh-h)/2);
-	    g.rotate(angle, w/2, h/2);
-	    g.drawRenderedImage(image, null);
-	    g.dispose();
-	    return result;
-	}*/
 	
 }
