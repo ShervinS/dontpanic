@@ -126,20 +126,7 @@ public class CategoryPanelController {
 		this.categoriesModel.fireTableDataChanged();
 	}
 	
-	public void generateDefaultCategories() {
-			Category category1 = new Category("School", new Color(10,100,150));
-			Category category2 = new Category("Work", new Color(100,100,150));
-			Category category3 = new Category("Activities", new Color(110,200,150));
-			Category category4 = new Category("Workout", new Color(10,130,130));
-			Category category5 = new Category("Fun", new Color(130,10,100));
-			pc.setCategory(category2);
-			pc.addCategory(category1);
-			pc.addCategory(category2);
-			pc.addCategory(category3);
-			pc.addCategory(category4);
-			pc.addCategory(category5);
-	}
-
+	
 	public static CategoryPanelController getInstance() {
 		 if (instance == null) {
 			 synchronized (CategoryPanelController.class){
