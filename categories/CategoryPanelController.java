@@ -1,4 +1,3 @@
-
 package categories;
 
 import java.awt.Color;
@@ -23,6 +22,13 @@ import panic.I18;
 import panic.PanicController;
 import tasks.actions.TaskSelectionAction;
 
+/**
+ * The controller for the category part of the gui, contains the communication
+ * with the other controllers and the model.
+ * 
+ * @author Erik
+ *
+ */
 public class CategoryPanelController {
 
 	private static final String ClockView = null;
@@ -90,8 +96,14 @@ public class CategoryPanelController {
 
 		//Set parent controller
 		this.pc = PanicController.getInstance();
+<<<<<<< HEAD
 
 		this.addCategoryField = new TextFieldWithPlaceholder(I18.getInstance().properties.getString("categoryPlaceHolder"));
+=======
+
+		
+		this.addCategoryField = new TextFieldWithPlaceholder();
+>>>>>>> 9fe571e8c297a09b6b4145b7109eb839720f9670
 
 		ClockView clockView = new ClockView();
 		Color[] colors = {new Color(10,100,200), new Color(100,10,200), new Color(200,100,200), new Color(255,0,0)};
@@ -101,6 +113,7 @@ public class CategoryPanelController {
 		colorPicker.setRenderer(renderer);
 		colorPicker.setEditable(true);
 		colorPicker.setEditor(new ColorComboBoxEditor(Color.RED));
+		ClockComponent cc = new ClockComponent();
 		
 		//Add actions and listeners
 		addButton.addActionListener(new AddCategoryAction(pc, this, colorPicker, addCategoryField));
@@ -110,7 +123,8 @@ public class CategoryPanelController {
 		panel.addColorPicker(colorPicker);
 		panel.addNewCategoryButton(addButton);	
 		panel.addCategoriesScrollView(this.scrollPane);
-		panel.addClockView(clockView);
+		panel.addClockView(cc);
+		cc.start();
 		updateGUI();
 	}
 
@@ -137,8 +151,8 @@ public class CategoryPanelController {
 	}
 
 	public void updateLanguage(){
-		//addButton.setText(I18.getInstance().properties.getString("addCategory"));
 		addCategoryField.changePlaceholderTextTo(I18.getInstance().properties.getString("categoryPlaceHolder"));
+
 	}
 
 	public void selectCategoryAtIndex(int index) {

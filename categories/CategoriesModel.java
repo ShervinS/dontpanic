@@ -1,5 +1,8 @@
 package categories;
-
+/**
+ * The table model for the category part of the gui.
+ * 
+ */
 import java.util.ArrayList;
 
 import javax.swing.table.AbstractTableModel;
