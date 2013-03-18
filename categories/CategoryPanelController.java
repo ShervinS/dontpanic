@@ -108,6 +108,7 @@ public class CategoryPanelController {
 		colorPicker.setRenderer(renderer);
 		colorPicker.setEditable(true);
 		colorPicker.setEditor(new ColorComboBoxEditor(Color.RED));
+		ClockComponent cc = new ClockComponent();
 		
 		//Add actions and listeners
 		addButton.addActionListener(new AddCategoryAction(pc, this, colorPicker, addCategoryField));
@@ -117,7 +118,8 @@ public class CategoryPanelController {
 		panel.addColorPicker(colorPicker);
 		panel.addNewCategoryButton(addButton);	
 		panel.addCategoriesScrollView(this.scrollPane);
-		panel.addClockView(clockView);
+		panel.addClockView(cc);
+		cc.start();
 		updateGUI();
 	}
 

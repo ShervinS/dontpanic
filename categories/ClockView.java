@@ -16,8 +16,8 @@ public class ClockView extends JPanel {
 	public ClockView () {
 		super();
 		//setBackground(new Color(0xdddddd));
-		setPreferredSize(new Dimension(200,30));
-		setMaximumSize(new Dimension(200,30));
+		setPreferredSize(new Dimension(200,40));
+		setMaximumSize(new Dimension(200,40));
 		setBackground(new Color(39, 41, 43));
 		setLayout(new GridBagLayout());
 		c = new GridBagConstraints();

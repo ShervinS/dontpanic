@@ -65,7 +65,7 @@ public class CategoryPanel extends JPanel {
 		add(scrollView, c);
 	}
 	
-	public void addClockView(ClockView clockView){
+	public void addClockView(ClockComponent clockView){
 		c.weighty = 0.1;
 		c.gridy = CLOCKVIEW;
 		c.gridwidth = 3;

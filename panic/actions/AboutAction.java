@@ -22,7 +22,7 @@ public class AboutAction extends AbstractAction {
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		// TODO Auto-generated method stub
-		JOptionPane.showMessageDialog(frame,"Version: 1.0");
+		JOptionPane.showMessageDialog(frame,"Version: 1.0", "", JOptionPane.INFORMATION_MESSAGE);
 	}
 
 }
