@@ -16,14 +16,13 @@ public class CategoryPanel extends JPanel {
 	private static final int NEWCATEGORY = 0;
 	private static final int CATEGORIES = 1;
 	private static final int CLOCKVIEW = 2;
-	
+	private static final int PANEL_DEFAULT_WIDTH = 240;
 	private static final long serialVersionUID = 1L;
 	private GridBagConstraints c;
 
 	public CategoryPanel () {
 		super();
-		//setBackground(new Color(0xdddddd));
-		setPreferredSize(new Dimension(220,0));
+		setPreferredSize(new Dimension(PANEL_DEFAULT_WIDTH,0));
 		setBackground(new Color(88, 91, 95));
 		setLayout(new GridBagLayout());
 		c = new GridBagConstraints();

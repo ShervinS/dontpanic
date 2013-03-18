@@ -16,7 +16,9 @@ import javax.swing.JTextField;
 import javax.swing.ListSelectionModel;
 import javax.swing.table.TableCellRenderer;
 
+import categories.actions.AddCategoryAction;
 import categories.actions.SelectCategoryAction;
+import categories.actions.TextFieldWithPlaceholder;
 
 import panic.I18;
 import panic.PanicController;
@@ -49,13 +51,12 @@ public class CategoryPanelController {
 			public Component prepareRenderer(TableCellRenderer renderer, int row, int column)
 			{
 				Component c = super.prepareRenderer(renderer, row, column);
-				System.out.println("Plz: " + dataModel.getValueAt(row, column));
 				CategoriesModel model = (CategoriesModel) dataModel;
 				Category category = model.getCategoryAtIndex(row);
+				
 				//  Color row based on a cell value
-				c.setBackground(Color.BLACK);
 				c.setBackground(category.getColor());
-
+				
 				return c;
 			}
 		};	
@@ -64,20 +65,21 @@ public class CategoryPanelController {
 		this.categoriesTable.setFont(new Font("Verdana", Font.PLAIN, 14));
 		this.categoriesTable.setRowHeight(ROWHEIGHT);
 		this.categoriesTable.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+		this.categoriesTable.setShowGrid(false);
 		// set gap between columns, api in TableColumnModel
 		this.categoriesTable.getColumnModel().setColumnMargin(0);
+		
 		// convenience for setting both row and column gaps
 		this.categoriesTable.setRowMargin(0);
+		
 		this.categoriesTable.setTableHeader(null);
 	    this.categoriesTable.setColumnSelectionAllowed(false);
 		this.categoriesTable.getSelectionModel().addListSelectionListener(new SelectCategoryAction(this.categoriesTable));
-
 		
 		//Set column width
 		this.categoriesTable.getColumnModel().getColumn(0).setPreferredWidth(240);
-		//this.categoriesTable.setDefaultRenderer(Object.class, )
 
-		//Crate scrollpane with the categoriestable inside
+		//Create scrollpane with the categoriestable inside
 		this.scrollPane = new JScrollPane(categoriesTable, JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED, JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
 		this.scrollPane.setBackground(new Color(88, 91, 95));
 
@@ -89,13 +91,10 @@ public class CategoryPanelController {
 		//Set parent controller
 		this.pc = PanicController.getInstance();
 
-		this.addCategoryField = new JTextField(I18.getInstance().properties.getString("addCategory"));
-		this.addCategoryField.setEditable(true);
+		/*this.addCategoryField = new JTextField(I18.getInstance().properties.getString("addCategory"));
+		this.addCategoryField.setEditable(true);*/
+		this.addCategoryField = new TextFieldWithPlaceholder();
 
-		
-		
-		
-		
 		ClockView clockView = new ClockView();
 		Color[] colors = {new Color(10,100,200), new Color(100,10,200), new Color(200,100,200), new Color(255,0,0)};
 		JComboBox colorPicker = new JComboBox(colors);
@@ -106,10 +105,10 @@ public class CategoryPanelController {
 		colorPicker.setEditor(new ColorComboBoxEditor(Color.RED));
 		
 		//Add actions and listeners
-		
+		addButton.addActionListener(new AddCategoryAction(pc, this, colorPicker, addCategoryField));
 		
 		//Give everything to the view
-		panel.addCategoryTextField(addCategoryField);
+		panel.addCategoryTextField(this.addCategoryField);
 		panel.addColorPicker(colorPicker);
 		panel.addNewCategoryButton(addButton);	
 		panel.addCategoriesScrollView(this.scrollPane);
@@ -120,7 +119,6 @@ public class CategoryPanelController {
 	public CategoryPanel getView() {
 		return panel;
 	}
-
 
 	public void updateGUI(){
 		this.categories = pc.getCategories();
@@ -153,14 +151,8 @@ public class CategoryPanelController {
 		 return instance;
 	}
 
-	
-	
-	public void logCategories() {
-		for (Category cat : this.categories)
-		    System.out.println(cat.getName());
-	}
 	public void updateLanguage(){
-		addButton.setText(I18.getInstance().properties.getString("addCategory"));
+		//addButton.setText(I18.getInstance().properties.getString("addCategory"));
 	}
 
 	public void selectCategoryAtIndex(int index) {
