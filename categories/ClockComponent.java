@@ -110,7 +110,7 @@ public class ClockComponent extends JComponent implements ActionListener {
                 tickStart = radius - 4;  // Draw long tick mark every 15.
                 drawRadius(g2, sec / 60.0, tickStart , radius);
             } else if (sec%5 == 0) {
-                tickStart = radius - 1;   // Short tick mark.
+                tickStart = radius - 2;   // Short tick mark.
                 drawRadius(g2, sec / 60.0, tickStart , radius);
             }
         }
