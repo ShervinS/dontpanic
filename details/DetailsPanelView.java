@@ -12,6 +12,8 @@ import javax.swing.JComponent;
 import javax.swing.JPanel;
 import javax.swing.Timer;
 
+import panic.ThemeLoader;
+
 
 /**
  * The view for the window with detailed information
@@ -22,6 +24,7 @@ import javax.swing.Timer;
 public class DetailsPanelView extends JPanel implements ActionListener {
 	
 	private static final long serialVersionUID = 1L;
+	private ThemeLoader tl;
 	
 	
 	//A JPanel used to pad components from each other 
@@ -49,7 +52,8 @@ public class DetailsPanelView extends JPanel implements ActionListener {
 		
 		//Size and background, height will be 0, because it will automatically follow the 
 		//big frame's height
-		setBackground(new Color(0xededed));
+		tl = new ThemeLoader();
+		setBackground(tl.getColor("paleGray"));
 		setPreferredSize(new Dimension(0, 600));
 		
 		//The timer used for animations

@@ -19,4 +19,25 @@
 	<color>
 		<key>Table[Enabled+Selected].textForeground</key>
 		<value>#252525</value></color>
+	<color>
+		<key>white</key>
+		<value>#ffffff</value></color>
+	<color>
+		<key>lightGray</key>
+		<value>#e8e9e8</value></color>
+	<color>
+		<key>darkGray</key>
+		<value>#252525</value></color>
+	<color>
+		<key>black</key>
+		<value>#000000</value></color>
+	<color>
+		<key>paleGray</key>
+		<value>#ededed</value></color>
+	<color>
+		<key>gray</key>
+		<value>#808080</value></color>
+	<color>
+		<key>red</key>
+		<value>#ef3030</value></color>
 </colors>

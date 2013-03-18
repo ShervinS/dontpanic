@@ -7,6 +7,7 @@ import java.awt.event.ActionListener;
 import javax.swing.JComboBox;
 
 import panic.PanicController;
+import panic.ThemeLoader;
 import categories.Category;
 import details.DetailsPanelController;
 
@@ -16,6 +17,7 @@ import details.DetailsPanelController;
 public class CategoriesAction implements ActionListener {
 
 	private JComboBox categories;
+	private ThemeLoader tl;
 	
 	/**
 	 * Constructor
@@ -23,6 +25,7 @@ public class CategoriesAction implements ActionListener {
 	 */
 	public CategoriesAction(JComboBox categories) {
 		this.categories = categories;
+		tl = new ThemeLoader();
 	}
 
 	/**
@@ -37,7 +40,7 @@ public class CategoriesAction implements ActionListener {
 			//If the "no category" category is chosen, create a new dummy category and set
 			//that as the currentTasks() category
 			if (pc.getCurrentTask() != null) {
-				pc.getCurrentTask().setCategory(new Category("", Color.black));
+				pc.getCurrentTask().setCategory(new Category("", tl.getColor("black")));
 				pc.updateTask(pc.getCurrentTask());
 			}
 		}
