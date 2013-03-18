@@ -13,7 +13,7 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 
 /**
- *
+ * Component for displaying a task in the version before tables were used.
  * @author johannes
  */
 public class TaskView extends JPanel {
@@ -38,52 +38,39 @@ public class TaskView extends JPanel {
 		titleLabel = new JLabel(t.getTitle());
 		dateLabel = new JLabel(t.getDueDate());
 		String priorityString = "";
-		/*for(int i = 0; i < t.getPriority(); i++) {
-			priorityString += "!";
-		}*/
+		
 		prioLabel = new JLabel(priorityString);
 		prioLabel.setFont(new Font("Verdana", 40, 40));
-		//prioLabel.setForeground(Color.RED);
-		//titleLabel.setForeground(Color.BLACK);
-
-		/*categoryPanel.setBackground(Color.RED);
+		
 		c.fill = GridBagConstraints.VERTICAL;
 		c.ipadx = 20;
-		c.ipady = 10;      //make this component tall
-		c.weightx = 0.0;
-		c.weighty = 1;*/
-
-		//categoryPanel.setBackground(Color.red);
-		c.fill = GridBagConstraints.VERTICAL;
-		c.ipadx = 20;
-		c.ipady = 10;      //make this component tall
+		c.ipady = 10;     
 		c.weightx = 0.0;
 		c.gridwidth = 1;
 		c.gridy = 0;
 		c.gridx = GridBagConstraints.RELATIVE;
 		add(categoryPanel, c);
 
-		// c.fill = GridBagConstraints.HORIZONTAL;
-		c.ipady = 10;      //make this component tall
+		
+		c.ipady = 10;      
 		c.ipadx = 20;
 		c.weightx = 0.0;
 		c.gridwidth = 1;
 		c.gridy = 0;
 		c.gridx = GridBagConstraints.RELATIVE;
-		//doneCheck.setBackground(Color.DARK_GRAY);
-		//doneCheck.addActionListener();
+		
 		add(doneCheck, c);
 
 		c.fill = GridBagConstraints.HORIZONTAL;
-		c.ipady = 10;      //make this component tall
+		c.ipady = 10;     
 		c.weightx = 1;
 		c.gridwidth = 1;
 		c.gridy = 0;
 		c.gridx = GridBagConstraints.RELATIVE;
 		add(titleLabel, c);
 
-		//c.fill = GridBagConstraints.HORIZONTAL;
-		c.ipady = 10;      //make this component tall
+	
+		c.ipady = 10;      
 		c.weightx = 0.3;
 		c.gridwidth = 1;
 		c.gridy = 0;
@@ -91,8 +78,8 @@ public class TaskView extends JPanel {
 		add(dateLabel, c);
 
 		
-		//c.fill = GridBagConstraints.HORIZONTAL;
-		c.ipady = 10;      //make this component tall
+		
+		c.ipady = 10;      
 		c.weightx = 0.3;
 		c.gridwidth = 1;
 		c.gridy = 0;
@@ -100,7 +87,7 @@ public class TaskView extends JPanel {
 		add(prioLabel, c);
 		
 		
-		//setBackground(Color.DARK_GRAY);
+		
 		setMaximumSize(new Dimension(Short.MAX_VALUE, 50));
 		setPreferredSize(new Dimension(0, 50));
 		setMinimumSize(new Dimension(0, 50));
@@ -125,12 +112,7 @@ public class TaskView extends JPanel {
 		super.paint(g);
 		titleLabel.setText(t.getTitle());
 		String priorityString = "";
-		/*for(int i = 0; i < t.getPriority(); i++) {
-			priorityString += "!";
-		}*/
 		prioLabel.setText(priorityString);
-		//prioLabel.setForeground(Color.RED);
-		//titleLabel.setForeground(Color.BLACK);
 		revalidate();
 		repaint();
 	}

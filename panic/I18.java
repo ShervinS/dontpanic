@@ -6,7 +6,7 @@ import java.util.ResourceBundle;
  * Class for helping with the language internationalization,
  * you get the word in the language of the current locale by calling
  * I18.getInstance.properties("*keyword*") where *keyword* is the keyword used
- * in the recorce bundle 
+ * in the resource bundle 
  * 
  * @author Johannes Henriksson
  *
