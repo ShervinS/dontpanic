@@ -5,7 +5,7 @@ import java.util.ArrayList;
 import panic.XML;
 import categories.Category;
 
-/** Manages the list of tasks and handles writing and reading from the XML database. 
+/** Manages the list of tasks and categorys. 
  * 
  * @author Johannes Henriksson
  *
@@ -64,6 +64,15 @@ public class TaskManager {
 		return categoryList;
 	}
 	
+	public int getNumberOfTasksForCategory(Category category){
+		int count = 0;
+		for(Task t : taskList){
+			if(t.getCategory().getName().equals(category.getName())){
+				count++;
+			}
+		}
+		return count;
+	}
 	public void addCategory(Category category){
 		xml.addCategory(category);
 		categoryList.add(category);

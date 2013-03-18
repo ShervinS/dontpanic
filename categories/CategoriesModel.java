@@ -4,8 +4,9 @@ package categories;
  * 
  */
 import java.util.ArrayList;
-
 import javax.swing.table.AbstractTableModel;
+
+import tasks.TaskManager;
 
 public class CategoriesModel extends AbstractTableModel {
 		
@@ -34,7 +35,6 @@ public class CategoriesModel extends AbstractTableModel {
 
 	@Override
 	public int getRowCount() {
-		// TODO Auto-generated method stub
 		return this.categories.size();
 	}
 
@@ -44,7 +44,7 @@ public class CategoriesModel extends AbstractTableModel {
 			Category category = this.categories.get(arg0);
 			return "  " + category.getName();
 		} else if (arg1 == 1) {
-				return 3;
+				return "" + TaskManager.getInstance().getNumberOfTasksForCategory(this.categories.get(arg0));
 		} else if (arg1 == 2) {
 				return null;
 		}
