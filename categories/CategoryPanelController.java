@@ -17,6 +17,7 @@ import javax.swing.table.TableCellRenderer;
 
 import categories.actions.AddCategoryAction;
 import categories.actions.SelectCategoryAction;
+import categories.actions.ShowAllCategoriesAction;
 
 import panic.I18;
 import panic.PanicController;
@@ -38,6 +39,7 @@ public class CategoryPanelController {
 	ArrayList<Category> categories;
 	private JScrollPane scrollPane;
 	private JButton addButton;
+	private JButton allCategoriesButton;
 	private JTable categoriesTable;
 	private TextFieldWithPlaceholder addCategoryField;
 	private CategoriesModel categoriesModel;
@@ -96,17 +98,11 @@ public class CategoryPanelController {
 
 		//Set parent controller
 		this.pc = PanicController.getInstance();
-<<<<<<< HEAD
 
 		this.addCategoryField = new TextFieldWithPlaceholder(I18.getInstance().properties.getString("categoryPlaceHolder"));
-=======
-
-		
-		this.addCategoryField = new TextFieldWithPlaceholder();
->>>>>>> 9fe571e8c297a09b6b4145b7109eb839720f9670
 
 		ClockView clockView = new ClockView();
-		Color[] colors = {new Color(10,100,200), new Color(100,10,200), new Color(200,100,200), new Color(255,0,0)};
+		Color[] colors = {new Color(0xdd5252), new Color(0xdcb552), new Color(0xa9db53), new Color(0x53addb), new Color(0x806ce5), new Color(0xe56ce5)};
 		JComboBox colorPicker = new JComboBox(colors);
 		ColorComboBoxRenderer renderer = new ColorComboBoxRenderer();
 		renderer.setPreferredSize(new Dimension(20, 13));
@@ -118,11 +114,15 @@ public class CategoryPanelController {
 		//Add actions and listeners
 		addButton.addActionListener(new AddCategoryAction(pc, this, colorPicker, addCategoryField));
 		
+		this.allCategoriesButton = new JButton(I18.getInstance().properties.getString("allTasks"));
+		allCategoriesButton.addActionListener(new ShowAllCategoriesAction());
+		
 		//Give everything to the view
 		panel.addCategoryTextField(this.addCategoryField);
 		panel.addColorPicker(colorPicker);
 		panel.addNewCategoryButton(addButton);	
 		panel.addCategoriesScrollView(this.scrollPane);
+		panel.addShowAllCategoriesButton(this.allCategoriesButton);
 		panel.addClockView(cc);
 		cc.start();
 		updateGUI();
@@ -152,7 +152,7 @@ public class CategoryPanelController {
 
 	public void updateLanguage(){
 		addCategoryField.changePlaceholderTextTo(I18.getInstance().properties.getString("categoryPlaceHolder"));
-
+		this.allCategoriesButton.setText(I18.getInstance().properties.getString("allTasks"));
 	}
 
 	public void selectCategoryAtIndex(int index) {

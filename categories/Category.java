@@ -28,6 +28,6 @@ public class Category {
 	}
            
 	public String toString() {
-		return this.name;
+		return this.name + this.color;
 	}
 }

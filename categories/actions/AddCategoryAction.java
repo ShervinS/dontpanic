@@ -42,9 +42,15 @@ public class AddCategoryAction extends AbstractAction {
 	
 	
 	public void actionPerformed(ActionEvent arg0) {
-		this.addCategory((Color)this.colorPicker.getSelectedItem(),this.textField.getText());
-		this.textField.setText("");
-		this.cpc.updateGUI();
+		
+		if(this.textField.getText().length() < 4){
+			JOptionPane.showMessageDialog(PanicController.getInstance().getFrame(), I18.getInstance().properties.getString("tooShortCategoryName"), I18.getInstance().properties.getString("tooShortCategoryTitle"), JOptionPane.INFORMATION_MESSAGE);
+		} else {
+			this.addCategory((Color)this.colorPicker.getSelectedItem(),this.textField.getText());
+			this.textField.setText("");
+			this.cpc.updateGUI();
+		}
+		
 	}
 	
 	public void updateLanguage(){

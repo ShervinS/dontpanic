@@ -25,7 +25,7 @@ public class CategoriesModel extends AbstractTableModel {
 	
 	@Override
 	public int getColumnCount() {
-		return 3;
+		return 1;
 	}
 	
 	public String getColumnName(int columnIndex) {

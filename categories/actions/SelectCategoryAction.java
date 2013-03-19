@@ -16,6 +16,7 @@ public class SelectCategoryAction implements ListSelectionListener {
 
 	@Override
 	public void valueChanged(ListSelectionEvent e) {
-		CategoryPanelController.getInstance().selectCategoryAtIndex(table.getSelectedRow());
+		if (table.getSelectedRow() >= 0)
+			CategoryPanelController.getInstance().selectCategoryAtIndex(table.getSelectedRow());
 	}
 }

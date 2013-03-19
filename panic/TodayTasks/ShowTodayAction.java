@@ -93,7 +93,7 @@ public class ShowTodayAction extends AbstractAction implements Runnable {
 		ArrayList<Task> todaysTasks = getTodayTasks(TaskManager.getInstance().getTaskList());
 		//If there are no tasks for today show an error
 		if (todaysTasks.size() == 0) {
-			JOptionPane.showMessageDialog(PanicController.getInstance().getFrame(), "No Tasks Today", "", JOptionPane.INFORMATION_MESSAGE);
+			JOptionPane.showMessageDialog(PanicController.getInstance().getFrame(), I18.getInstance().properties.getString("noTasksToday"), I18.getInstance().properties.getString("noTasksTodayTitle"), JOptionPane.INFORMATION_MESSAGE);
 		}
 		else {
 			//If there already is a frame showing, remove it and show a new one
@@ -104,13 +104,14 @@ public class ShowTodayAction extends AbstractAction implements Runnable {
 				today.dispose();
 				today = new JFrame();
 			}
-			today.setTitle("Today's Tasks");
+			today.setTitle(I18.getInstance().properties.getString("todaysTasks"));
 			
 			//Create a panel to use as contentpane
 			JPanel panel = new JPanel();
 			
 			//Create a view for the tasks
 			tasks = new JList(todaysTasks.toArray());
+			tasks.setSize(300, 0);
 			renderer = new TasksTodayRenderer();
 			tasks.setCellRenderer(renderer);
 			tasks.addMouseListener(new TodayTasksMouseAdapter());
@@ -123,6 +124,8 @@ public class ShowTodayAction extends AbstractAction implements Runnable {
 			//Set the contentpane to the JPanel
 			today.setContentPane(panel);
 			today.pack();
+			today.setSize(200,todaysTasks.size()*20 + 30);
+			today.setResizable(false);
 			
 			//Use the mainFrame to calculate position to appear in the middle
 			today.setLocation(mainFrame.getLocation().x + mainFrame.getWidth()/2 - today.getWidth()/2, 

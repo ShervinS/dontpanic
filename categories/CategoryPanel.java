@@ -26,7 +26,7 @@ public class CategoryPanel extends JPanel {
 	public CategoryPanel () {
 		super();
 		setPreferredSize(new Dimension(PANEL_DEFAULT_WIDTH,0));
-		setBackground(Color.WHITE);
+		setBackground(new Color(0xededed));
 		setLayout(new GridBagLayout());
 		c = new GridBagConstraints();
 	}
@@ -67,9 +67,15 @@ public class CategoryPanel extends JPanel {
 	
 	public void addClockView(ClockComponent clockView){
 		c.weighty = 0.1;
-		c.gridy = CLOCKVIEW;
+		c.gridy += 1;
 		c.gridwidth = 3;
 		c.gridx = 0;
 		add(clockView, c);
+	}
+	
+	public void addShowAllCategoriesButton(JButton allCategoriesButton) {
+		c.gridy+=1;
+		c.weighty = 0;
+		add(allCategoriesButton,c);
 	}
 }

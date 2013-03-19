@@ -83,7 +83,7 @@ public class ClockComponent extends JComponent implements ActionListener {
         int w = getWidth();
         int h = getHeight();
         diameter = ((w < h) ? w : h);
-        offset = 4;
+        offset = 8;
         diameter -= offset*2;
         centerX = diameter/2;
         centerY = diameter/2;
@@ -131,7 +131,7 @@ public class ClockComponent extends JComponent implements ActionListener {
     	Date rightNow = new Date();
         g2.drawString(formatter.format(rightNow), getHeight()+10, (getHeight()/2)+5);
         formatter = new SimpleDateFormat("EEE d MMM yyyy");
-        g2.drawString(formatter.format(rightNow), getHeight()+65, (getHeight()/2)+5);
+        g2.drawString(formatter.format(rightNow), getHeight()+60, (getHeight()/2)+5);
         
         
         

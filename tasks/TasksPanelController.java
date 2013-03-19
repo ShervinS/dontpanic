@@ -1,6 +1,8 @@
 package tasks;
 
 
+import java.awt.Color;
+import java.awt.Component;
 import java.util.ArrayList;
 import java.util.ResourceBundle;
 
@@ -10,6 +12,7 @@ import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.JTextField;
 import javax.swing.ListSelectionModel;
+import javax.swing.table.TableCellRenderer;
 import javax.swing.table.TableColumnModel;
 
 import panic.I18;
@@ -18,6 +21,7 @@ import panic.TodayTasks.ShowTodayAction;
 import tasks.actions.AddAction;
 import tasks.actions.QuickAddAction;
 import tasks.actions.TaskSelectionAction;
+import categories.CategoriesModel;
 import categories.Category;
 
 /**
@@ -57,10 +61,33 @@ public class TasksPanelController {
 					  langProp.getString("category"), 
 					  langProp.getString("done")};
 		tableModel = new TaskTableModel(h);
-		table = new JTable(tableModel);
-		TaskTableRenderer renderer = new TaskTableRenderer();
+		table = new JTable(tableModel) {
+			public Component prepareRenderer(TableCellRenderer renderer, int row, int column)
+			{
+				Component cell = super.prepareRenderer(renderer, row, column);
+				/*
+				if (tableModel.getValueAt(row, column) instanceof Category) {
+					Category c = (Category) tableModel.getValueAt(row, column);
+					System.out.println("Test" + pc.getCategories().get(0));
+					System.out.println(c);
+					cell.setBackground(c.getColor());
+				}
+				*/
+				/*
+				if (row % 2 == 0) {
+					cell.setBackground(Color.LIGHT_GRAY);
+				}
+				else {
+					cell.setBackground(Color.gray);
+				}
+				*/
+				return cell;
+			}
+		};	
+		
+		
+		//TaskTableRenderer renderer = new TaskTableRenderer();
 		//table.setDefaultRenderer(String.class, renderer);
-		//table.setDefaultRenderer(Boolean.class, renderer);
 		table.getSelectionModel().addListSelectionListener(new TaskSelectionAction(table, tableModel));
 			table.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
 		pane = new JScrollPane(table, JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED, JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
@@ -156,7 +183,8 @@ public class TasksPanelController {
 				newRow[0] = task;
 				newRow[1] = task.getDueDate();
 				newRow[2] = task.getPriorityString();
-				newRow[3] = task.getCategory().getName();
+				newRow[3] = task.getCategory() == null ? "" : task.getCategory().getName();
+				System.out.println("Task color: " + task.getCategory());
 				newRow[4] = task.isCheck();
 				newData.add(newRow);
 			}	
