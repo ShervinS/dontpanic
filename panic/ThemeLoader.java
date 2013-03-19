@@ -14,7 +14,6 @@ import org.w3c.dom.NodeList;
 
 /**
 * Loads the color theme (Based on the XML-manager by Erik Samuelsson)
-* @version 1.0
 * @author Carl Ekman
 */
 
@@ -62,6 +61,7 @@ public class ThemeLoader {
 	* Gets all the colors from colors.xml
 	*/
 	public Color getColor(String k) {
+		//System.out.println("getting color");
 		try {
 
 			InputStream fXmlFile = this.getClass().getClassLoader().getResource("resources/colors.xml").openStream();
@@ -76,15 +76,17 @@ public class ThemeLoader {
 
 				Node nNode = nList.item(temp);
 
-
 				if (nNode.getNodeType() == Node.ELEMENT_NODE) {
 
 					Element eElement = (Element) nNode;
 
 					String key= eElement.getElementsByTagName("key").item(0).getTextContent();
 					String value = eElement.getElementsByTagName("value").item(0).getTextContent();
+					
+					//System.out.println("key: "+key);
+					//System.out.println("value: "+value);
 
-					if (key == k) {
+					if (key.equals(k)) {
 						Color c = Color.decode(value);
 						return c;
 					}

@@ -1,10 +1,10 @@
 package panic.TodayTasks;
 
 import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.util.ArrayList;
 import java.util.Calendar;
 
-import javax.swing.AbstractAction;
 import javax.swing.DefaultListModel;
 import javax.swing.JFrame;
 import javax.swing.JList;
@@ -12,18 +12,17 @@ import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.SwingUtilities;
 
-import panic.I18;
 import panic.PanicController;
 import tasks.Task;
 import tasks.TaskManager;
 
 
 /**
- * An action to show which tasks are for today and overdue.
+ * An action to show a window with tasks that are for today and overdue.
  * @author joseph
  *
  */
-public class ShowTodayAction extends AbstractAction implements Runnable {
+public class ShowTodayAction implements Runnable, ActionListener {
 
 	JFrame today;
 	

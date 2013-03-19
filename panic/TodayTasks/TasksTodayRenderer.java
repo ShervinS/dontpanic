@@ -10,6 +10,8 @@ import javax.swing.JList;
 import javax.swing.JPanel;
 import javax.swing.ListCellRenderer;
 
+import panic.ThemeLoader;
+
 import tasks.Task;
 
 /**
@@ -21,10 +23,12 @@ import tasks.Task;
 public class TasksTodayRenderer extends JPanel implements ListCellRenderer {
 
 	private JLabel title;
+	private ThemeLoader tl;
 	
 	public TasksTodayRenderer() {
+		tl = new ThemeLoader();
 		this.setLayout(new BorderLayout());
-		this.setBackground(Color.white);
+		this.setBackground(tl.getColor("white"));
 		title = new JLabel();
 		
 	}
@@ -38,12 +42,12 @@ public class TasksTodayRenderer extends JPanel implements ListCellRenderer {
 		//The title of t is what will be shown
 		title.setText(t.getTitle());
 		title.setPreferredSize(new Dimension(150, 20));
-		title.setForeground(Color.black);
+		title.setForeground(tl.getColor("black"));
 		//Different color depending on if selected or not
 		if (isSelected)
-			this.setBackground(Color.LIGHT_GRAY);
+			this.setBackground(tl.getColor("lightGray"));
 		else
-			this.setBackground(Color.WHITE);
+			this.setBackground(tl.getColor("white"));
 		this.add(title, BorderLayout.WEST);
 		return this;
 	}

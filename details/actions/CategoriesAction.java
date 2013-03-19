@@ -2,21 +2,22 @@ package details.actions;
 
 import java.awt.Color;
 import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
-import javax.swing.AbstractAction;
 import javax.swing.JComboBox;
 
 import panic.PanicController;
+import panic.ThemeLoader;
 import categories.Category;
 import details.DetailsPanelController;
 
 /**
  * Action for use with a categorychanger for a Task
  */
-public class CategoriesAction extends AbstractAction {
+public class CategoriesAction implements ActionListener {
 
-	private static final long serialVersionUID = 1L;
 	private JComboBox categories;
+	private ThemeLoader tl;
 	
 	/**
 	 * Constructor
@@ -24,6 +25,7 @@ public class CategoriesAction extends AbstractAction {
 	 */
 	public CategoriesAction(JComboBox categories) {
 		this.categories = categories;
+		tl = new ThemeLoader();
 	}
 
 	/**
@@ -38,7 +40,7 @@ public class CategoriesAction extends AbstractAction {
 			//If the "no category" category is chosen, create a new dummy category and set
 			//that as the currentTasks() category
 			if (pc.getCurrentTask() != null) {
-				pc.getCurrentTask().setCategory(new Category("", Color.black));
+				pc.getCurrentTask().setCategory(new Category("", tl.getColor("black")));
 				pc.updateTask(pc.getCurrentTask());
 			}
 		}

@@ -1,131 +1,146 @@
 package categories;
+
 import java.awt.BasicStroke;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
-import java.awt.GraphicsConfiguration;
 import java.awt.RenderingHints;
-import java.awt.Transparency;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.awt.image.BufferedImage;
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.IOException;
-import java.net.URI;
-import java.net.URISyntaxException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 
-import javax.imageio.ImageIO;
 import javax.swing.JComponent;
-import javax.swing.JLabel;
 import javax.swing.Timer;
 
+import panic.ThemeLoader;
 
-/*
- * NOTE: This class i defective!
- * It used to work fine (a little analog clock made up of three rotating images,
- * but since the images were updated it all stopped working. We can't even load the
- * BufferedImages anymore, and havn't had the time to figure out why.
- * 
- * It will be fixed before our very final presentation though.
+/**
+ * Our custom component: the !Panic Clock
+ * An analog clock that updates in real time
+ * and scales in the application window.
+ * @author Carl Ekman
  */
-
 
 public class ClockComponent extends JComponent implements ActionListener {
 	
-	Timer time;
-	Calendar cal;
-	BufferedImage pcFaceImg = null;
-	BufferedImage pcHourImg = null;
-	BufferedImage pcMinuteImg = null;
-	BufferedImage pcFaceCenterImg = null;
-		
+	private Timer time;
+	private Calendar cal;
+	private Color clockColor;
+	
 	private int centerX;
 	private int centerY;
 	private int diameter;
 	private int offset;
-	private BufferedImage clockImage;
 	
-	private static final double TWO_PI   = 2.0 * Math.PI;
- 
+	private static final double DOUBLE_PI = Math.PI*2.0;
+	private static final int OFFSET_VAL = 4; // Looks good
+	
+	//Creating the component instance.
     public ClockComponent() {
-    	
     	setPreferredSize(new Dimension(60,60));
     	cal = Calendar.getInstance();	
+    	
+    	// The timer will update every second.
     	time=new Timer(1000, this);
     }
     
+    // Call this to start the clock.
     public void start() {
     	time.start();
     }
     
+    // Call this to stop the clock.
     public void stop() {
     	time.stop();
     }
     
+    // Called every second by the timer.
     @Override
 	public void actionPerformed(ActionEvent arg0) {
+    	// Get the current time.
     	cal.setTimeInMillis(System.currentTimeMillis());
+    	
+    	//Repaint the component.
 		this.revalidate();
 		this.repaint();
 	}
     
-    @Override public void paintComponent(Graphics g) {
+    // Repaints the component to the current time.
+    @Override
+    public void paintComponent(Graphics g) {
+    	// Get the 2D graphics context.
         Graphics2D g2 = (Graphics2D)g;
-        g2.setColor(new Color(0x252525));
         g2.setRenderingHint(RenderingHints.KEY_ANTIALIASING,
                             RenderingHints.VALUE_ANTIALIAS_ON);
         
+        // Theme Loader gets color codes stored in colors.xml.
+        ThemeLoader tl = new ThemeLoader();
+        clockColor = tl.getColor("text"); // Same color as text.
+        // Set the color of the clock.
+        g2.setColor(clockColor);
+        
+        // Update the dimensions in case of resize.
         int w = getWidth();
         int h = getHeight();
         diameter = ((w < h) ? w : h);
+<<<<<<< HEAD
         offset = 8;
+=======
+        offset = OFFSET_VAL;
+>>>>>>> 1be511e68cd11d10852c11dc8137e05894179d7d
         diameter -= offset*2;
         centerX = diameter/2;
         centerY = diameter/2;
         
+        // Draw the component.
         drawFace(g2);
         drawDetails(g2);
     }
     
+    // Draws the face of the clock.
     private void drawFace(Graphics2D g2) {
+    	// Set thickness of clock frame to 3...
     	g2.setStroke(new BasicStroke(3));
+    	// ...or 2 if the clock is scaled to very small size.
     	if (diameter < 35) {
     		g2.setStroke(new BasicStroke(2));
     	}
+    	// Draw the frame.
         g2.drawOval(offset, offset, diameter, diameter);
         g2.fillOval(offset+(diameter/2)-2, offset+(diameter/2)-2, 6, 6);
         
         int radius = diameter/2;
         
-        //... Draw the tick marks around the circumference.
+        // Draw the notches at every five minute mark.
 		g2.setStroke(new BasicStroke(1));
         for (int sec = 0; sec < 60; sec++) {
             int tickStart;
             if (sec%15 == 0) {
-                tickStart = radius - 4;  // Draw long tick mark every 15.
+            	// Every 15 minutes it is a bit longer.
+                tickStart = radius - 4;
                 drawRadius(g2, sec / 60.0, tickStart , radius);
             } else if (sec%5 == 0) {
-                tickStart = radius - 2;   // Short tick mark.
+            	// Otherwise short.
+                tickStart = radius - 2;
                 drawRadius(g2, sec / 60.0, tickStart , radius);
             }
         }
     }
     
+    // Draw the hands and time displays of the clock.
     private void drawDetails(Graphics2D g2) {
-        int hours   = cal.get(Calendar.HOUR);
-        int minutes = cal.get(Calendar.MINUTE);
-        int seconds = cal.get(Calendar.SECOND);
-        int millis  = cal.get(Calendar.MILLISECOND);
+    	// Get the latest time divisions.
+        int hrs   = cal.get(Calendar.HOUR);
+        int mins = cal.get(Calendar.MINUTE);
+        int secs = cal.get(Calendar.SECOND);
+        int msecs  = cal.get(Calendar.MILLISECOND);
         int handMax = diameter/2;
         
-        double fseconds = (seconds + (double)millis/1000) / 60.0;
         SimpleDateFormat formatter = new SimpleDateFormat("HH:mm");
-        if (seconds % 2 == 0) {
+        if (secs % 2 == 0) {
         	formatter = new SimpleDateFormat("HH mm");
         }
     	Date rightNow = new Date();
@@ -133,28 +148,33 @@ public class ClockComponent extends JComponent implements ActionListener {
         formatter = new SimpleDateFormat("EEE d MMM yyyy");
         g2.drawString(formatter.format(rightNow), getHeight()+60, (getHeight()/2)+5);
         
+        // Float value for seconds (makes ticks smoother).
+        double fseconds = (secs + (double)msecs/1000) / 60.0;
         
-        
-        //... minute hand
+        // Draw the minute hand.
         handMax = diameter/3; 
-        double fminutes = (minutes + fseconds) / 60.0;
+        double fminutes = (mins + fseconds) / 60.0;
         drawRadius(g2, fminutes, 0, handMax);
         
-        //... hour hand
+        // Draw the hour hand.
         handMax = diameter/4;
-        drawRadius(g2, (hours + fminutes) / 12.0, 0, handMax);
+        drawRadius(g2, (hrs + fminutes) / 12.0, 0, handMax);
     }
     
-    private void drawRadius(Graphics2D g2, double percent, int minRadius, int maxRadius) {
-		double radians = (0.5 - percent) * TWO_PI;
+    // Draw a radius in the clock given the angle percentage, starting point and stopping point.
+    private void drawRadius(Graphics2D g2, double percent, int startRadius, int stopRadius) {
+    	// Convert the angle to radians.
+		double radians = (0.5 - percent) * DOUBLE_PI;
 		double sine   = Math.sin(radians);
 		double cosine = Math.cos(radians);
 		
-		int dxmin = centerX + (int)(minRadius * sine);
-		int dymin = centerY + (int)(minRadius * cosine);
+		// Set the coordinates for the points of the line.
+		int dxmin = centerX + (int)(startRadius * sine);
+		int dymin = centerY + (int)(startRadius * cosine);
+		int dxmax = centerX + (int)(stopRadius * sine);
+		int dymax = centerY + (int)(stopRadius * cosine);
 		
-		int dxmax = centerX + (int)(maxRadius * sine);
-		int dymax = centerY + (int)(maxRadius * cosine);
+		// Draw the line.
 		g2.setStroke(new BasicStroke(2));
 		g2.drawLine(dxmin+offset, dymin+offset, dxmax+offset, dymax+offset);
     }

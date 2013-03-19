@@ -7,7 +7,7 @@ import javax.swing.event.ListSelectionListener;
 import details.DetailsPanelController;
 
 /**
- * Action for used with a priority-choose for a Task
+ * Action for used with a priority-chooser for a Task
  * @author joseph
  *
  */

@@ -15,7 +15,10 @@ import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTextField;
 
+import panic.ThemeLoader;
+
 public class CategoryPanel extends JPanel {
+	private ThemeLoader tl;
 	private static final int NEWCATEGORY = 0;
 	private static final int CATEGORIES = 1;
 	private static final int CLOCKVIEW = 2;
@@ -25,8 +28,9 @@ public class CategoryPanel extends JPanel {
 
 	public CategoryPanel () {
 		super();
+		tl = new ThemeLoader();
 		setPreferredSize(new Dimension(PANEL_DEFAULT_WIDTH,0));
-		setBackground(new Color(0xededed));
+		setBackground(tl.getColor("white"));
 		setLayout(new GridBagLayout());
 		c = new GridBagConstraints();
 	}

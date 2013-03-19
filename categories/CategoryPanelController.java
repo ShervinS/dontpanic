@@ -11,17 +11,19 @@ import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
-import javax.swing.JTextField;
 import javax.swing.ListSelectionModel;
 import javax.swing.table.TableCellRenderer;
+
+import panic.I18;
+import panic.PanicController;
 
 import categories.actions.AddCategoryAction;
 import categories.actions.SelectCategoryAction;
 import categories.actions.ShowAllCategoriesAction;
 
-import panic.I18;
-import panic.PanicController;
+import panic.ThemeLoader;
 import tasks.actions.TaskSelectionAction;
+
 
 /**
  * The controller for the category part of the gui, contains the communication
@@ -32,6 +34,7 @@ import tasks.actions.TaskSelectionAction;
  */
 public class CategoryPanelController {
 
+	private ThemeLoader tl;
 	private static final String ClockView = null;
 	private static final int ROWHEIGHT = 40;
 	CategoryPanel panel = new CategoryPanel();
@@ -47,6 +50,7 @@ public class CategoryPanelController {
 
 	public CategoryPanelController() {
 		I18.getInstance().setLocale("swe");
+		tl = new ThemeLoader();
 
 		//Initialize the views
 		panel = new CategoryPanel();
@@ -88,7 +92,7 @@ public class CategoryPanelController {
 
 		//Create scrollpane with the categoriestable inside
 		this.scrollPane = new JScrollPane(categoriesTable, JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED, JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
-		this.scrollPane.setBackground(Color.WHITE);
+		this.scrollPane.setBackground(tl.getColor("white"));
 
 		//This sets the background color for the table
 		this.scrollPane.getViewport().setBackground(new Color(0xededed));
@@ -101,6 +105,7 @@ public class CategoryPanelController {
 
 		this.addCategoryField = new TextFieldWithPlaceholder(I18.getInstance().properties.getString("categoryPlaceHolder"));
 
+
 		ClockView clockView = new ClockView();
 		Color[] colors = {new Color(0xdd5252), new Color(0xdcb552), new Color(0xa9db53), new Color(0x53addb), new Color(0x806ce5), new Color(0xe56ce5)};
 		JComboBox colorPicker = new JComboBox(colors);
@@ -108,7 +113,7 @@ public class CategoryPanelController {
 		renderer.setPreferredSize(new Dimension(20, 13));
 		colorPicker.setRenderer(renderer);
 		colorPicker.setEditable(true);
-		colorPicker.setEditor(new ColorComboBoxEditor(Color.RED));
+		colorPicker.setEditor(new ColorComboBoxEditor(tl.getColor("red")));
 		ClockComponent cc = new ClockComponent();
 		
 		//Add actions and listeners
