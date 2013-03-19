@@ -40,4 +40,22 @@
 	<color>
 		<key>red</key>
 		<value>#ef3030</value></color>
+	<color>
+		<key>categoryColor1</key>
+		<value>#dd5252</value></color>
+	<color>
+		<key>categoryColor2</key>
+		<value>#dcb552</value></color>
+	<color>
+		<key>categoryColor3</key>
+		<value>#a9db53</value></color>
+	<color>
+		<key>categoryColor4</key>
+		<value>#53addb</value></color>
+	<color>
+		<key>categoryColor5</key>
+		<value>#806ce5</value></color>
+	<color>
+		<key>categoryColor6</key>
+		<value>#e56ce5</value></color>
 </colors>

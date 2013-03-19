@@ -56,7 +56,7 @@ public class CategoryPanel extends JPanel {
 		c.gridy = NEWCATEGORY;
 		
 		c.weighty = 0.0;
-		c.weightx = 0.1;
+		c.weightx = 0.01;
 		add(addButton, c);
 	}
 	

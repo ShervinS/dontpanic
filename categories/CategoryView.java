@@ -2,10 +2,8 @@ package categories;
 
 import java.awt.Color;
 import java.awt.Component;
-import java.awt.LayoutManager;
 
 import javax.swing.JLabel;
-import javax.swing.JPanel;
 import javax.swing.JTable;
 import javax.swing.table.TableCellRenderer;
 

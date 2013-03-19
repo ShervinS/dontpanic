@@ -12,6 +12,7 @@ import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.SwingUtilities;
 
+import panic.I18;
 import panic.PanicController;
 import tasks.Task;
 import tasks.TaskManager;

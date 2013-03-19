@@ -5,7 +5,6 @@ import java.awt.Dimension;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 
-import javax.swing.JFrame;
 import javax.swing.JPanel;
 
 public class ClockView extends JPanel {
@@ -15,7 +14,6 @@ public class ClockView extends JPanel {
 
 	public ClockView () {
 		super();
-		//setBackground(new Color(0xdddddd));
 		setPreferredSize(new Dimension(200,40));
 		setMaximumSize(new Dimension(200,40));
 		setBackground(new Color(39, 41, 43));

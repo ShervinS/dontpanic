@@ -86,11 +86,7 @@ public class ClockComponent extends JComponent implements ActionListener {
         int w = getWidth();
         int h = getHeight();
         diameter = ((w < h) ? w : h);
-<<<<<<< HEAD
-        offset = 8;
-=======
         offset = OFFSET_VAL;
->>>>>>> 1be511e68cd11d10852c11dc8137e05894179d7d
         diameter -= offset*2;
         centerX = diameter/2;
         centerY = diameter/2;
